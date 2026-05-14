@@ -1,0 +1,175 @@
+/* ProCompNav project page — PaT/Bulma-inspired academic style */
+
+body {
+    font-family: 'Noto Sans', 'Google Sans', sans-serif;
+    color: #1a1a1a;
+    background: #ffffff;
+}
+
+.publication-title {
+    font-family: 'Castoro', 'Google Sans', serif;
+    font-weight: 700;
+    line-height: 1.25;
+    margin-bottom: 1rem;
+}
+
+.publication-authors {
+    font-family: 'Google Sans', 'Noto Sans', sans-serif;
+}
+
+.publication-authors a {
+    color: #1a1a1a;
+    text-decoration: underline;
+    text-decoration-color: rgba(0, 0, 0, 0.25);
+}
+.publication-authors a:hover {
+    text-decoration-color: rgba(0, 0, 0, 1);
+}
+
+.publication-links .link-block {
+    margin: 0 0.25rem;
+}
+
+.publication-links .button.is-dark {
+    background-color: #2c2c2c;
+    color: #fff;
+    transition: transform 0.1s ease-in;
+}
+.publication-links .button.is-dark:hover {
+    background-color: #000;
+    transform: translateY(-1px);
+}
+
+.section {
+    padding: 2.5rem 1.5rem;
+}
+.section + .section {
+    border-top: 1px solid #e5e5e5;
+}
+
+.title.is-3 {
+    font-family: 'Castoro', 'Google Sans', serif;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 1.25rem;
+}
+
+.content {
+    font-size: 1.05rem;
+    line-height: 1.65;
+    color: #2a2a2a;
+}
+
+/* Figures */
+figure.image {
+    margin: 1.25rem 0 0.4rem 0;
+}
+figure.image img {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+}
+
+.caption-text {
+    font-size: 0.92rem;
+    color: #555;
+    text-align: center;
+    margin-top: 0.5rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.4;
+}
+
+/* Tables */
+.table-container {
+    margin: 1rem 0 0.4rem 0;
+    overflow-x: auto;
+}
+
+.result-table {
+    font-size: 0.92rem;
+}
+
+.result-table thead th {
+    background-color: #fafafa;
+    color: #1a1a1a;
+    border-bottom: 2px solid #1a1a1a;
+    font-weight: 600;
+    vertical-align: middle;
+}
+
+.result-table tbody td {
+    vertical-align: middle;
+}
+
+.result-table tr.group-header td {
+    background-color: #f5f5f5;
+    color: #777;
+    font-size: 0.86rem;
+    font-style: italic;
+    padding: 0.4rem 0.75rem;
+}
+
+.result-table tr.best-row td {
+    background-color: #fff8e1;
+    border-top: 1.5px solid #d8c87a;
+    border-bottom: 1.5px solid #d8c87a;
+}
+
+.result-table .ref {
+    color: #888;
+    font-size: 0.82em;
+    font-weight: normal;
+}
+
+/* BibTeX block */
+#BibTeX pre {
+    background: #1e1e1e;
+    color: #e8e8e8;
+    border-radius: 6px;
+    padding: 1rem 1.25rem;
+    font-family: 'Menlo', 'Consolas', monospace;
+    font-size: 0.92rem;
+    line-height: 1.5;
+    overflow-x: auto;
+}
+
+#BibTeX code {
+    background: transparent;
+    color: inherit;
+    padding: 0;
+}
+
+/* Hero */
+.hero {
+    padding: 2.5rem 0 1rem 0;
+    background: #ffffff;
+}
+.hero-body {
+    padding-bottom: 1.5rem;
+}
+
+/* Footer */
+.footer {
+    background: #fafafa;
+    padding: 2rem 1.5rem 2.5rem;
+    margin-top: 1.5rem;
+    border-top: 1px solid #e5e5e5;
+}
+
+#clustrmaps-widget {
+    text-align: center;
+}
+
+/* Mobile */
+@media screen and (max-width: 768px) {
+    .publication-title { font-size: 1.5rem; }
+    .section { padding: 1.75rem 1rem; }
+    .content { font-size: 0.98rem; }
+    .result-table { font-size: 0.78rem; }
+    .caption-text { font-size: 0.85rem; }
+}
+
+.teaser-figure {
+    margin-top: 1.5rem;
+}

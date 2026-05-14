@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="ProCompNav: Proactive Instance Navigation with Comparative Judgment for Ambiguous User Queries.">
+<title>ProCompNav: Proactive Instance Navigation with Comparative Judgment</title>
+
+<link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+<link rel="stylesheet" href="static/css/index.css">
+</head>
+
+<body>
+
+<!-- HERO ===================================================================== -->
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+
+          <h1 class="title is-1 publication-title">
+            ProCompNav: Proactive Instance Navigation with Comparative Judgment for Ambiguous User Queries
+          </h1>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><a href="https://tree-jhk.github.io" target="_blank">Junhyuk Kwon</a><sup>1</sup>,</span>
+            <span class="author-block">Seungjoon Lee<sup>2</sup>,</span>
+            <span class="author-block">Hyejin Park<sup>1</sup>,</span>
+            <span class="author-block">Kyle Min<sup>3</sup>,</span>
+            <span class="author-block">Jungseul Ok<sup>1,2</sup></span>
+          </div>
+
+          <div class="is-size-6 publication-authors" style="margin-top:0.5em;">
+            <span class="author-block"><sup>1</sup>GSAI, POSTECH&nbsp;&nbsp;</span>
+            <span class="author-block"><sup>2</sup>CSE, POSTECH&nbsp;&nbsp;</span>
+            <span class="author-block"><sup>3</sup>Oracle</span>
+          </div>
+
+          <div class="publication-links" style="margin-top:1.5em;">
+            <span class="link-block">
+              <a href="https://arxiv.org/abs/2605.06223" target="_blank" class="external-link button is-normal is-rounded is-dark">
+                <span class="icon"><i class="ai ai-arxiv"></i></span>
+                <span>arXiv</span>
+              </a>
+            </span>
+            <span class="link-block">
+              <a href="https://arxiv.org/pdf/2605.06223" target="_blank" class="external-link button is-normal is-rounded is-dark">
+                <span class="icon"><i class="fas fa-file-pdf"></i></span>
+                <span>Paper</span>
+              </a>
+            </span>
+            <span class="link-block">
+              <a href="https://github.com/tree-jhk/procompnav" target="_blank" class="external-link button is-normal is-rounded is-dark">
+                <span class="icon"><i class="fab fa-github"></i></span>
+                <span>Code</span>
+              </a>
+            </span>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- TEASER + TABLE 1 (a unit) =============================================== -->
+<section class="section">
+  <div class="container is-max-desktop">
+
+    <h2 class="title is-3 has-text-centered">Pool construction and comparative judgment, together</h2>
+
+    <p class="content">
+      <b>Three disambiguation strategies on CoIN-Bench.</b>
+      Independent matching (AIUTA) commits to the first plausible detection and often picks a distractor.
+      Constructing a candidate <i>pool</i> first (Pooled Independent Matching) lifts SR substantially, but
+      the resulting questions are still per-candidate, so they remain verbose
+      (Response Length 460&ndash;520) and may stay non-discriminative.
+      <b>ProCompNav</b> adds <i>comparative judgment</i> on the same pool: each round picks an
+      attribute-value pair that splits the pool and asks a single yes/no question, jointly improving SR
+      and slashing user burden (RL 4.2&ndash;4.3).
+    </p>
+
+    <div class="table-container">
+      <table class="table is-fullwidth is-narrow is-bordered has-text-centered result-table">
+        <thead>
+          <tr>
+            <th rowspan="2" class="has-text-left">Decision Strategy</th>
+            <th colspan="2">Stage</th>
+            <th colspan="3">Val Seen</th>
+            <th colspan="3">Val Seen Synonyms</th>
+            <th colspan="3">Val Unseen</th>
+          </tr>
+          <tr>
+            <th>Pool</th><th>Compare</th>
+            <th>SR&uarr;</th><th>RL&darr;</th><th>NQ&darr;</th>
+            <th>SR&uarr;</th><th>RL&darr;</th><th>NQ&darr;</th>
+            <th>SR&uarr;</th><th>RL&darr;</th><th>NQ&darr;</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="has-text-left">(a) Independent Matching <span class="ref">[Taioli et al., 2025]</span></td>
+            <td>&#x2717;</td><td>&#x2717;</td>
+            <td>10.5</td><td>109.5</td><td>1.2</td>
+            <td>15.3</td><td>129.2</td><td>1.2</td>
+            <td>8.9</td><td>122.8</td><td>1.3</td>
+          </tr>
+          <tr>
+            <td class="has-text-left">(b) Pooled Independent Matching</td>
+            <td>&#x2713;</td><td>&#x2717;</td>
+            <td>17.5</td><td>460.2</td><td>3.6</td>
+            <td>22.0</td><td>519.2</td><td>3.7</td>
+            <td>13.3</td><td>467.7</td><td>3.4</td>
+          </tr>
+          <tr class="best-row">
+            <td class="has-text-left"><b>(c) Comparative Judgment (Ours)</b></td>
+            <td>&#x2713;</td><td>&#x2713;</td>
+            <td><b>23.7</b></td><td><b>4.2</b></td><td><b>2.2</b></td>
+            <td><b>28.1</b></td><td><b>4.3</b></td><td><b>2.2</b></td>
+            <td><b>17.0</b></td><td><b>4.2</b></td><td><b>2.3</b></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="caption-text"><b>Table 1.</b> Comparison of three disambiguation strategies on CoIN-Bench
+      (SR = Success Rate, RL = avg. total Response Length per episode, NQ = avg. Number of Questions per episode).</p>
+
+    <figure class="image teaser-figure">
+      <img src="static/images/teaser.jpg" alt="ProCompNav teaser figure">
+    </figure>
+    <p class="caption-text"><b>Figure 1.</b> Each round of ProCompNav picks an attribute-value pair that
+      <i>splits</i> the candidate pool into two non-empty groups, asks a single binary question,
+      and prunes inconsistent candidates &mdash; it never needs an attribute that uniquely identifies the target.</p>
+
+  </div>
+</section>
+
+
+<!-- ABSTRACT ================================================================ -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Abstract</h2>
+    <div class="content has-text-justified">
+      <p>
+        Natural-language instance navigation becomes challenging when the initial user request does not
+        uniquely specify the target instance. A practical agent should reduce the user's burden by asking
+        only the information needed to distinguish the target from similar distractors, rather than
+        requiring a detailed description upfront.
+      </p>
+      <p>
+        <b>ProCompNav</b> is a training-free, two-stage framework. It first explores the scene to build a
+        candidate pool of plausible targets, then identifies the target through <i>comparative judgment</i>:
+        at each round it picks an attribute-value pair that <b>splits the current pool</b> into two non-empty
+        groups, asks a single binary yes/no question, and prunes all inconsistent candidates at once.
+      </p>
+      <p>
+        Crucially, comparative judgment does <b>not</b> need an attribute that uniquely identifies the target.
+        Every round only needs a valid splitter, whereas pooled independent matching is reliable only when
+        the collected evidence is already sufficient to separate the target from its distractors.
+        ProCompNav therefore reframes disambiguation from open-ended target description to
+        <b>pool-level discriminative questioning</b>, where each question is chosen to narrow the candidate set.
+      </p>
+    </div>
+  </div>
+</section>
+
+
+<!-- METHOD ================================================================== -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Method</h2>
+    <figure class="image">
+      <img src="static/images/method.jpg" alt="ProCompNav method overview">
+    </figure>
+    <p class="caption-text"><b>Figure 2.</b>
+      ProCompNav has two stages.
+      <b>(1) Pool Construction</b> explores the scene with a value-map frontier policy and accumulates
+      visually-similar instances of the target category into a candidate pool.
+      <b>(2) Recursive Comparison</b> selects an attribute-value pair that splits the current pool into
+      a cohesive core set (G<sub>c</sub>) and a remainder (G<sub>r</sub>), asks the user a single binary
+      question about that pair, and prunes the group inconsistent with the answer. The process recurses
+      until a single candidate remains.
+    </p>
+  </div>
+</section>
+
+
+<!-- TABLE 2: CoIN-Bench main ================================================ -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Main results on CoIN-Bench</h2>
+
+    <p class="content">
+      ProCompNav achieves the <b>highest Success Rate on every CoIN-Bench split</b> while requiring only
+      category-level input. Among training-free methods using only category-level queries, ProCompNav
+      improves over the strongest interactive baseline (AIUTA*) by <b>+13.2 / +12.8 / +8.1 SR</b> on Val
+      Seen / Val Seen Synonyms / Val Unseen.
+    </p>
+
+    <div class="table-container">
+      <table class="table is-fullwidth is-narrow is-bordered has-text-centered result-table">
+        <thead>
+          <tr>
+            <th rowspan="2" class="has-text-left">Method</th>
+            <th colspan="2">Condition</th>
+            <th colspan="2">Val Seen</th>
+            <th colspan="2">Val Seen Synonyms</th>
+            <th colspan="2">Val Unseen</th>
+          </tr>
+          <tr>
+            <th>Judge</th><th>Interact</th>
+            <th>SR&uarr;</th><th>SPL&uarr;</th>
+            <th>SR&uarr;</th><th>SPL&uarr;</th>
+            <th>SR&uarr;</th><th>SPL&uarr;</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="group-header"><td colspan="9" class="has-text-left"><i>Training-based</i></td></tr>
+          <tr>
+            <td class="has-text-left">Monolithic-GOAT <span class="ref">[Khanna et al., 2024]</span><sup>&dagger;</sup></td>
+            <td>&ndash;</td><td>&#x2717;</td>
+            <td>6.6</td><td>3.1</td>
+            <td>13.1</td><td>6.5</td>
+            <td>0.2</td><td>0.1</td>
+          </tr>
+          <tr>
+            <td class="has-text-left">PSL <span class="ref">[Sun et al., 2024]</span><sup>&dagger;</sup></td>
+            <td>&ndash;</td><td>&#x2717;</td>
+            <td>8.8</td><td>3.3</td>
+            <td>8.9</td><td>2.8</td>
+            <td>4.6</td><td>1.4</td>
+          </tr>
+
+          <tr class="group-header"><td colspan="9" class="has-text-left"><i>Training-free (description input)</i></td></tr>
+          <tr>
+            <td class="has-text-left">3D-Mem* <span class="ref">[Yang et al., 2025]</span></td>
+            <td>Comp</td><td>&#x2717;</td>
+            <td>15.9</td><td>11.0</td>
+            <td>18.9</td><td>13.6</td>
+            <td>5.7</td><td>3.9</td>
+          </tr>
+          <tr>
+            <td class="has-text-left">Context-Nav <span class="ref">[Jang and Kim, 2026]</span><sup>&Dagger;</sup></td>
+            <td>Indep</td><td>&#x2717;</td>
+            <td>13.5</td><td>6.7</td>
+            <td>20.3</td><td>10.9</td>
+            <td>11.3</td><td>5.2</td>
+          </tr>
+
+          <tr class="group-header"><td colspan="9" class="has-text-left"><i>Training-free (category input)</i></td></tr>
+          <tr>
+            <td class="has-text-left">VLFM <span class="ref">[Yokoyama et al., 2024]</span><sup>&dagger;</sup></td>
+            <td>Indep</td><td>&#x2717;</td>
+            <td>0.4</td><td>0.3</td>
+            <td>0.0</td><td>0.0</td>
+            <td>0.0</td><td>0.0</td>
+          </tr>
+          <tr>
+            <td class="has-text-left">AIUTA <span class="ref">[Taioli et al., 2025]</span><sup>&dagger;</sup></td>
+            <td>Indep</td><td>&#x2713;</td>
+            <td>7.4</td><td>2.9</td>
+            <td>14.4</td><td>8.0</td>
+            <td>6.7</td><td>2.3</td>
+          </tr>
+          <tr>
+            <td class="has-text-left">AIUTA*</td>
+            <td>Indep</td><td>&#x2713;</td>
+            <td>10.5</td><td>4.5</td>
+            <td>15.3</td><td>8.4</td>
+            <td>8.9</td><td>4.0</td>
+          </tr>
+          <tr>
+            <td class="has-text-left">Pooled Independent Matching</td>
+            <td>Indep</td><td>&#x2713;</td>
+            <td>17.5</td><td>5.1</td>
+            <td>22.0</td><td>8.1</td>
+            <td>13.3</td><td>5.1</td>
+          </tr>
+          <tr class="best-row">
+            <td class="has-text-left"><b>ProCompNav (Ours)</b></td>
+            <td><b>Comp</b></td><td>&#x2713;</td>
+            <td><b>23.7</b></td><td><b>7.0</b></td>
+            <td><b>28.1</b></td><td><b>8.5</b></td>
+            <td><b>17.0</b></td><td><b>6.2</b></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="caption-text"><b>Table 2.</b> Performance on CoIN-Bench. <i>Judge</i> = Indep (independent matching)
+      or Comp (comparative judgment); <i>Interact</i> = whether the agent interacts with the user.
+      <sup>&dagger;</sup>taken from <span class="ref">[Taioli et al., 2025]</span>,
+      <sup>&Dagger;</sup>taken from <span class="ref">[Jang and Kim, 2026]</span>;
+      * denotes our reproduction using the same MLLM/LLM as ProCompNav.</p>
+  </div>
+</section>
+
+
+<!-- TABLE 3: Ablation ======================================================== -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Effect of design choices</h2>
+
+    <p class="content">
+      All four design choices contribute. Disabling <b>multi-view aggregation</b> drops SR 23.7 &rarr; 23.1.
+      Removing <b>NLI entailment</b> and using LLM-only attribute selection drops to 20.6.
+      Replacing the <b>similarity-based core set</b> with KMeans grouping drops to 20.5 &mdash; our
+      method tightens only the core and ignores the remainder, whereas KMeans pursues internal similarity
+      on both clusters, a sub-optimal objective for the split stage.
+      Disabling the <b>refinement module</b> drops to 21.8: since the splitting attribute is selected from
+      the core only, the remainder can still contain matching candidates that refinement recovers.
+    </p>
+
+    <div class="table-container">
+      <table class="table is-fullwidth is-narrow is-bordered has-text-centered result-table">
+        <thead>
+          <tr>
+            <th class="has-text-left">Method</th>
+            <th>SR&uarr;</th><th>SPL&uarr;</th><th>NQ&darr;</th><th>RL&darr;</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="has-text-left">w/o multi-view aggregation</td><td>23.1</td><td>6.3</td><td>2.1</td><td>4.2</td></tr>
+          <tr><td class="has-text-left">LLM-only DA (w/o NLI)</td><td>20.6</td><td>5.5</td><td>2.2</td><td>4.2</td></tr>
+          <tr><td class="has-text-left">w/o similarity-based core set</td><td>20.5</td><td>6.5</td><td>2.2</td><td>4.1</td></tr>
+          <tr><td class="has-text-left">w/o refinement</td><td>21.8</td><td>6.0</td><td>2.1</td><td>4.2</td></tr>
+          <tr class="best-row"><td class="has-text-left"><b>ProCompNav (Ours)</b></td><td><b>23.7</b></td><td><b>7.0</b></td><td>2.2</td><td>4.2</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="caption-text"><b>Table 3.</b> Ablation studies on CoIN-Bench Val Seen.</p>
+  </div>
+</section>
+
+
+<!-- TERMINATION STEP ANALYSIS ================================================ -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">When do episodes end?</h2>
+
+    <p class="content">
+      AIUTA (independent matching) shows a bimodal failure pattern: it either terminates very early
+      (1&ndash;99 steps, mostly premature distractor decisions) or runs out of time at the
+      500-step horizon. ProCompNav, by deferring the decision and disambiguating with comparative
+      judgment, concentrates terminations in the 100&ndash;499-step <i>sweet spot</i> with
+      <b>substantially more cumulative successes</b>.
+    </p>
+
+    <figure class="image is-centered">
+      <img src="static/images/termination-step-analysis.jpg" alt="Episode termination step analysis: AIUTA vs ProCompNav" style="max-width:700px;margin:auto;display:block;">
+    </figure>
+    <p class="caption-text"><b>Figure 3.</b> Episode termination-step distribution (bars, left axis) and
+      cumulative successes (dashed lines, right axis) on CoIN-Bench Val Seen.</p>
+  </div>
+</section>
+
+
+<!-- TABLE 4: TextNav ======================================================== -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Non-interactive setting: TextNav</h2>
+
+    <p class="content">
+      ProCompNav generalises to the non-interactive Text-Goal Instance Navigation (TextNav) benchmark
+      by extracting attributes from the detailed initial goal description instead of querying the user.
+      It still achieves the <b>highest SR (28.5%)</b>, confirming that the core mechanism &mdash;
+      <i>collect candidates, then compare</i> &mdash; remains effective even when no user dialogue is
+      available: candidates still need to be compared against one another rather than scored
+      independently.
+    </p>
+
+    <div class="table-container">
+      <table class="table is-fullwidth is-narrow is-bordered has-text-centered result-table" style="max-width:600px;margin:auto;">
+        <thead>
+          <tr>
+            <th class="has-text-left">Method</th>
+            <th>Judgment</th>
+            <th>SR&uarr;</th>
+            <th>SPL&uarr;</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="group-header"><td colspan="4" class="has-text-left"><i>Training-based</i></td></tr>
+          <tr><td class="has-text-left">Modular-GOAT <span class="ref">[Khanna et al., 2024]</span><sup>&dagger;</sup></td><td>&ndash;</td><td>17.0</td><td>8.8</td></tr>
+          <tr><td class="has-text-left">PSL <span class="ref">[Sun et al., 2024]</span><sup>&dagger;</sup></td><td>&ndash;</td><td>16.5</td><td>7.5</td></tr>
+
+          <tr class="group-header"><td colspan="4" class="has-text-left"><i>Training-free</i></td></tr>
+          <tr><td class="has-text-left">UniGoal <span class="ref">[Yin et al., 2025]</span><sup>&dagger;</sup></td><td>Indep</td><td>20.2</td><td><b>11.4</b></td></tr>
+          <tr><td class="has-text-left">AIUTA* <span class="ref">[Taioli et al., 2025]</span></td><td>Indep</td><td>10.9</td><td>2.7</td></tr>
+          <tr><td class="has-text-left">3D-Mem* <span class="ref">[Yang et al., 2025]</span></td><td>Comp</td><td>14.1</td><td>9.6</td></tr>
+          <tr><td class="has-text-left">Context-Nav <span class="ref">[Jang and Kim, 2026]</span><sup>&Dagger;</sup></td><td>Indep</td><td>26.2</td><td>9.1</td></tr>
+          <tr class="best-row"><td class="has-text-left"><b>ProCompNav (Ours)</b></td><td><b>Comp</b></td><td><b>28.5</b></td><td>6.9</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="caption-text"><b>Table 4.</b> Performance on TextNav.
+      <sup>&dagger;</sup>taken from <span class="ref">[Yin et al., 2025]</span>,
+      <sup>&Dagger;</sup>taken from <span class="ref">[Jang and Kim, 2026]</span>;
+      * denotes our reproduction using the same MLLM/LLM as ProCompNav.</p>
+  </div>
+</section>
+
+
+<!-- QUALITATIVE ============================================================== -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Qualitative comparison</h2>
+
+    <p class="content">
+      For the ambiguous query <i>"Find the dresser"</i>, the independent-matching baseline asks the user
+      to describe a target attribute without knowing whether that attribute distinguishes the target
+      from distractors. This produces a long descriptive response and often locks onto a distractor
+      that shares the same attribute. ProCompNav instead defers its decision, builds a candidate pool,
+      and asks <b>short binary discriminative questions</b> (e.g., <i>"Is there a red box nearby?"</i>),
+      isolating the user-intended target while reducing user response length to a few tokens.
+    </p>
+
+    <figure class="image">
+      <img src="static/images/qualitative.jpg" alt="Qualitative comparison: independent matching vs ProCompNav">
+    </figure>
+    <p class="caption-text"><b>Figure 4.</b> Qualitative comparison of independent matching and
+      ProCompNav on a minimally specified query.</p>
+  </div>
+</section>
+
+
+<!-- BIBTEX =================================================================== -->
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title is-3 has-text-centered">BibTeX</h2>
+<pre><code>@article{kwon2026proactive,
+  title={Proactive Instance Navigation with Comparative Judgment for Ambiguous User Queries},
+  author={Kwon, Junhyuk and Lee, Seungjoon and Park, Hyejin and Min, Kyle and Ok, Jungseul},
+  journal={arXiv preprint arXiv:2605.06223},
+  year={2026}
+}</code></pre>
+  </div>
+</section>
+
+
+<!-- ACK ====================================================================== -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Acknowledgements</h2>
+    <p class="content has-text-justified">
+      This codebase is built upon <a href="https://github.com/bdaiinstitute/vlfm" target="_blank">VLFM</a>
+      and <a href="https://github.com/intelligolabs/CoIN" target="_blank">AIUTA / CoIN</a>.
+      We thank the authors for their excellent work and for releasing their code and benchmarks.
+    </p>
+  </div>
+</section>
+
+
+<!-- CLUSTRMAPS PAGEVIEW ====================================================== -->
+<footer class="footer">
+  <div class="container is-max-desktop has-text-centered">
+    <div id="clustrmaps-widget" style="margin:0 auto; max-width:300px;">
+      <script type="text/javascript" id="clustrmaps" src="//clustrmaps.com/map_v2.js?d=cyH5MDpmVTYXWqAKoVFs6DdMC5DAjh2Ei5TCCfnrNhc&cl=ffffff&w=a"></script>
+    </div>
+    <p class="is-size-7" style="margin-top:1em;">
+      Page template adapted from
+      <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a>.
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>
