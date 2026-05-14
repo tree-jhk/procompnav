@@ -127,15 +127,21 @@
         </tbody>
       </table>
     </div>
-    <p class="caption-text"><b>Table 1.</b> Comparison of three disambiguation strategies on CoIN-Bench
-      (SR = Success Rate, RL = avg. total Response Length per episode, NQ = avg. Number of Questions per episode).</p>
+    <p class="caption-text"><b>Table 1.</b> Comparison of three disambiguation strategies on
+      CoIN-Bench. We report Success Rate (SR), average total Response Length (RL), and average
+      Number of Questions (NQ) per episode.</p>
 
     <figure class="image teaser-figure">
       <img src="static/images/teaser.jpg" alt="ProCompNav teaser figure">
     </figure>
-    <p class="caption-text"><b>Figure 1.</b> Each round of ProCompNav extracts an attribute-value
-      pair that splits the candidate pool, asks a single binary yes/no question, and prunes all
-      inconsistent candidates at once.</p>
+    <p class="caption-text"><b>Figure 1.</b> Three strategies for instance navigation under an
+      ambiguous user query. (a) <i>Independent Matching</i> scores each candidate independently,
+      causing premature decision to a distractor sharing attributes with the true target.
+      (b) <i>Pooled Independent Matching</i> defers the decision until multiple candidates are
+      collected, but non-discriminative questions still fail to separate similar distractors,
+      while imposing high user burden. (c) <i>Comparative Judgment</i> (Ours) proactively builds a
+      candidate pool and asks binary questions about discriminative attributes derived from
+      candidate contrasts, accurately identifying the target with minimal user burden.</p>
 
   </div>
 </section>
@@ -180,14 +186,13 @@
     <figure class="image">
       <img src="static/images/method.jpg" alt="ProCompNav method overview">
     </figure>
-    <p class="caption-text"><b>Figure 2.</b>
-      ProCompNav has two stages.
-      <b>(1) Pool Construction</b> explores the scene and accumulates plausible target candidates
-      into a candidate pool.
-      <b>(2) Recursive Comparison</b> selects an attribute-value pair that splits the current pool
-      into a core set (G<sub>c</sub>) and a remainder (G<sub>r</sub>), asks the user a binary
-      question about that pair, and prunes the group inconsistent with the answer; the process
-      recurses until a single candidate remains.
+    <p class="caption-text"><b>Figure 2. Recursive Comparative Judgment.</b>
+      At iteration <i>t</i>, ProCompNav splits the candidate pool <i>U<sub>t</sub></i> into a core
+      set <i>G<sub>c</sub></i> and a remainder set <i>G<sub>r</sub></i> by similarity. It
+      identifies a discriminative attribute <i>a<sub>t</sub><sup>*</sup></i>, that is common in
+      <i>G<sub>c</sub></i> but not in <i>G<sub>r</sub></i>. Finally, it asks whether the target
+      has <i>a<sub>t</sub><sup>*</sup></i>, and prunes the pool to obtain the next candidate pool
+      <i>U<sub>t+1</sub></i> based on the user's response.
     </p>
   </div>
 </section>
@@ -293,11 +298,11 @@
         </tbody>
       </table>
     </div>
-    <p class="caption-text"><b>Table 2.</b> Performance on CoIN-Bench. <i>Judge</i> = Indep (independent matching)
-      or Comp (comparative judgment); <i>Interact</i> = whether the agent interacts with the user.
-      <sup>&dagger;</sup>taken from <span class="ref">[Taioli et al., 2025]</span>,
-      <sup>&Dagger;</sup>taken from <span class="ref">[Jang and Kim, 2026]</span>;
-      * denotes our reproduction using the same MLLM/LLM as ProCompNav.</p>
+    <p class="caption-text"><b>Table 2.</b> Results on CoIN-Bench. Indep/Comp refer to
+      independent/comparative judgment.
+      <sup>*</sup>Reproduced using the same MLLM and LLM as ProCompNav.
+      <sup>&dagger;</sup>Taken from <span class="ref">[Taioli et al., 2025]</span>.
+      <sup>&Dagger;</sup>Taken from <span class="ref">[Jang and Kim, 2026]</span>.</p>
   </div>
 </section>
 
@@ -320,10 +325,10 @@
     <figure class="image is-centered">
       <img src="static/images/termination-step-analysis.jpg" alt="Episode termination step analysis: AIUTA vs ProCompNav" style="max-width:700px;margin:auto;display:block;">
     </figure>
-    <p class="caption-text"><b>Figure 3.</b> Termination-step analysis on CoIN-Bench Val Seen.
+    <p class="caption-text"><b>Figure 3.</b> Termination-step analysis of AIUTA and ProCompNav.
       The x-axis shows termination steps in 100-step bins, except the max exploration step; bars
-      (left axis) show the number of terminated episodes, and lines (right axis) show the
-      cumulative number of successful episodes.</p>
+      (left y-axis) show number of terminated episodes, and lines (right y-axis) show cumulative
+      number of successful episodes.</p>
   </div>
 </section>
 
@@ -368,10 +373,12 @@
         </tbody>
       </table>
     </div>
-    <p class="caption-text"><b>Table 3.</b> Performance on TextNav.
-      <sup>&dagger;</sup>taken from <span class="ref">[Yin et al., 2025]</span>,
-      <sup>&Dagger;</sup>taken from <span class="ref">[Jang and Kim, 2026]</span>;
-      * denotes our reproduction using the same MLLM/LLM as ProCompNav.</p>
+    <p class="caption-text"><b>Table 3.</b> Performance on TextNav. In the <i>Judgment</i> column,
+      Indep/Comp indicate whether each method uses independent matching or comparative judgment for
+      target disambiguation. Results denoted by <sup>&dagger;</sup> are taken from
+      <span class="ref">[Yin et al., 2025]</span>, those denoted by <sup>&Dagger;</sup> are taken
+      from <span class="ref">[Jang and Kim, 2026]</span>. Methods denoted by <sup>*</sup> are our
+      reproductions using the same MLLM and LLM as ProCompNav.</p>
   </div>
 </section>
 
@@ -394,8 +401,14 @@
     <figure class="image">
       <img src="static/images/qualitative.jpg" alt="Qualitative comparison: independent matching vs ProCompNav">
     </figure>
-    <p class="caption-text"><b>Figure 4.</b> Qualitative comparison of independent matching and
-      ProCompNav on a minimally specified query.</p>
+    <p class="caption-text"><b>Figure 4.</b> Qualitative comparison of Independent Matching and
+      Comparative Judgment under a minimally specified query ("Find the dresser").
+      <b>Independent Matching</b> (left) asks the user to describe an attribute of the intended
+      target without knowing whether that attribute distinguishes it from distractors. This
+      burdens the user with a long response and can lead the robot to mistakenly match a
+      distractor sharing the same attribute. In contrast, <b>Comparative Judgment</b> (right) asks
+      about discriminative attributes in a way that elicits only short user responses, reducing
+      verbal burden while correctly isolating the user-intended target.</p>
   </div>
 </section>
 
