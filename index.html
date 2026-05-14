@@ -76,13 +76,15 @@
 
     <p class="content">
       <b>Three disambiguation strategies on CoIN-Bench.</b>
-      Independent matching (AIUTA) commits to the first plausible detection and often picks a distractor.
-      Constructing a candidate <i>pool</i> first (Pooled Independent Matching) lifts SR substantially, but
-      the resulting questions are still per-candidate, so they remain verbose
-      (Response Length 460&ndash;520) and may stay non-discriminative.
-      <b>ProCompNav</b> adds <i>comparative judgment</i> on the same pool: each round picks an
-      attribute-value pair that splits the pool and asks a single yes/no question, jointly improving SR
-      and slashing user burden (RL 4.2&ndash;4.3).
+      AIUTA often fails by prematurely committing to an early-encountered distractor that shares
+      attributes with the target.
+      Pooled Independent Matching, which uses our pool construction stage and then applies
+      independent matching, substantially improves SR; however, because its questions are still
+      derived from individual candidates rather than selected through comparison among candidates,
+      the accumulated facts may remain non-discriminative (Response Length 460&ndash;520).
+      Using the same candidate pool, <b>ProCompNav</b> further improves SR by selecting
+      attribute-value pairs that split the pool and asking binary questions to prune inconsistent
+      candidates, greatly reducing response length (RL 4.2&ndash;4.3).
     </p>
 
     <div class="table-container">
@@ -133,9 +135,9 @@
     <figure class="image teaser-figure">
       <img src="static/images/teaser.jpg" alt="ProCompNav teaser figure">
     </figure>
-    <p class="caption-text"><b>Figure 1.</b> Each round of ProCompNav picks an attribute-value pair that
-      <i>splits</i> the candidate pool into two non-empty groups, asks a single binary question,
-      and prunes inconsistent candidates &mdash; it never needs an attribute that uniquely identifies the target.</p>
+    <p class="caption-text"><b>Figure 1.</b> Each round of ProCompNav extracts an attribute-value
+      pair that splits the candidate pool, asks a single binary yes/no question, and prunes all
+      inconsistent candidates at once.</p>
 
   </div>
 </section>
@@ -153,17 +155,20 @@
         requiring a detailed description upfront.
       </p>
       <p>
-        <b>ProCompNav</b> is a training-free, two-stage framework. It first explores the scene to build a
-        candidate pool of plausible targets, then identifies the target through <i>comparative judgment</i>:
-        at each round it picks an attribute-value pair that <b>splits the current pool</b> into two non-empty
-        groups, asks a single binary yes/no question, and prunes all inconsistent candidates at once.
+        We propose <b>Proactive Instance Navigation with Comparative Judgment (ProCompNav)</b>, a
+        two-stage framework that first constructs a candidate pool and then identifies the target
+        through <i>comparative judgment</i>: at each round it extracts an attribute-value pair that
+        splits the current pool, asks a binary yes/no question, and prunes all inconsistent
+        candidates at once.
       </p>
       <p>
-        Crucially, comparative judgment does <b>not</b> need an attribute that uniquely identifies the target.
-        Every round only needs a valid splitter, whereas pooled independent matching is reliable only when
-        the collected evidence is already sufficient to separate the target from its distractors.
-        ProCompNav therefore reframes disambiguation from open-ended target description to
-        <b>pool-level discriminative questioning</b>, where each question is chosen to narrow the candidate set.
+        This reframes disambiguation from open-ended target description to
+        <b>pool-level discriminative questioning</b>, where each question is chosen to narrow the
+        candidate set. On CoIN-Bench, ProCompNav improves Success Rate over interactive baselines
+        with the same minimal input and non-interactive baselines with detailed descriptions, while
+        substantially reducing Response Length; on TextNav, it also achieves the highest SR,
+        suggesting that comparative judgment is broadly useful for instance-level navigation among
+        similar distractors.
       </p>
     </div>
   </div>
@@ -179,12 +184,12 @@
     </figure>
     <p class="caption-text"><b>Figure 2.</b>
       ProCompNav has two stages.
-      <b>(1) Pool Construction</b> explores the scene with a value-map frontier policy and accumulates
-      visually-similar instances of the target category into a candidate pool.
-      <b>(2) Recursive Comparison</b> selects an attribute-value pair that splits the current pool into
-      a cohesive core set (G<sub>c</sub>) and a remainder (G<sub>r</sub>), asks the user a single binary
-      question about that pair, and prunes the group inconsistent with the answer. The process recurses
-      until a single candidate remains.
+      <b>(1) Pool Construction</b> explores the scene and accumulates plausible target candidates
+      into a candidate pool.
+      <b>(2) Recursive Comparison</b> selects an attribute-value pair that splits the current pool
+      into a core set (G<sub>c</sub>) and a remainder (G<sub>r</sub>), asks the user a binary
+      question about that pair, and prunes the group inconsistent with the answer; the process
+      recurses until a single candidate remains.
     </p>
   </div>
 </section>
@@ -196,10 +201,9 @@
     <h2 class="title is-3 has-text-centered">Main results on CoIN-Bench</h2>
 
     <p class="content">
-      ProCompNav achieves the <b>highest Success Rate on every CoIN-Bench split</b> while requiring only
-      category-level input. Among training-free methods using only category-level queries, ProCompNav
-      improves over the strongest interactive baseline (AIUTA*) by <b>+13.2 / +12.8 / +8.1 SR</b> on Val
-      Seen / Val Seen Synonyms / Val Unseen.
+      ProCompNav achieves the <b>highest SR on all CoIN-Bench splits with only category-level input</b>.
+      Relative to AIUTA*, SR improves by +125.7% on Val Seen, +83.7% on Val Seen Synonyms, and
+      +91.0% on Val Unseen.
     </p>
 
     <div class="table-container">
@@ -303,21 +307,25 @@
 <!-- TERMINATION STEP ANALYSIS ================================================ -->
 <section class="section">
   <div class="container is-max-desktop">
-    <h2 class="title is-3 has-text-centered">When do episodes end?</h2>
+    <h2 class="title is-3 has-text-centered">Termination-step analysis</h2>
 
     <p class="content">
-      AIUTA (independent matching) shows a bimodal failure pattern: it either terminates very early
-      (1&ndash;99 steps, mostly premature distractor decisions) or runs out of time at the
-      500-step horizon. ProCompNav, by deferring the decision and disambiguating with comparative
-      judgment, concentrates terminations in the 100&ndash;499-step <i>sweet spot</i> with
-      <b>substantially more cumulative successes</b>.
+      AIUTA often terminates at the two extremes: either very early, suggesting premature
+      commitment to a plausible distractor, or only at the maximum step, suggesting failure to
+      disambiguate the target. In contrast, ProCompNav most frequently terminates after collecting
+      candidates and rarely waits until the maximum step. The cumulative success curves show that
+      ProCompNav reaches 108 successes by the 200&ndash;299 bin, already exceeding AIUTA's final
+      total of 87, and continues to accumulate successes in later bins &mdash; overall, ProCompNav
+      reaches more than twice the final number of successes of AIUTA.
     </p>
 
     <figure class="image is-centered">
       <img src="static/images/termination-step-analysis.jpg" alt="Episode termination step analysis: AIUTA vs ProCompNav" style="max-width:700px;margin:auto;display:block;">
     </figure>
-    <p class="caption-text"><b>Figure 3.</b> Episode termination-step distribution (bars, left axis) and
-      cumulative successes (dashed lines, right axis) on CoIN-Bench Val Seen.</p>
+    <p class="caption-text"><b>Figure 3.</b> Termination-step analysis on CoIN-Bench Val Seen.
+      The x-axis shows termination steps in 100-step bins, except the max exploration step; bars
+      (left axis) show the number of terminated episodes, and lines (right axis) show the
+      cumulative number of successful episodes.</p>
   </div>
 </section>
 
@@ -328,12 +336,14 @@
     <h2 class="title is-3 has-text-centered">Non-interactive setting: TextNav</h2>
 
     <p class="content">
-      ProCompNav generalises to the non-interactive Text-Goal Instance Navigation (TextNav) benchmark
-      by extracting attributes from the detailed initial goal description instead of querying the user.
-      It still achieves the <b>highest SR (28.5%)</b>, confirming that the core mechanism &mdash;
-      <i>collect candidates, then compare</i> &mdash; remains effective even when no user dialogue is
-      available: candidates still need to be compared against one another rather than scored
-      independently.
+      Although ProCompNav is designed for interactive instance navigation, it generalises to the
+      non-interactive Text-Goal Instance Navigation (TextNav) benchmark by extracting attributes
+      directly from the detailed target description provided at episode start instead of asking
+      the user. ProCompNav achieves the <b>highest SR (28.5%)</b>, suggesting that its core
+      mechanism &mdash; deferring the target decision until a candidate pool is constructed and
+      then pruning it with discriminative attributes &mdash; is also effective in the
+      non-interactive setting, where a detailed description is available but candidates still need
+      to be compared against each other rather than scored independently.
     </p>
 
     <div class="table-container">
@@ -374,12 +384,13 @@
     <h2 class="title is-3 has-text-centered">Qualitative comparison</h2>
 
     <p class="content">
-      For the ambiguous query <i>"Find the dresser"</i>, the independent-matching baseline asks the user
-      to describe a target attribute without knowing whether that attribute distinguishes the target
-      from distractors. This produces a long descriptive response and often locks onto a distractor
-      that shares the same attribute. ProCompNav instead defers its decision, builds a candidate pool,
-      and asks <b>short binary discriminative questions</b> (e.g., <i>"Is there a red box nearby?"</i>),
-      isolating the user-intended target while reducing user response length to a few tokens.
+      Under the minimally specified query <i>"Find the dresser"</i>, the independent-matching
+      baseline asks the user to describe an attribute of the intended target without knowing
+      whether that attribute distinguishes it from distractors; this burdens the user with a long
+      response and can lead the robot to mistakenly match a distractor sharing the same attribute.
+      In contrast, ProCompNav asks about discriminative attributes (e.g.,
+      <i>"Is there a red box nearby?"</i>) in a way that elicits only short user responses,
+      reducing verbal burden while correctly isolating the user-intended target.
     </p>
 
     <figure class="image">
