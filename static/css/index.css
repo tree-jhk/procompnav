@@ -1,16 +1,23 @@
 /* ProCompNav project page — PaT/Bulma-inspired academic style */
 
 body {
-    font-family: 'Noto Sans', 'Google Sans', sans-serif;
+    font-family: 'Google Sans', 'Noto Sans', sans-serif;
     color: #1a1a1a;
     background: #ffffff;
 }
 
 .publication-title {
-    font-family: 'Castoro', 'Google Sans', serif;
-    font-weight: 700;
-    line-height: 1.25;
+    font-family: 'Google Sans', 'Noto Sans', sans-serif;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
     margin-bottom: 1rem;
+    color: #1a1a1a;
+}
+
+.title-accent {
+    color: #2c5aa0;   /* tasteful academic blue */
+    font-weight: 600;
 }
 
 .publication-authors {
@@ -48,8 +55,9 @@ body {
 }
 
 .title.is-3 {
-    font-family: 'Castoro', 'Google Sans', serif;
-    font-weight: 700;
+    font-family: 'Google Sans', 'Noto Sans', sans-serif;
+    font-weight: 500;
+    letter-spacing: -0.005em;
     color: #1a1a1a;
     margin-bottom: 1.25rem;
 }
@@ -120,6 +128,18 @@ figure.image img {
     color: #888;
     font-size: 0.82em;
     font-weight: normal;
+}
+
+.icon-yes {
+    color: #2e8b57;   /* sea green */
+    font-weight: 700;
+    font-size: 1.05em;
+}
+
+.icon-no {
+    color: #c0392b;   /* crimson red */
+    font-weight: 700;
+    font-size: 1.05em;
 }
 
 /* BibTeX block */
