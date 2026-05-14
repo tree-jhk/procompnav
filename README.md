@@ -6,8 +6,14 @@
 
 <sup>1</sup>GSAI, POSTECH&nbsp;&nbsp; <sup>2</sup>CSE, POSTECH&nbsp;&nbsp; <sup>3</sup>Oracle
 
+<a href="https://tree-jhk.github.io/procompnav/">
+<img src="https://img.shields.io/badge/Project-Page-1f6feb?logo=githubpages&logoColor=white">
+</a>
 <a href="https://arxiv.org/abs/2605.06223">
-<img src="https://img.shields.io/badge/arXiv-2605.06223-b31b1b">
+<img src="https://img.shields.io/badge/arXiv-2605.06223-b31b1b?logo=arxiv&logoColor=white">
+</a>
+<a href="https://arxiv.org/pdf/2605.06223">
+<img src="https://img.shields.io/badge/Paper-PDF-1a7f37?logo=adobeacrobatreader&logoColor=white">
 </a>
 
 </div>
