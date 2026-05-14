@@ -75,16 +75,14 @@
     <h2 class="title is-3 has-text-centered">Pool construction and comparative judgment, together</h2>
 
     <p class="content">
-      <b>Three disambiguation strategies on CoIN-Bench.</b>
-      AIUTA often fails by prematurely committing to an early-encountered distractor that shares
-      attributes with the target.
-      Pooled Independent Matching, which uses our pool construction stage and then applies
-      independent matching, substantially improves SR; however, because its questions are still
-      derived from individual candidates rather than selected through comparison among candidates,
-      the accumulated facts may remain non-discriminative (Response Length 460&ndash;520).
-      Using the same candidate pool, <b>ProCompNav</b> further improves SR by selecting
-      attribute-value pairs that split the pool and asking binary questions to prune inconsistent
-      candidates, greatly reducing response length (RL 4.2&ndash;4.3).
+      <b>Pooled Independent Matching</b> is a baseline that keeps our candidate pool construction
+      and then applies AIUTA's independent matching.
+      Crucially, <b>comparative judgment does not need an attribute that uniquely identifies the
+      target</b>: each round only needs a valid attribute-value pair that splits the current pool
+      into two non-empty groups, whereas (pooled) independent matching is reliable only when the
+      collected evidence is already sufficient to distinguish the target from distractors.
+      This is why ProCompNav improves SR on every split while cutting Response Length from
+      460&ndash;520 to 4.2&ndash;4.3.
     </p>
 
     <div class="table-container">
