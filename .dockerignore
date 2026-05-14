@@ -1,0 +1,38 @@
+# Keep the build context small. The Dockerfile only needs the two requirements
+# files copied in; the repo is bind-mounted at run time by run_experiments.py.
+
+# Heavy weights (mounted from the host)
+data/
+docs/
+
+# Datasets (mounted from the host)
+CoIN-Bench/
+**/scene_datasets/
+**/instancenav_datasets/
+
+# Runtime artifacts
+logs/
+outputs/
+wandb/
+tb/
+videos/
+server_experiments/
+slurm_experiments/
+*.log
+*.mp4
+
+# Source / VCS / editor cruft
+.git/
+.github/
+.gitignore
+.dockerignore
+__pycache__/
+**/__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.vscode/
+.idea/
+*.swp
+
+# Notebooks aren't needed for the image
+notebook/

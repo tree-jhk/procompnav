@@ -1,0 +1,97 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+*.egg
+
+# Installer logs
+pip-log.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+.pytest_cache/
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# IPython
+profile_default/
+ipython_config.py
+
+# Environments
+.env
+.env.*
+.venv
+env/
+venv/
+
+# Editors / OS
+.idea/
+.vscode/
+.DS_Store
+*~
+*\#*
+.#*
+
+# mypy / pyre
+.mypy_cache/
+.pyre/
+
+# wandb
+wandb/
+
+# ProCompNav runtime artifacts
+logs/
+outputs/
+tb/
+videos/
+slurm_experiments/
+server_experiments/
+/eval_folder/
+/lockfiles/
+/instance_image_*.png
+*.log
+*.mp4
+*.out
+
+# Editor / scratch
+*.swp
+*.swo
+tmp/
+*tmp*
+
+# HuggingFace / large data caches that should be on disk, not in git
+data/scene_datasets/*
+!data/scene_datasets/.gitkeep
+data/instancenav_datasets/*
+!data/instancenav_datasets/.gitkeep
+data/groundingdino_swint_ogc.pth
+
+# Paper PDF (track separately; large + frequently regenerated)
+/docs/procompnav.pdf
+
+# CoIN-Bench is downloaded from huggingface.co/datasets/ftaioli/CoIN-Bench
+# at install time; see README.
+/CoIN-Bench/
+
+# Notebooks are not part of the public release
+/notebook/
