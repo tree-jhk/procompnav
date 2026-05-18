@@ -86,8 +86,8 @@ data/instancenav_datasets/*
 !data/instancenav_datasets/.gitkeep
 data/groundingdino_swint_ogc.pth
 
-# Paper PDF (track separately; large + frequently regenerated)
-/docs/procompnav.pdf
+# Paper PDFs (large; track separately)
+*.pdf
 
 # CoIN-Bench is downloaded from huggingface.co/datasets/ftaioli/CoIN-Bench
 # at install time; see README.
