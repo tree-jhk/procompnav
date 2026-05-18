@@ -22,7 +22,6 @@ from vlfm.utils.pbp_prompts import (
     build_text_goal_candidate_yesno_prompt,
     build_mllm_property_prompt,
     build_yesno_property_prompt,
-    build_final_verification_prompt,
     build_fallback_selection_prompt
 )
 from vlfm.vlm.server_wrapper import send_request
@@ -141,7 +140,6 @@ class PropertyBasedBinaryPartitioning:
         if self.nli_kmeans_modal not in ["text", "image"]:
             raise ValueError(f"[PBP] Invalid NLI_kmeans_modal: {self.nli_kmeans_modal}. Allowed: ['text', 'image']")
         self.timeout = pbp_config.get('timeout', 60)
-        self.final_verification_mode = pbp_config.get('final_verification_mode', 'candidate_image_mode')
 
         env_port = os.environ.get("LLava_PORT")
         if env_port is None:
@@ -1647,33 +1645,15 @@ class PropertyBasedBinaryPartitioning:
             (selected_object_id, status_string)
         """
         if len(current_object_ids) == 1:
-            # Final verification
             candidate_obj_id = current_object_ids[0]
-            candidate_obj = candidates[candidate_obj_id]
-            if str(task_type).strip().lower() == "text_goal":
-                is_match, new_prop = True, None
-                print(Fore.CYAN + "[PBP] Final verification skipped for text_goal (no user simulator interaction).")
-            else:
-                is_match, new_prop = self._final_verification( # This is only for logging, not for selection. Doesn't affect outcome.
-                    target_image,
-                    candidate_obj.get('diverse_views_image'),
-                    candidate_obj.get('description', ''),
-                    used_properties,
-                    ep_id,
-                )
-                print(Fore.CYAN + f"[PBP] Final verification result: {Fore.GREEN if is_match else Fore.RED}{'Match' if is_match else 'No Match'}{Fore.RESET}")
-                print(f"Final verification property: [{new_prop}]")
-            
             logs.append({
                 "round": "final_verification",
                 "depth": rounds,
-                "is_match": is_match,
-                "new_prop": new_prop,
+                "is_match": True,
+                "new_prop": None,
                 "pbp_round_status": "final_verification"
             })
-            
-            # Always select the single candidate regardless of match
-            return candidate_obj_id, ("PBP_FALLBACK_SINGLE_CANDIDATE" if not is_match else "PBP_TARGET_FOUND"), bool(is_match)
+            return candidate_obj_id, "PBP_TARGET_FOUND", True
         
         elif len(current_object_ids) >= 2:
             # Multiple candidates remain - run fallback selection
@@ -1700,61 +1680,6 @@ class PropertyBasedBinaryPartitioning:
             else:
                 # No fallback possible
                 return None, "PBP_FALLBACK_NO_CANDIDATES_REMAIN", False
-    
-    def _final_verification(
-        self,
-        target_image: np.ndarray,
-        candidate_image: Optional[np.ndarray],
-        candidate_description: str,
-        used_properties: List[str],
-        ep_id: int,
-    ) -> Tuple[Optional[bool], Optional[str]]:
-        """
-        Final verification: compare target and candidate images.
-        From tree_search.py mllm_final_verification (Line 261-319).
-        """
-        mode = getattr(self, "final_verification_mode", "candidate_text_mode")
-        if mode not in {"candidate_image_mode", "candidate_text_mode"}:
-            raise ValueError(f"[PBP] Invalid final_verification_mode: {mode}")
-        if mode == "candidate_text_mode" and candidate_image is None:
-            raise ValueError("[PBP] candidate_image is None but mode is not 'candidate_text_mode'.")
-        
-        prompt = build_final_verification_prompt(
-            "object",
-            used_properties,
-            mode="candidate_text_mode" if mode == "candidate_text_mode" else "candidate_image_mode",
-            candidate_description=candidate_description,
-        )
-        
-        try:
-            images = [target_image] if mode == "candidate_text_mode" else [target_image, candidate_image]
-            output_text, _ = self.user_simulator_mllm_client.ask(
-                images,
-                prompt=prompt,
-                return_token_likelihood=False,
-            )
-            output_text = (output_text or "").strip()
-            
-            # Parse decision (from tree_search.py Line 305)
-            decision_match = re.search(r"DECISION:\s*(yes|no)", output_text, re.IGNORECASE)
-            is_match = None
-            if decision_match:
-                is_match = decision_match.group(1).lower() == 'yes'
-            
-            # Parse property (from tree_search.py Line 313)
-            new_property = None
-            if is_match is False:
-                reason_match = re.search(r"PROPERTY:\s*(.*)", output_text, re.IGNORECASE)
-                if reason_match:
-                    new_property = reason_match.group(1).strip()
-                    if new_property.lower() == 'n/a':
-                        new_property = None
-            
-            return is_match, new_property
-            
-        except Exception as e:
-            print(Fore.RED + f"[PBP] Final verification failed: {e}")
-            return None, None
     
     def _fallback_selection(
         self,

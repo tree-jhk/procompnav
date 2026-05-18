@@ -211,49 +211,6 @@ index
 """
 
 
-def build_final_verification_prompt(
-    category: str,
-    used_properties: List[str],
-    mode: str = "candidate_text_mode",
-    candidate_description: str = "",
-) -> str:
-    """
-    Build prompt for MLLM final verification of target vs candidate.
-    
-    Args:
-        category: Object category name
-        used_properties: List of properties already used
-    
-    Returns:
-        Formatted prompt string
-    """
-    used_properties_block = "None" if not used_properties else ", ".join(f"'{p}'" for p in used_properties)
-    
-    if mode == "candidate_text_mode":
-        if not candidate_description:
-            raise ValueError("candidate_description must be provided in candidate_text_mode")
-        template = (
-            f"target image: <image>\n"
-            f"candidate image description: {candidate_description}\n"
-            f"USED PROPERTIES: {used_properties_block}\n\n"
-            f"Question: Is the candidate object the same as the target object?\n\n"
-            f"Strictly follow this output format:\n"
-            f"DECISION: <'yes' or 'no'>\n"
-            f"PROPERTY: <If DECISION is 'no', provide a new visual property that distinguishes the two. This property must not be in USED PROPERTIES. If DECISION is 'yes', write 'N/A'.>"
-        )
-    else:
-        template = (
-            f"target image: <image>\n"
-            f"candidate image: <image>\n"
-            f"USED PROPERTIES: {used_properties_block}\n\n"
-            f"Question: Is the candidate object the same as the target object?\n\n"
-            f"Strictly follow this output format:\n"
-            f"DECISION: <'yes' or 'no'>\n"
-            f"PROPERTY: <If DECISION is 'no', provide a new visual property that distinguishes the two. This property must not be in USED PROPERTIES. If DECISION is 'yes', write 'N/A'.>"
-        )
-    return template
-
-
 def build_fallback_selection_prompt(
     candidates_descriptions: List[str],
     dialogue_history: List[Tuple[str, str, int]]

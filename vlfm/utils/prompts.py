@@ -26,26 +26,6 @@ Partial occlusion is allowed.
 From this ego-centric view, is a [{target_object}] clearly visible?
 Answer YES or NO only."""
 
-LLM_IS_THIS_THE_TARGET_IMAGE_HUMAN_FEEDBACK_ORACLE_V1 = """You are an intelligent embodied agent equipped with an RGB sensor, object detector, and a VQA model. Your task is to explore an indoor environment and find a specific target {target_object} based on the provided description.
-
-Target {target_object} Description:
-<start_target_object_description>
-{target_image_description}
-<end_target_object_description>
-
-Detected {target_object} Attributes and its surroundings:
-{list_of_self_questioner_detected_attributes}
-
-Task: Answer the following question in YAML format, explaining the most significant difference between the target {target_object} and the detected {target_object}, as if you were a human.
-
-YAML_START
-Question: "Is this the target {target_object}?"
-Answer: "No, this is not the {target_object} I'm looking for, <explain the difference using the most significant attribute>"
-YAML_END
-
-Provide your reasoning step-by-step, after the YAML_END tag."""
-
-
 LLM_FACTS_UPDATER_AFTER_IS_THIS_TARGET_OBJECT_ORACLE_QUESTION_V1 = """
 You are an intelligent embodied agent tasked with finding a specific target {target_object}.
 

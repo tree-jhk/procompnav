@@ -142,7 +142,6 @@ class HabitatMixin:
                 'max_stuck_count': policy_config.pbp.max_stuck_count,
                 'max_same_property_streak': policy_config.pbp.max_same_property_streak,
                 'timeout': policy_config.pbp.timeout,
-                'final_verification_mode': policy_config.pbp.final_verification_mode,
                 'enable_NLI_based': policy_config.pbp.enable_NLI_based,
                 'enable_pbp_refinement': policy_config.pbp.enable_pbp_refinement,
                 'pbp_refinement_thres': policy_config.pbp.pbp_refinement_thres,
@@ -358,7 +357,6 @@ class PBPRuntimeConfig:
     max_stuck_count: int = 5
     max_same_property_streak: int = 5
     timeout: int = 60
-    final_verification_mode: str = "candidate_text_mode"
     enable_NLI_based: bool = False
     enable_pbp_refinement: bool = False
     pbp_refinement_thres: float = 0.5
