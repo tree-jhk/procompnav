@@ -44,13 +44,16 @@
             <span class="author-block">Seungjoon Lee<sup>2</sup>,</span>
             <span class="author-block">Hyejin Park<sup>1</sup>,</span>
             <span class="author-block">Kyle Min<sup>3</sup>,</span>
-            <span class="author-block">Jungseul Ok<sup>1,2</sup></span>
+            <span class="author-block">Jungseul Ok<sup>1,2</sup><sup>&dagger;</sup></span>
           </div>
 
           <div class="is-size-6 publication-authors" style="margin-top:0.5em;">
             <span class="author-block"><sup>1</sup>GSAI, POSTECH&nbsp;&nbsp;</span>
             <span class="author-block"><sup>2</sup>CSE, POSTECH&nbsp;&nbsp;</span>
             <span class="author-block"><sup>3</sup>Oracle</span>
+          </div>
+          <div class="is-size-7 publication-authors" style="margin-top:0.25em; color:#666;">
+            <span><sup>&dagger;</sup>Corresponding author</span>
           </div>
 
           <div class="publication-links" style="margin-top:1.5em;">
@@ -81,21 +84,70 @@
 </section>
 
 
+<!-- ABSTRACT ================================================================ -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Abstract</h2>
+    <div class="content has-text-justified">
+      <p>
+        Natural-language instance navigation becomes challenging when the initial user request does not
+        uniquely specify the target instance. A practical agent should reduce the user's burden by asking
+        only the information needed to distinguish the target from similar distractors, rather than
+        requiring a detailed description upfront.
+      </p>
+      <p>
+        We propose <b>Proactive Instance Navigation with Comparative Judgment (ProCompNav)</b>, a
+        two-stage framework that first constructs a candidate pool and then identifies the target
+        through <i>comparative judgment</i>: at each round it extracts an attribute-value pair that
+        splits the current pool, asks a binary yes/no question, and prunes all inconsistent
+        candidates at once.
+      </p>
+      <p>
+        This reframes disambiguation from open-ended target description to
+        <b>pool-level discriminative questioning</b>, where each question is chosen to narrow the
+        candidate set. On CoIN-Bench, ProCompNav improves Success Rate over interactive baselines
+        with the same minimal input and non-interactive baselines with detailed descriptions, while
+        substantially reducing Response Length; on TextNav, it also achieves the highest SR,
+        suggesting that comparative judgment is broadly useful for instance-level navigation among
+        similar distractors.
+      </p>
+    </div>
+  </div>
+</section>
+
+
 <!-- TEASER + TABLE 1 (a unit) =============================================== -->
 <section class="section">
   <div class="container is-max-desktop">
 
-    <h2 class="title is-3 has-text-centered">Pool construction and comparative judgment, together</h2>
+    <h2 class="title is-3 has-text-centered">Three strategies for ambiguous instance navigation</h2>
 
     <p class="content">
-      <b>Pooled Independent Matching</b> is a baseline that keeps our candidate pool construction
-      and then applies AIUTA's independent matching.
-      Crucially, <b>comparative judgment does not need an attribute that uniquely identifies the
-      target</b>: each round only needs a valid attribute-value pair that splits the current pool
-      into two non-empty groups, whereas (pooled) independent matching is reliable only when the
-      collected evidence is already sufficient to distinguish the target from distractors.
-      This is why ProCompNav improves SR on every split while cutting Response Length from
-      460&ndash;520 to 4.2&ndash;4.3.
+      Prior work on collaborative instance navigation typically follows <i>independent matching</i>,
+      scoring each candidate against accumulated facts. A natural way to reduce premature decisions
+      is to defer the choice until several candidates are collected
+      (<i>pooled independent matching</i>). ProCompNav goes further with
+      <i>comparative judgment</i>: at each round it picks an attribute-value pair that splits the
+      current pool and asks a single yes/no question to prune it.
+    </p>
+
+    <figure class="image teaser-figure">
+      <img src="static/images/teaser.jpg" alt="ProCompNav teaser figure">
+    </figure>
+    <p class="caption-text"><b>Figure 1.</b> Three strategies for instance navigation under an
+      ambiguous user query. (a) <i>Independent Matching</i> scores each candidate independently,
+      causing premature decision to a distractor sharing attributes with the true target.
+      (b) <i>Pooled Independent Matching</i> defers the decision until multiple candidates are
+      collected, but non-discriminative questions still fail to separate similar distractors,
+      while imposing high user burden. (c) <i>Comparative Judgment</i> (Ours) proactively builds a
+      candidate pool and asks binary questions about discriminative attributes derived from
+      candidate contrasts, accurately identifying the target with minimal user burden.</p>
+
+    <p class="content" style="margin-top:1.5rem;">
+      Table 1 isolates the contribution of each ingredient on CoIN-Bench. Adding a candidate pool
+      to independent matching (b) lifts SR but inflates user response length 4&times;; replacing
+      independent matching with comparative judgment (c) lifts SR further while collapsing
+      Response Length from <b>460&ndash;520</b> to <b>4.2&ndash;4.3</b> tokens.
     </p>
 
     <div class="table-container">
@@ -144,50 +196,6 @@
       CoIN-Bench. We report Success Rate (SR), average total Response Length (RL), and average
       Number of Questions (NQ) per episode.</p>
 
-    <figure class="image teaser-figure">
-      <img src="static/images/teaser.jpg" alt="ProCompNav teaser figure">
-    </figure>
-    <p class="caption-text"><b>Figure 1.</b> Three strategies for instance navigation under an
-      ambiguous user query. (a) <i>Independent Matching</i> scores each candidate independently,
-      causing premature decision to a distractor sharing attributes with the true target.
-      (b) <i>Pooled Independent Matching</i> defers the decision until multiple candidates are
-      collected, but non-discriminative questions still fail to separate similar distractors,
-      while imposing high user burden. (c) <i>Comparative Judgment</i> (Ours) proactively builds a
-      candidate pool and asks binary questions about discriminative attributes derived from
-      candidate contrasts, accurately identifying the target with minimal user burden.</p>
-
-  </div>
-</section>
-
-
-<!-- ABSTRACT ================================================================ -->
-<section class="section">
-  <div class="container is-max-desktop">
-    <h2 class="title is-3 has-text-centered">Abstract</h2>
-    <div class="content has-text-justified">
-      <p>
-        Natural-language instance navigation becomes challenging when the initial user request does not
-        uniquely specify the target instance. A practical agent should reduce the user's burden by asking
-        only the information needed to distinguish the target from similar distractors, rather than
-        requiring a detailed description upfront.
-      </p>
-      <p>
-        We propose <b>Proactive Instance Navigation with Comparative Judgment (ProCompNav)</b>, a
-        two-stage framework that first constructs a candidate pool and then identifies the target
-        through <i>comparative judgment</i>: at each round it extracts an attribute-value pair that
-        splits the current pool, asks a binary yes/no question, and prunes all inconsistent
-        candidates at once.
-      </p>
-      <p>
-        This reframes disambiguation from open-ended target description to
-        <b>pool-level discriminative questioning</b>, where each question is chosen to narrow the
-        candidate set. On CoIN-Bench, ProCompNav improves Success Rate over interactive baselines
-        with the same minimal input and non-interactive baselines with detailed descriptions, while
-        substantially reducing Response Length; on TextNav, it also achieves the highest SR,
-        suggesting that comparative judgment is broadly useful for instance-level navigation among
-        similar distractors.
-      </p>
-    </div>
   </div>
 </section>
 
@@ -196,6 +204,15 @@
 <section class="section">
   <div class="container is-max-desktop">
     <h2 class="title is-3 has-text-centered">Method</h2>
+
+    <p class="content">
+      ProCompNav runs in two stages. In the <b>Pool Construction Stage</b>, the agent explores the
+      environment and aggregates multi-view evidence for each category-<i>c</i> detection into a
+      candidate pool with a multi-view collage and description per candidate. Once the pool has
+      <i>N</i><sub>min</sub> candidates, it transitions to the <b>Recursive Comparison Stage</b>
+      (Fig. 2), which prunes the pool one binary question at a time.
+    </p>
+
     <figure class="image">
       <img src="static/images/method.jpg" alt="ProCompNav method overview">
     </figure>
