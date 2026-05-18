@@ -47,6 +47,7 @@ venv/
 # Editors / OS
 .idea/
 .vscode/
+.claude/
 .DS_Store
 *~
 *\#*
@@ -78,6 +79,8 @@ server_experiments/
 *.swo
 tmp/
 *tmp*
+code_review_*.md
+/image.png
 
 # HuggingFace / large data caches that should be on disk, not in git
 data/scene_datasets/*
