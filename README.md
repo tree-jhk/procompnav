@@ -2,6 +2,8 @@
 
 # ProCompNav: Proactive Instance Navigation with Comparative Judgment for Ambiguous User Queries
 
+<h2><strong>NeurIPS 2026 (Oral)</strong></h2>
+
 **Junhyuk Kwon<sup>1</sup>, Seungjoon Lee<sup>2</sup>, Hyejin Park<sup>1</sup>, Kyle Min<sup>3</sup>, Jungseul Ok<sup>1,2</sup>**
 
 <sup>1</sup>GSAI, POSTECH&nbsp;&nbsp; <sup>2</sup>CSE, POSTECH&nbsp;&nbsp; <sup>3</sup>Oracle
@@ -31,7 +33,8 @@ Crucially, comparative judgment does not need an attribute that *uniquely identi
 
 ## News
 
-- **[2026/05]** Code released. End-to-end reproducible from a public CUDA base; verified against the reference environment.
+- [2026/09] Accepted to **NeurIPS 2026 as an oral presentation!** 🎉
+- [2026/05] Code released. End-to-end reproducible from a public CUDA base; verified against the reference environment.
 
 ---
 
