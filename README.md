@@ -4,7 +4,7 @@ The code for **ProCompNav: Proactive Instance Navigation with Comparative Judgme
 
 ### 👉 https://github.com/ml-postech/ProCompNav
 
-The new repository contains the fully updated release. This repository is archived and no longer maintained.
+The new repository contains the fully updated release. This repository is no longer maintained and will be taken down in the future, so please use the new repository.
 
 - Project page: https://tree-jhk.github.io/procompnav/
 - Paper: https://arxiv.org/abs/2605.06223
