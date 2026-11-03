@@ -15,6 +15,23 @@ body {
     color: #1a1a1a;
 }
 
+.publication-venue {
+    display: inline-block;
+    margin: 0 auto 1.25rem;
+    padding: 0.55rem 1.1rem;
+    border: 1px solid #c7d8ef;
+    border-radius: 999px;
+    background: #f1f6fd;
+    color: #234e87;
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+.publication-venue span {
+    font-family: 'Noto Color Emoji', 'Apple Color Emoji', 'Segoe UI Emoji', sans-serif;
+}
+
 .title-accent {
     color: #2c5aa0;   /* tasteful academic blue */
     font-weight: 700;

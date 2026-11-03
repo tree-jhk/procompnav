@@ -5,7 +5,9 @@ This branch hosts the GitHub Pages site for
 
 Live site: [`tree-jhk.github.io/procompnav`](https://tree-jhk.github.io/procompnav)
 
-The code lives on the [`main`](https://github.com/tree-jhk/procompnav/tree/main) branch.
+Accepted at **NeurIPS 2026 (Oral)**.
+
+The code is available at [`ml-postech/ProCompNav`](https://github.com/ml-postech/ProCompNav).
 
 Template adapted from
 [Academic Project Page Template](https://github.com/eliahuhorwitz/Academic-project-page-template).

@@ -3,23 +3,33 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="ProCompNav: Proactive Instance Navigation with Comparative Judgment for Ambiguous User Queries.">
-<title>ProCompNav: Proactive Instance Navigation with Comparative Judgment</title>
+<meta name="description" content="ProCompNav - NeurIPS 2026 (Oral). Proactive Instance Navigation with Comparative Judgment for Ambiguous User Queries.">
+<title>ProCompNav | NeurIPS 2026 (Oral)</title>
+<meta name="citation_title" content="ProCompNav: Proactive Instance Navigation with Comparative Judgment for Ambiguous User Queries">
+<meta name="citation_author" content="Junhyuk Kwon">
+<meta name="citation_author" content="Seungjoon Lee">
+<meta name="citation_author" content="Hyejin Park">
+<meta name="citation_author" content="Kyle Min">
+<meta name="citation_author" content="Jungseul Ok">
+<meta name="citation_conference_title" content="Advances in Neural Information Processing Systems (NeurIPS)">
+<meta name="citation_publication_date" content="2026">
+<meta name="citation_pdf_url" content="https://arxiv.org/pdf/2605.06223">
 
 <link rel="canonical" href="https://tree-jhk.github.io/procompnav/">
 
 <meta property="og:type" content="article">
 <meta property="og:title" content="ProCompNav: Proactive Instance Navigation with Comparative Judgment for Ambiguous User Queries">
-<meta property="og:description" content="A two-stage framework that builds a candidate pool and identifies the target through comparative, binary-question judgment. State-of-the-art on CoIN-Bench and TextNav.">
+<meta property="og:description" content="NeurIPS 2026 (Oral). ProCompNav collects candidates and identifies the intended target through recursive comparative judgment and binary questions.">
 <meta property="og:url" content="https://tree-jhk.github.io/procompnav/">
 <meta property="og:image" content="https://tree-jhk.github.io/procompnav/static/images/teaser.jpg">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="ProCompNav: Proactive Instance Navigation with Comparative Judgment">
-<meta name="twitter:description" content="Disambiguate ambiguous user queries by collecting candidates first and pruning the pool with binary discriminative questions.">
+<meta name="twitter:description" content="NeurIPS 2026 (Oral). Disambiguate user queries by collecting candidates first and narrowing the pool with comparative binary questions.">
 <meta name="twitter:image" content="https://tree-jhk.github.io/procompnav/static/images/teaser.jpg">
 
 <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&amp;display=swap&amp;text=%F0%9F%8E%89" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
@@ -34,6 +44,8 @@
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column has-text-centered">
+
+          <p class="publication-venue"><span aria-hidden="true">🎉</span> NeurIPS 2026 (Oral) <span aria-hidden="true">🎉</span></p>
 
           <h1 class="title is-1 publication-title">
             <span class="title-accent">ProCompNav:</span> Proactive Instance Navigation with Comparative Judgment for Ambiguous User Queries
@@ -70,7 +82,7 @@
               </a>
             </span>
             <span class="link-block">
-              <a href="https://github.com/tree-jhk/procompnav" target="_blank" class="external-link button is-normal is-rounded is-dark">
+              <a href="https://github.com/ml-postech/ProCompNav" target="_blank" class="external-link button is-normal is-rounded is-dark">
                 <span class="icon"><i class="fab fa-github"></i></span>
                 <span>Code</span>
               </a>
@@ -89,28 +101,9 @@
   <div class="container is-max-desktop">
     <h2 class="title is-3 has-text-centered">Abstract</h2>
     <div class="content has-text-justified">
-      <p>
-        Natural-language instance navigation becomes challenging when the initial user request does not
-        uniquely specify the target instance. A practical agent should reduce the user's burden by asking
-        only the information needed to distinguish the target from similar distractors, rather than
-        requiring a detailed description upfront.
-      </p>
-      <p>
-        We propose <b>Proactive Instance Navigation with Comparative Judgment (ProCompNav)</b>, a
-        two-stage framework that first constructs a candidate pool and then identifies the target
-        through <i>comparative judgment</i>: at each round it extracts an attribute-value pair that
-        splits the current pool, asks a binary yes/no question, and prunes all inconsistent
-        candidates at once.
-      </p>
-      <p>
-        This reframes disambiguation from open-ended target description to
-        <b>pool-level discriminative questioning</b>, where each question is chosen to narrow the
-        candidate set. On CoIN-Bench, ProCompNav improves Success Rate over interactive baselines
-        with the same minimal input and non-interactive baselines with detailed descriptions, while
-        substantially reducing Response Length; on TextNav, it also achieves the highest SR,
-        suggesting that comparative judgment is broadly useful for instance-level navigation among
-        similar distractors.
-      </p>
+      <p>Natural-language instance navigation becomes challenging when the initial user request does not uniquely specify the target instance. A practical agent should reduce the user&#x27;s burden by actively asking only the information needed to distinguish the target from similar distractors, rather than requiring a detailed description upfront. Existing approaches often fall short of this goal by mistaking distractors that strongly match the accumulated user-provided information for the target. As a result, despite the dialogue, the agent may still fail to distinguish the target from distractors, leading to premature decisions and lengthy user responses.</p>
+      <p>We propose Proactive Instance Navigation with Comparative Judgment (ProCompNav), a two-stage framework that first constructs a candidate pool and then identifies the target through Recursive Comparative Judgment (RCJ). RCJ iteratively narrows the pool by selecting an attribute-value pair that divides the candidates, asking the user a binary question, and removing inconsistent candidates, without requiring an attribute unique to the target.</p>
+      <p>On CoIN-Bench, ProCompNav outperforms the evaluated baselines in Success Rate while substantially reducing Response Length. On the non-interactive TextNav benchmark, ProCompNav achieves the highest Success Rate. Two human studies further show that participants prefer ProCompNav&#x27;s interaction strategies. Code is available at <a href="https://github.com/ml-postech/ProCompNav" target="_blank" rel="noopener">https://github.com/ml-postech/ProCompNav</a>.</p>
     </div>
   </div>
 </section>
@@ -135,19 +128,16 @@
       <img src="static/images/teaser.jpg" alt="ProCompNav teaser figure">
     </figure>
     <p class="caption-text"><b>Figure 1.</b> Three strategies for instance navigation under an
-      ambiguous user query. (a) <i>Independent Matching</i> scores each candidate independently,
-      causing premature decision to a distractor sharing attributes with the true target.
-      (b) <i>Pooled Independent Matching</i> defers the decision until multiple candidates are
-      collected, but non-discriminative questions still fail to separate similar distractors,
-      while imposing high user burden. (c) <i>Comparative Judgment</i> (Ours) proactively builds a
-      candidate pool and asks binary questions about discriminative attributes derived from
-      candidate contrasts, accurately identifying the target with minimal user burden.</p>
+      ambiguous user query. (a) <i>Independent Matching</i> evaluates each candidate independently.
+      (b) <i>Pooled Independent Matching</i> collects multiple candidates, accumulates user responses
+      about each candidate, and applies independent matching. (c) <i>Comparative Judgment</i> (Ours)
+      constructs a candidate pool and asks discriminative binary questions based on candidate contrasts.</p>
 
     <p class="content" style="margin-top:1.5rem;">
-      Table 1 isolates the contribution of each ingredient on CoIN-Bench. Adding a candidate pool
-      to independent matching (b) lifts SR but inflates user response length 4&times;; replacing
-      independent matching with comparative judgment (c) lifts SR further while collapsing
-      Response Length from <b>460&ndash;520</b> to <b>4.2&ndash;4.3</b> tokens.
+      Table 1 compares three end-to-end disambiguation strategies on CoIN-Bench. Pooled Independent
+      Matching uses ProCompNav's pool construction stage and improves SR over Independent Matching,
+      but requires long responses. Using the same pool construction stage, ProCompNav further
+      improves SR and reduces Response Length from <b>460-520</b> to <b>4.2-4.3</b> tokens.
     </p>
 
     <div class="table-container">
@@ -178,9 +168,9 @@
           <tr>
             <td class="has-text-left">(b) Pooled Independent Matching</td>
             <td><span class="icon-yes">&#x2713;</span></td><td><span class="icon-no">&#x2717;</span></td>
-            <td>17.5</td><td>460.2</td><td>3.6</td>
-            <td>22.0</td><td>519.2</td><td>3.7</td>
-            <td>13.3</td><td>467.7</td><td>3.4</td>
+            <td>17.5</td><td>460.2</td><td>4.1</td>
+            <td>22.0</td><td>519.2</td><td>4.3</td>
+            <td>13.3</td><td>467.7</td><td>4.0</td>
           </tr>
           <tr class="best-row">
             <td class="has-text-left"><b>(c) Comparative Judgment (Ours)</b></td>
@@ -193,8 +183,9 @@
       </table>
     </div>
     <p class="caption-text"><b>Table 1.</b> Comparison of three disambiguation strategies on
-      CoIN-Bench. We report Success Rate (SR), average total Response Length (RL), and average
-      Number of Questions (NQ) per episode.</p>
+      CoIN-Bench. We report Success Rate (SR), average total Response Length (RL) per episode, and
+      average Number of Questions (NQ) over episodes with user interaction. Pooled Independent
+      Matching has no question limit so it can gather information from every candidate.</p>
 
   </div>
 </section>
@@ -208,9 +199,11 @@
     <p class="content">
       ProCompNav runs in two stages. In the <b>Pool Construction Stage</b>, the agent explores the
       environment and aggregates multi-view evidence for each category-<i>c</i> detection into a
-      candidate pool with a multi-view collage and description per candidate. Once the pool has
-      <i>N</i><sub>min</sub> candidates, it transitions to the <b>Recursive Comparison Stage</b>
-      (Fig. 2), which prunes the pool one binary question at a time.
+      candidate pool with a multi-view collage and description per candidate. The
+      <b>Recursive Comparison Stage</b> (Fig. 2) begins when the pool reaches
+      <i>N</i><sub>min</sub> = 5 on CoIN or 3 on TextNav. If it has not started by step 400 on CoIN
+      or step 600 on TextNav, it starts at that step. Recursive Comparative Judgment (RCJ) narrows
+      the pool using attribute-value comparisons, without requiring an attribute unique to the target.
     </p>
 
     <figure class="image">
@@ -234,7 +227,7 @@
     <h2 class="title is-3 has-text-centered">Main results on CoIN-Bench</h2>
 
     <p class="content">
-      ProCompNav achieves the <b>highest SR on all CoIN-Bench splits with only category-level input</b>.
+      ProCompNav achieves the <b>highest SR among the evaluated methods on all CoIN-Bench splits</b> with only category-level input.
       Relative to AIUTA*, SR improves by +125.7% on Val Seen, +83.7% on Val Seen Synonyms, and
       +91.0% on Val Unseen.
       It also surpasses training-free baselines that consume a <i>detailed description</i> of the
@@ -345,22 +338,20 @@
     <h2 class="title is-3 has-text-centered">Termination-step analysis</h2>
 
     <p class="content">
-      AIUTA often terminates at the two extremes: either very early, suggesting premature
-      commitment to a plausible distractor, or only at the maximum step, suggesting failure to
-      disambiguate the target. In contrast, ProCompNav most frequently terminates after collecting
-      candidates and rarely waits until the maximum step. The cumulative success curves show that
-      ProCompNav reaches 108 successes by the 200&ndash;299 bin, already exceeding AIUTA's final
-      total of 87, and continues to accumulate successes in later bins &mdash; overall, ProCompNav
-      reaches more than twice the final number of successes of AIUTA.
+      We compare AIUTA, Pooled Independent Matching, and ProCompNav on CoIN-Bench Val Seen.
+      AIUTA can commit prematurely to a distractor or reach the episode horizon without identifying
+      the target. Pooling reduces early commitments, while comparative judgment improves decisions
+      after candidate collection. ProCompNav has a similar termination distribution to Pooled
+      Independent Matching but accumulates more successes.
     </p>
 
     <figure class="image is-centered">
-      <img src="static/images/termination-step-analysis.jpg" alt="Episode termination step analysis: AIUTA vs ProCompNav" style="max-width:700px;margin:auto;display:block;">
+      <img src="static/images/termination-step-analysis.jpg" alt="Termination steps and cumulative successes for AIUTA, Pooled Independent Matching, and ProCompNav" style="max-width:700px;margin:auto;display:block;">
     </figure>
-    <p class="caption-text"><b>Figure 3.</b> Termination-step analysis of AIUTA and ProCompNav.
-      The x-axis shows termination steps in 100-step bins, except the max exploration step; bars
-      (left y-axis) show number of terminated episodes, and lines (right y-axis) show cumulative
-      number of successful episodes.</p>
+    <p class="caption-text"><b>Figure 3.</b> Termination-step analysis of AIUTA, Pooled Independent
+      Matching, and ProCompNav. Bars show terminated episodes in 100-step bins on the left axis,
+      and lines show cumulative successful episodes on the right axis. The final bin denotes
+      the 500-step horizon.</p>
   </div>
 </section>
 
@@ -374,7 +365,7 @@
       Although ProCompNav is designed for interactive instance navigation, it generalises to the
       non-interactive Text-Goal Instance Navigation (TextNav) benchmark by extracting attributes
       directly from the detailed target description provided at episode start instead of asking
-      the user. ProCompNav achieves the <b>highest SR (28.5%)</b>, suggesting that its core
+      the user. ProCompNav achieves the <b>highest SR (28.5%) among the evaluated methods</b>, suggesting that its core
       mechanism &mdash; deferring the target decision until a candidate pool is constructed and
       then pruning it with discriminative attributes &mdash; is also effective in the
       non-interactive setting, where a detailed description is available but candidates still need
@@ -445,15 +436,51 @@
 </section>
 
 
+<!-- HUMAN EVALUATION ========================================================= -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Human evaluation of interaction strategies</h2>
+    <p class="content">
+      Two studies, each with 20 participants, compare response format and question delivery.
+      In Study 1, all 20 participants preferred the binary-question condition and responded faster
+      in that condition. In Study 2, 14 of 20 participants preferred batched delivery over
+      interleaved questions.
+    </p>
+    <div class="table-container">
+      <table class="table is-fullwidth is-narrow is-bordered has-text-centered result-table">
+        <thead>
+          <tr><th rowspan="2" class="has-text-left">Metric</th><th colspan="2">Study 1: response format</th><th colspan="2">Study 2: question delivery</th></tr>
+          <tr><th>Open-ended</th><th>Binary</th><th>Interleaved</th><th>Batched</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="has-text-left">Response time</td><td>9.25 s</td><td><b>2.69 s</b></td><td>6.27 s</td><td><b>5.28 s</b></td></tr>
+          <tr><td class="has-text-left">Preference</td><td>0/20</td><td><b>20/20</b></td><td>6/20</td><td><b>14/20</b></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="caption-text"><b>Table 4.</b> Human evaluation of response format and question delivery.
+      Response time is the median per question; preference is the number of participants selecting
+      each condition.</p>
+    <p class="content">
+      Human open-ended responses were much shorter than simulated responses: 89.1% of the Korean
+      open-ended responses contained at most three whitespace-delimited words. These word counts
+      are distinct from the token-based Response Length in Table 1. Binary questions constrain
+      the response format for both simulated and human users.
+    </p>
+  </div>
+</section>
+
+
 <!-- BIBTEX =================================================================== -->
 <section class="section" id="BibTeX">
   <div class="container is-max-desktop content">
     <h2 class="title is-3 has-text-centered">BibTeX</h2>
-<pre><code>@article{kwon2026proactive,
-  title={Proactive Instance Navigation with Comparative Judgment for Ambiguous User Queries},
+<pre><code>@inproceedings{kwon2026proactive,
+  title={{ProCompNav}: Proactive Instance Navigation with Comparative Judgment for Ambiguous User Queries},
   author={Kwon, Junhyuk and Lee, Seungjoon and Park, Hyejin and Min, Kyle and Ok, Jungseul},
-  journal={arXiv preprint arXiv:2605.06223},
-  year={2026}
+  booktitle={Advances in Neural Information Processing Systems},
+  year={2026},
+  url={https://arxiv.org/abs/2605.06223}
 }</code></pre>
   </div>
 </section>
