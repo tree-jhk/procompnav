@@ -551,16 +551,16 @@ const SHARE_BASE_URL = "";
     var head, line;
     if (!correct) {
       head = 'Wrong ' + cat + '!';
-      line = 'You: wrong card. ' + sB + ' ProCompNav wins.';   // which cards: shown as pictures below
+      line = 'You: wrong card. ' + sB + '\nProCompNav wins.';   // which cards: shown as pictures below
     } else if (outcome === 'win') {
       head = 'You beat the robot!';
-      line = sY + ' ' + sB + ' You win!' + (lucky ? ' (Lucky guess: ' + g.alive.length + ' cards were still up.)' : '');
+      line = sY + ' ' + sB + '\nYou win!' + (lucky ? ' (Lucky guess: ' + g.alive.length + ' cards were still up.)' : '');
     } else if (outcome === 'tie') {
       head = 'Tie!';
-      line = sY + ' ' + sB + ' Tie!' + (lucky ? ' (Lucky guess!)' : '');
+      line = sY + ' ' + sB + '\nTie!' + (lucky ? ' (Lucky guess!)' : '');
     } else {
       head = 'ProCompNav wins.';
-      line = sY + ' ' + sB + ' ProCompNav wins.';
+      line = sY + ' ' + sB + '\nProCompNav wins.';
     }
     var v = $('#verdict');
     v.className = 'verdict reveal-anim ' + (correct ? outcome : 'loss');

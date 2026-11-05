@@ -451,7 +451,7 @@ main { max-width: 1180px; margin: 0 auto; padding-top: 16px; padding-bottom: 32p
 
 /* ---------- round time ---------- */
 .score-box { width: min(100%, 420px); margin: 10px auto 0; padding: 4px 14px 14px; background: var(--surface); border: 3px solid var(--edge); border-radius: 10px; }
-.score-box .verdict-line { margin: 8px auto 10px; }
+.score-box .verdict-line { margin: 8px auto 10px; white-space: pre-line; }   /* scores, then the outcome on its own line */
 .time-race { width: min(100%, 420px); margin: 14px auto 0; padding: 0 14px; text-align: center; }
 .time-race .tr-h { font-size: .72rem; font-weight: 900; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 6px; }
 .time-race .tr-tiles { display: flex; justify-content: center; align-items: center; gap: 12px; }
