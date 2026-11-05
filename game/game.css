@@ -450,16 +450,17 @@ main { max-width: 1180px; margin: 0 auto; padding-top: 16px; padding-bottom: 32p
 .verdict .tally { margin-top: 12px; }
 
 /* ---------- round time ---------- */
-.time-race { width: min(100%, 420px); margin: 18px auto 0; padding: 12px 14px 10px; border: 3px solid var(--edge); border-radius: 10px; text-align: center; }
-.time-race .tr-h { font-size: .8rem; font-weight: 900; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 8px; }
-.time-race .tr-tiles { display: flex; justify-content: center; align-items: center; gap: 14px; }
-.time-race .tr-side { display: grid; justify-items: center; gap: 4px; }
-.time-race .tr-name { font-weight: 800; font-size: .85rem; }
-.time-race .tr-n { display: grid; place-items: center; min-width: 96px; height: 50px; padding: 0 10px; font-weight: 900; font-size: 1.55rem;
-  font-variant-numeric: tabular-nums; border: 3px solid var(--edge); border-radius: 8px; box-shadow: var(--shadow); }
-.time-race .you .tr-n { background: var(--grass); color: var(--on-grass); }
+.score-box { width: min(100%, 420px); margin: 10px auto 0; padding: 4px 14px 14px; background: var(--surface); border: 3px solid var(--edge); border-radius: 10px; }
+.score-box .verdict-line { margin: 8px auto 10px; }
+.time-race { width: min(100%, 420px); margin: 14px auto 0; padding: 0 14px; text-align: center; }
+.time-race .tr-h { font-size: .72rem; font-weight: 900; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 6px; }
+.time-race .tr-tiles { display: flex; justify-content: center; align-items: center; gap: 12px; }
+.time-race .tr-side { display: grid; justify-items: center; gap: 3px; }
+.time-race .tr-name { font-weight: 800; font-size: .78rem; }
+.time-race .tr-n { display: grid; place-items: center; min-width: 78px; height: 38px; padding: 0 8px; font-weight: 900; font-size: 1.15rem;
+  font-variant-numeric: tabular-nums; border: 2px solid var(--edge); border-radius: 6px; }
+.time-race .you .tr-n { background: var(--grass); color: #161616; }
 .time-race .bot .tr-n { background: var(--gold); color: var(--on-gold); }
-.time-race .tr-vs { font-family: var(--font-px); font-size: 1.3rem; color: var(--ink-soft); margin-top: 18px; }
-.time-race .tr-cap { margin: 12px 0 2px; font-weight: 900; font-size: 1.05rem; }
-.time-race .tr-sub { margin: 2px 0 4px; font-size: .9rem; color: var(--ink-soft); }
-.time-race .tnote { margin: 2px 0 0; font-size: .72rem; font-weight: 700; color: var(--ink-soft); }
+.time-race .tr-vs { font-family: var(--font-px); font-size: 1.05rem; color: var(--ink-soft); margin-top: 14px; }
+.time-race .tr-cap { margin: 8px 0 2px; font-weight: 400; font-size: .9rem; }
+.time-race .tnote { margin: 0; font-size: .74rem; color: var(--ink-soft); }

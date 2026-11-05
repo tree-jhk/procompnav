@@ -630,9 +630,8 @@ const SHARE_BASE_URL = "";
       box.appendChild(el('p', { class: 'tr-cap', text: ratio >= 1.5
         ? 'ProCompNav chose its questions ' + Math.round(ratio) + '\u00d7 faster.'
         : (you < bot ? 'You picked faster this time.' : 'About as fast as ProCompNav.') }));
-      box.appendChild(el('p', { class: 'tr-sub', text: 'Not part of the score. It shows how fast ProCompNav\u2019s RCJ picks a question that splits the cards.' }));
-      var note = 'ProCompNav\u2019s measured time on this episode' + (g.r.episode != null ? ' (ep ' + g.r.episode + ')' : '');
-      box.appendChild(el('p', { class: 'tnote', text: '\u24d8 ' + note }));
+      var note = 'Not scored. Shows how fast RCJ picks questions' + (g.r.episode != null ? ' (measured, ep ' + g.r.episode + ').' : '.');
+      box.appendChild(el('p', { class: 'tnote', text: note }));
     }
   }
   function tilesFor(aliveIds, final) {
