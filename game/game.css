@@ -459,7 +459,7 @@ main { max-width: 1180px; margin: 0 auto; padding-top: 16px; padding-bottom: 32p
   font-variant-numeric: tabular-nums; border: 3px solid var(--edge); border-radius: 8px; box-shadow: var(--shadow); }
 .time-race .you .tr-n { background: var(--grass); color: var(--on-grass); }
 .time-race .bot .tr-n { background: var(--gold); color: var(--on-gold); }
-.time-race .tr-n.win { outline: 3px solid var(--ink); outline-offset: 3px; }
 .time-race .tr-vs { font-family: var(--font-px); font-size: 1.3rem; color: var(--ink-soft); margin-top: 18px; }
 .time-race .tr-cap { margin: 12px 0 2px; font-weight: 900; font-size: 1.05rem; }
+.time-race .tr-sub { margin: 2px 0 4px; font-size: .9rem; color: var(--ink-soft); }
 .time-race .tnote { margin: 2px 0 0; font-size: .72rem; font-weight: 700; color: var(--ink-soft); }

@@ -606,30 +606,31 @@ const SHARE_BASE_URL = "";
   }
 
   function renderTime(g) {
-    // Second scoreboard, same look as the question count: two number tiles, the faster one wins.
-    // People take a while to pick a question that splits the cards; ProCompNav's RCJ makes that choice in seconds.
+    // Time to pick questions. Not part of the score (that is the question count above): it only shows that
+    // ProCompNav's RCJ picks a question that splits the cards in seconds, where people take a while.
     var box = $('#time-line'), pcn = g.r.procompnav || {};
     box.innerHTML = '';
     var you = g.tSec, bot = (typeof pcn.rcj_time_sec === 'number') ? pcn.rcj_time_sec : null;
-    box.appendChild(el('div', { class: 'tr-h', text: 'Time \u00b7 faster wins' }));
-    function tile(cls, name, v, win) {
+    box.appendChild(el('div', { class: 'tr-h', text: 'Time to pick questions' }));
+    function tile(cls, name, v) {
       return el('div', { class: 'tr-side ' + cls }, [
         el('span', { class: 'tr-name', text: name }),
-        el('span', { class: 'tr-n' + (win ? ' win' : ''), text: v.toFixed(1) + ' s' })
+        el('span', { class: 'tr-n', text: v.toFixed(1) + ' s' })
       ]);
     }
     var tiles = el('div', { class: 'tr-tiles' });
-    tiles.appendChild(tile('you', 'You', you, bot != null && you < bot));
+    tiles.appendChild(tile('you', 'You', you));
     if (bot != null) {
       tiles.appendChild(el('span', { class: 'tr-vs', 'aria-hidden': 'true', text: 'vs' }));
-      tiles.appendChild(tile('bot', 'ProCompNav', bot, bot <= you));
+      tiles.appendChild(tile('bot', 'ProCompNav', bot));
     }
     box.appendChild(tiles);
     if (bot != null) {
       var ratio = you / Math.max(bot, 0.1);
       box.appendChild(el('p', { class: 'tr-cap', text: ratio >= 1.5
         ? 'ProCompNav chose its questions ' + Math.round(ratio) + '\u00d7 faster.'
-        : (you < bot ? 'You were faster than ProCompNav!' : 'About as fast as ProCompNav.') }));
+        : (you < bot ? 'You picked faster this time.' : 'About as fast as ProCompNav.') }));
+      box.appendChild(el('p', { class: 'tr-sub', text: 'Not part of the score. It shows how fast ProCompNav\u2019s RCJ picks a question that splits the cards.' }));
       var note = 'ProCompNav\u2019s measured time on this episode' + (g.r.episode != null ? ' (ep ' + g.r.episode + ')' : '');
       box.appendChild(el('p', { class: 'tnote', text: '\u24d8 ' + note }));
     }
