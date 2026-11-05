@@ -1,0 +1,223 @@
+{
+ "id": "desk_ep530",
+ "category": "desk",
+ "episode": 530,
+ "source": "CoIN-Bench Val Seen, ProCompNav paper run",
+ "query": "Find the desk.",
+ "candidates": [
+  {
+   "id": "c0",
+   "group": "group_000_merged",
+   "img": "img/desk_ep530/c0_v0.jpg",
+   "views": [
+    "img/desk_ep530/c0_v0.jpg",
+    "img/desk_ep530/c0_v1.jpg"
+   ],
+   "caption": "The desk is wooden with a light brown color and a rectangular shape. It has a flat top surface and legs supporting it. On top of the desk, there is a wicker basket. The basket is brown and cylindrical in shape. The basket is under the desk's surface, positioned near its front edge."
+  },
+  {
+   "id": "c1",
+   "group": "group_001_merged",
+   "img": "img/desk_ep530/c1_card.jpg",
+   "views": [
+    "img/desk_ep530/c1_v0.jpg",
+    "img/desk_ep530/c1_v1.jpg",
+    "img/desk_ep530/c1_v2.jpg"
+   ],
+   "caption": "The desk is a long, rectangular wooden surface with a dark brown color. It has ornate legs and a slightly curved front edge. Next to the desk is a chair with a dark blue upholstered seat and backrest, and light-colored wooden legs. The chair is positioned under the desk. On top of the desk are several framed pictures and a small green box. Under the desk, there is a dark-colored rug on the wooden floor."
+  },
+  {
+   "id": "c2",
+   "group": "group_002_merged",
+   "img": "img/desk_ep530/c2_v0.jpg",
+   "views": [
+    "img/desk_ep530/c2_v0.jpg",
+    "img/desk_ep530/c2_v1.jpg",
+    "img/desk_ep530/c2_v2.jpg",
+    "img/desk_ep530/c2_v3.jpg"
+   ],
+   "caption": "The desk is white and has a rectangular shape. On top of the desk are several small, framed pictures and a brown pot. Next to the desk is a gray trash can. Under the desk, there are some items stored in compartments. Next to the desk is a red drawer unit. The desk is also next to a large, wooden wardrobe with mirrored doors."
+  },
+  {
+   "id": "c3",
+   "group": "group_003_merged",
+   "img": "img/desk_ep530/c3_v0.jpg",
+   "views": [
+    "img/desk_ep530/c3_v0.jpg"
+   ],
+   "caption": "The desk is a light-colored, curved console table with ornate legs. On top of the desk are two dark-colored figurines. The figurines are next to each other."
+  }
+ ],
+ "target": "c1",
+ "target_photo": "img/desk_ep530/target.jpg",
+ "questions": [
+  {
+   "id": "q1",
+   "text": "Does it have a wooden top?",
+   "attr": "wooden surface",
+   "truth": {
+    "c0": false,
+    "c1": true,
+    "c2": false,
+    "c3": false
+   },
+   "source": "procompnav_asked"
+  },
+  {
+   "id": "q2",
+   "text": "Is there a brown wicker basket on it?",
+   "attr": "brown wicker basket on desk",
+   "truth": {
+    "c0": true,
+    "c1": false,
+    "c2": false,
+    "c3": false
+   },
+   "source": "procompnav_asked"
+  },
+  {
+   "id": "q3",
+   "text": "Is there a lamp on it?",
+   "attr": "lamp on top",
+   "truth": {
+    "c0": false,
+    "c1": false,
+    "c2": true,
+    "c3": false
+   },
+   "source": "curated"
+  },
+  {
+   "id": "q4",
+   "text": "Are there figurines on it?",
+   "attr": "figurines on top",
+   "truth": {
+    "c0": false,
+    "c1": false,
+    "c2": false,
+    "c3": true
+   },
+   "source": "curated"
+  },
+  {
+   "id": "q5",
+   "text": "Is there a fireplace next to it?",
+   "attr": "fireplace nearby",
+   "truth": {
+    "c0": false,
+    "c1": true,
+    "c2": false,
+    "c3": false
+   },
+   "source": "curated"
+  },
+  {
+   "id": "q6",
+   "text": "Is it in a hallway?",
+   "attr": "in hallway",
+   "truth": {
+    "c0": false,
+    "c1": false,
+    "c2": false,
+    "c3": true
+   },
+   "source": "curated"
+  },
+  {
+   "id": "q7",
+   "text": "Is it in a bathroom?",
+   "attr": "in bathroom",
+   "truth": {
+    "c0": true,
+    "c1": false,
+    "c2": false,
+    "c3": false
+   },
+   "source": "curated"
+  },
+  {
+   "id": "q8",
+   "text": "Is the wall behind it yellow?",
+   "attr": "yellow wall",
+   "truth": {
+    "c0": false,
+    "c1": false,
+    "c2": true,
+    "c3": false
+   },
+   "source": "curated"
+  },
+  {
+   "id": "q9",
+   "text": "Is there a mirror on the wall above it?",
+   "attr": "mirror above",
+   "truth": {
+    "c0": true,
+    "c1": false,
+    "c2": false,
+    "c3": false
+   },
+   "source": "curated"
+  },
+  {
+   "id": "q10",
+   "text": "Is it half-round (curved front)?",
+   "attr": "half-round",
+   "truth": {
+    "c0": false,
+    "c1": false,
+    "c2": false,
+    "c3": true
+   },
+   "source": "curated"
+  },
+  {
+   "id": "q11",
+   "text": "Is there a bed in the same room?",
+   "attr": "bed in room",
+   "truth": {
+    "c0": false,
+    "c1": true,
+    "c2": true,
+    "c3": false
+   },
+   "source": "curated"
+  },
+  {
+   "id": "q12",
+   "text": "Is there a TV on it?",
+   "attr": "TV on top",
+   "truth": {
+    "c0": false,
+    "c1": false,
+    "c2": false,
+    "c3": false
+   },
+   "source": "curated"
+  }
+ ],
+ "procompnav": {
+  "n_questions": 2,
+  "steps": [
+   {
+    "question_id": "q1",
+    "attr": "wooden surface",
+    "answer": true,
+    "remaining": [
+     "c1"
+    ]
+   },
+   {
+    "question_id": "q2",
+    "attr": "brown wicker basket on desk",
+    "answer": false,
+    "remaining": [
+     "c1"
+    ]
+   }
+  ],
+  "rcj_time_sec": 6.02,
+  "rcj_time_source": "pbp_total_time_sec from the paper run log (CoIN-Bench Val Seen, 2x RTX 3090, Qwen3-VL-8B); includes LLM/NLI and the simulated user answers"
+ },
+ "notes": "Answers checked against target photo (rustic pine desk with drawers, books on top): (1) wooden surface = Yes. (2) brown wicker basket on desk = No. Pruning differs from the log: the log grouped c0 (bathroom washstand) as wooden, but its top is white marble (wood only for the frame and drawers), so with the wording 'wooden top' Q1 already leaves only c1 and Q2 confirms it. c1's card c1_card.jpg is a crop of view c1_v2 (the desk sits at the left edge of every view). Same desk as ep 524, which was rejected."
+}

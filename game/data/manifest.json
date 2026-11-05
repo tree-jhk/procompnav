@@ -1,0 +1,100 @@
+{
+ "categories": {
+  "bed": [
+   "bed_ep143"
+  ],
+  "cabinet": [
+   "cabinet_ep1616",
+   "cabinet_ep477",
+   "cabinet_ep505"
+  ],
+  "desk": [
+   "desk_ep530"
+  ],
+  "table": [
+   "table_ep1446",
+   "table_ep1468",
+   "table_ep1028"
+  ]
+ },
+ "demo": [
+  "demo_teaser"
+ ],
+ "rounds": {
+  "bed_ep143": "data/rounds/bed_ep143.json",
+  "cabinet_ep1616": "data/rounds/cabinet_ep1616.json",
+  "cabinet_ep477": "data/rounds/cabinet_ep477.json",
+  "cabinet_ep505": "data/rounds/cabinet_ep505.json",
+  "demo_teaser": "data/rounds/demo_teaser.json",
+  "desk_ep530": "data/rounds/desk_ep530.json",
+  "table_ep1028": "data/rounds/table_ep1028.json",
+  "table_ep1446": "data/rounds/table_ep1446.json",
+  "table_ep1468": "data/rounds/table_ep1468.json"
+ },
+ "info": {
+  "bed_ep143": {
+   "category": "bed",
+   "n_cards": 4,
+   "robot_q": 2,
+   "best_q": 1,
+   "n_bank": 12
+  },
+  "cabinet_ep1616": {
+   "category": "cabinet",
+   "n_cards": 5,
+   "robot_q": 2,
+   "best_q": 2,
+   "n_bank": 11
+  },
+  "cabinet_ep477": {
+   "category": "cabinet",
+   "n_cards": 5,
+   "robot_q": 2,
+   "best_q": 1,
+   "n_bank": 11
+  },
+  "cabinet_ep505": {
+   "category": "cabinet",
+   "n_cards": 5,
+   "robot_q": 2,
+   "best_q": 1,
+   "n_bank": 10
+  },
+  "demo_teaser": {
+   "category": "cabinet",
+   "n_cards": 4,
+   "robot_q": 2,
+   "best_q": 2,
+   "n_bank": 8,
+   "title": "Warm-up: the paper's 4 cabinets"
+  },
+  "desk_ep530": {
+   "category": "desk",
+   "n_cards": 4,
+   "robot_q": 2,
+   "best_q": 1,
+   "n_bank": 12
+  },
+  "table_ep1028": {
+   "category": "table",
+   "n_cards": 6,
+   "robot_q": 3,
+   "best_q": 1,
+   "n_bank": 12
+  },
+  "table_ep1446": {
+   "category": "table",
+   "n_cards": 5,
+   "robot_q": 2,
+   "best_q": 1,
+   "n_bank": 10
+  },
+  "table_ep1468": {
+   "category": "table",
+   "n_cards": 5,
+   "robot_q": 2,
+   "best_q": 1,
+   "n_bank": 11
+  }
+ }
+}

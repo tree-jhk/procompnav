@@ -1,0 +1,282 @@
+{
+ "id": "table_ep1028",
+ "category": "table",
+ "episode": 1028,
+ "source": "CoIN-Bench Val Seen, ProCompNav paper run",
+ "query": "Find the table.",
+ "candidates": [
+  {
+   "id": "c0",
+   "group": "group_000_merged",
+   "img": "img/table_ep1028/c0_v3.jpg",
+   "views": [
+    "img/table_ep1028/c0_v0.jpg",
+    "img/table_ep1028/c0_v1.jpg",
+    "img/table_ep1028/c0_v2.jpg",
+    "img/table_ep1028/c0_v3.jpg"
+   ],
+   "caption": "The table has a light brown wooden top and a black metal frame with an intricate, crisscross pattern. It is rectangular in shape. On top of the table is a lamp with a white lampshade and a dark brown base shaped like a ship. Next to the lamp, there is a small blue card or piece of paper. Under the table, part of a white wall and the floor are visible. The table is next to a wall with a large, round mirror decorated with dark circular accents. A wooden door is also next to the table, positioned on its left side."
+  },
+  {
+   "id": "c1",
+   "group": "group_001_merged",
+   "img": "img/table_ep1028/c1_v1.jpg",
+   "views": [
+    "img/table_ep1028/c1_v0.jpg",
+    "img/table_ep1028/c1_v1.jpg",
+    "img/table_ep1028/c1_v2.jpg",
+    "img/table_ep1028/c1_v3.jpg",
+    "img/table_ep1028/c1_v4.jpg"
+   ],
+   "caption": "The table is rectangular with a light brown surface and dark brown edges. It is next to two yellow ottomans, which are round and tufted. The ottomans are positioned on either side of the table, one on the left and one on the right. A remote control is on top of the table."
+  },
+  {
+   "id": "c2",
+   "group": "group_002_merged",
+   "img": "img/table_ep1028/c2_v0.jpg",
+   "views": [
+    "img/table_ep1028/c2_v0.jpg"
+   ],
+   "caption": "The table is dark brown and rectangular. It is next to a beige sofa. A lamp is on top of the table."
+  },
+  {
+   "id": "c3",
+   "group": "group_003_merged",
+   "img": "img/table_ep1028/c3_v0.jpg",
+   "views": [
+    "img/table_ep1028/c3_v0.jpg"
+   ],
+   "caption": "The table is dark brown and rectangular. On top of the table, there is a television with a black screen. The television is next to a wooden door frame."
+  },
+  {
+   "id": "c4",
+   "group": "group_004_merged",
+   "img": "img/table_ep1028/c4_v0.jpg",
+   "views": [
+    "img/table_ep1028/c4_v0.jpg",
+    "img/table_ep1028/c4_v1.jpg",
+    "img/table_ep1028/c4_v2.jpg",
+    "img/table_ep1028/c4_v3.jpg",
+    "img/table_ep1028/c4_v4.jpg"
+   ],
+   "caption": "The table is dark brown and rectangular. A white bowl is on top of the table. A beige chair is next to the table."
+  },
+  {
+   "id": "c5",
+   "group": "group_005_merged",
+   "img": "img/table_ep1028/c5_v0.jpg",
+   "views": [
+    "img/table_ep1028/c5_v0.jpg"
+   ],
+   "caption": "The table is dark brown and rectangular. A beige chair is next to the table. A decorative bowl is on top of the table. A lamp is next to the table. A painting is on the wall above the table."
+  }
+ ],
+ "target": "c1",
+ "target_photo": "img/table_ep1028/target.jpg",
+ "questions": [
+  {
+   "id": "q1",
+   "text": "Are there beige chairs next to it?",
+   "attr": "beige chair nearby",
+   "truth": {
+    "c0": false,
+    "c1": false,
+    "c2": false,
+    "c3": false,
+    "c4": true,
+    "c5": true
+   },
+   "source": "procompnav_asked"
+  },
+  {
+   "id": "q2",
+   "text": "Is it right next to a sofa or ottomans?",
+   "attr": "next to seating",
+   "truth": {
+    "c0": false,
+    "c1": true,
+    "c2": true,
+    "c3": false,
+    "c4": false,
+    "c5": false
+   },
+   "source": "procompnav_asked"
+  },
+  {
+   "id": "q3",
+   "text": "Is there a remote control on top?",
+   "attr": "remote control on table top",
+   "truth": {
+    "c0": false,
+    "c1": true,
+    "c2": false,
+    "c3": false,
+    "c4": false,
+    "c5": false
+   },
+   "source": "procompnav_asked"
+  },
+  {
+   "id": "q4",
+   "text": "Is it dark brown?",
+   "attr": "dark brown",
+   "truth": {
+    "c0": false,
+    "c1": false,
+    "c2": true,
+    "c3": true,
+    "c4": true,
+    "c5": true
+   },
+   "source": "curated"
+  },
+  {
+   "id": "q5",
+   "text": "Is it a low coffee table?",
+   "attr": "low coffee table",
+   "truth": {
+    "c0": false,
+    "c1": true,
+    "c2": false,
+    "c3": false,
+    "c4": false,
+    "c5": false
+   },
+   "source": "curated"
+  },
+  {
+   "id": "q6",
+   "text": "Are there yellow ottomans next to it?",
+   "attr": "yellow ottomans nearby",
+   "truth": {
+    "c0": false,
+    "c1": true,
+    "c2": false,
+    "c3": false,
+    "c4": false,
+    "c5": false
+   },
+   "source": "curated"
+  },
+  {
+   "id": "q7",
+   "text": "Is there a TV on it?",
+   "attr": "TV on top",
+   "truth": {
+    "c0": false,
+    "c1": false,
+    "c2": false,
+    "c3": true,
+    "c4": false,
+    "c5": false
+   },
+   "source": "curated"
+  },
+  {
+   "id": "q8",
+   "text": "Is there a round mirror on the wall above it?",
+   "attr": "mirror above",
+   "truth": {
+    "c0": true,
+    "c1": false,
+    "c2": false,
+    "c3": false,
+    "c4": false,
+    "c5": false
+   },
+   "source": "curated"
+  },
+  {
+   "id": "q9",
+   "text": "Is there a bowl centerpiece on top?",
+   "attr": "bowl on top",
+   "truth": {
+    "c0": false,
+    "c1": false,
+    "c2": false,
+    "c3": false,
+    "c4": true,
+    "c5": true
+   },
+   "source": "curated"
+  },
+  {
+   "id": "q10",
+   "text": "Is it in the living room?",
+   "attr": "in living room",
+   "truth": {
+    "c0": false,
+    "c1": true,
+    "c2": true,
+    "c3": true,
+    "c4": false,
+    "c5": false
+   },
+   "source": "curated"
+  },
+  {
+   "id": "q11",
+   "text": "Is it rectangular?",
+   "attr": "rectangular",
+   "truth": {
+    "c0": true,
+    "c1": true,
+    "c2": true,
+    "c3": true,
+    "c4": true,
+    "c5": true
+   },
+   "source": "curated"
+  },
+  {
+   "id": "q12",
+   "text": "Does it have a wooden top?",
+   "attr": "wooden top",
+   "truth": {
+    "c0": true,
+    "c1": true,
+    "c2": true,
+    "c3": true,
+    "c4": true,
+    "c5": true
+   },
+   "source": "curated"
+  }
+ ],
+ "procompnav": {
+  "n_questions": 3,
+  "steps": [
+   {
+    "question_id": "q1",
+    "attr": "beige chair nearby",
+    "answer": false,
+    "remaining": [
+     "c0",
+     "c1",
+     "c2",
+     "c3"
+    ]
+   },
+   {
+    "question_id": "q2",
+    "attr": "next to seating",
+    "answer": true,
+    "remaining": [
+     "c1",
+     "c2"
+    ]
+   },
+   {
+    "question_id": "q3",
+    "attr": "remote control on table top",
+    "answer": true,
+    "remaining": [
+     "c1"
+    ]
+   }
+  ],
+  "rcj_time_sec": 6.29,
+  "rcj_time_source": "pbp_total_time_sec from the paper run log (CoIN-Bench Val Seen, 2x RTX 3090, Qwen3-VL-8B); includes LLM/NLI and the simulated user answers"
+ },
+ "notes": "Answers checked against target photo: (1) beige chair nearby = No: target coffee table sits between a beige sectional sofa and two yellow ottomans, no chairs. (2) next to seating = Yes: sofa on one side, ottomans on the other. (3) remote control on top = Yes: a blue/gray remote lies on the light-wood top. Truth table follows the log's pruning exactly. c4 and c5 both show the same dining table (c5 is seen from the living-room side with a sideboard and lamp in front); they get identical labels and are both removed by Q1. c2 is the dark side table/console at the sofa end; its visible top shows no remote. 'next to seating' is worded as sofa/ottomans so the dining chairs at c4/c5 do not count; c3 (TV stand across the room) is labeled No. Log has no g1/g2 property lists, so extra questions are curated."
+}

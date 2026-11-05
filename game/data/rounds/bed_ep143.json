@@ -1,0 +1,224 @@
+{
+ "id": "bed_ep143",
+ "category": "bed",
+ "episode": 143,
+ "source": "CoIN-Bench Val Seen, ProCompNav paper run",
+ "query": "Find the bed.",
+ "candidates": [
+  {
+   "id": "c0",
+   "group": "group_000_merged",
+   "img": "img/bed_ep143/c0.jpg",
+   "views": [
+    "img/bed_ep143/c0_v0.jpg",
+    "img/bed_ep143/c0_v1.jpg",
+    "img/bed_ep143/c0_v2.jpg",
+    "img/bed_ep143/c0_v3.jpg"
+   ],
+   "caption": "The bed has a rectangular shape and is covered with a blue comforter.\n\nNext to the bed, there is a black bench under the bed. There are also two black nightstands next to the bed, one on each side. On top of each nightstand, there is a lamp with a white lampshade."
+  },
+  {
+   "id": "c1",
+   "group": "group_001_merged",
+   "img": "img/bed_ep143/c1.jpg",
+   "views": [
+    "img/bed_ep143/c1_v0.jpg"
+   ],
+   "caption": "The bed has a rectangular shape and is covered in a blue quilted comforter. It is next to a black bench, which is under the bed. The bed also has multiple pillows, including gray and patterned ones, arranged on top of the comforter."
+  },
+  {
+   "id": "c2",
+   "group": "group_002_merged",
+   "img": "img/bed_ep143/c2.jpg",
+   "views": [
+    "img/bed_ep143/c2_v0.jpg",
+    "img/bed_ep143/c2_v1.jpg",
+    "img/bed_ep143/c2_v2.jpg",
+    "img/bed_ep143/c2_v3.jpg"
+   ],
+   "caption": "The bed has a dark brown wooden headboard with a decorative, slatted design. It is covered with a light-colored comforter featuring a pattern of blue and white sea-themed motifs, such as anchors and shells. The bed is rectangular in shape.\n\nOn top of the bed are several pillows: one is a dark blue square pillow with a white anchor design, another is a brown textured pillow, and others are white or off-white. The bed is next to a window with sheer white curtains. A ceiling fan with wooden blades and a white light fixture is above the bed. On the wall behind the headboard, there is a teal-colored accent wall with black lettering that reads \"Be Our Guest\". A long, narrow horizontal piece of artwork in blue and white hangs on the wall above the window. The bed is also next to a white door."
+  },
+  {
+   "id": "c3",
+   "group": "group_003_merged",
+   "img": "img/bed_ep143/c3.jpg",
+   "views": [
+    "img/bed_ep143/c3_v0.jpg"
+   ],
+   "caption": "The bed has a dark brown wooden frame with a rectangular shape. The bedding is colorful and patchwork-style, featuring various patterns including soccer balls.\n\nNext to the bed, there is a black wire pet crate on the floor. Under the bed, there is a small brown object on the carpet."
+  }
+ ],
+ "target": "c3",
+ "target_photo": "img/bed_ep143/target.jpg",
+ "questions": [
+  {
+   "id": "q1",
+   "text": "Is there a black bench under the foot of it?",
+   "attr": "black bench under bed",
+   "truth": {
+    "c0": true,
+    "c1": true,
+    "c2": false,
+    "c3": false
+   },
+   "source": "procompnav_asked"
+  },
+  {
+   "id": "q2",
+   "text": "Is there a brown fuzzy pillow on it?",
+   "attr": "brown textured pillow on bed",
+   "truth": {
+    "c0": false,
+    "c1": false,
+    "c2": true,
+    "c3": false
+   },
+   "source": "procompnav_asked"
+  },
+  {
+   "id": "q3",
+   "text": "Is its comforter a solid blue-gray?",
+   "attr": "solid blue-gray comforter",
+   "truth": {
+    "c0": true,
+    "c1": true,
+    "c2": false,
+    "c3": false
+   },
+   "source": "curated"
+  },
+  {
+   "id": "q4",
+   "text": "Is it standing on a black rug?",
+   "attr": "black rug",
+   "truth": {
+    "c0": true,
+    "c1": true,
+    "c2": false,
+    "c3": false
+   },
+   "source": "curated"
+  },
+  {
+   "id": "q5",
+   "text": "Is the quilt a colorful plaid patchwork?",
+   "attr": "plaid patchwork quilt",
+   "truth": {
+    "c0": false,
+    "c1": false,
+    "c2": false,
+    "c3": true
+   },
+   "source": "curated"
+  },
+  {
+   "id": "q6",
+   "text": "Is there a soccer ball on its pillows or on the wall above it?",
+   "attr": "soccer ball design",
+   "truth": {
+    "c0": false,
+    "c1": false,
+    "c2": false,
+    "c3": true
+   },
+   "source": "curated"
+  },
+  {
+   "id": "q7",
+   "text": "Is there a black wire pet crate next to it?",
+   "attr": "pet crate next to bed",
+   "truth": {
+    "c0": false,
+    "c1": false,
+    "c2": false,
+    "c3": true
+   },
+   "source": "curated"
+  },
+  {
+   "id": "q8",
+   "text": "Is there a navy pillow with a white anchor on it?",
+   "attr": "anchor pillow",
+   "truth": {
+    "c0": false,
+    "c1": false,
+    "c2": true,
+    "c3": false
+   },
+   "source": "curated"
+  },
+  {
+   "id": "q9",
+   "text": "Is the bedding mostly white?",
+   "attr": "white bedding",
+   "truth": {
+    "c0": false,
+    "c1": false,
+    "c2": true,
+    "c3": false
+   },
+   "source": "curated"
+  },
+  {
+   "id": "q10",
+   "text": "Is the wall behind it painted bright teal?",
+   "attr": "teal accent wall",
+   "truth": {
+    "c0": false,
+    "c1": false,
+    "c2": true,
+    "c3": false
+   },
+   "source": "curated"
+  },
+  {
+   "id": "q11",
+   "text": "Is it on a carpeted floor?",
+   "attr": "carpeted floor",
+   "truth": {
+    "c0": true,
+    "c1": true,
+    "c2": true,
+    "c3": true
+   },
+   "source": "curated"
+  },
+  {
+   "id": "q12",
+   "text": "Is it a bunk bed?",
+   "attr": "bunk bed",
+   "truth": {
+    "c0": false,
+    "c1": false,
+    "c2": false,
+    "c3": false
+   },
+   "source": "curated"
+  }
+ ],
+ "procompnav": {
+  "n_questions": 2,
+  "steps": [
+   {
+    "question_id": "q1",
+    "attr": "black bench under bed",
+    "answer": false,
+    "remaining": [
+     "c2",
+     "c3"
+    ]
+   },
+   {
+    "question_id": "q2",
+    "attr": "brown textured pillow on bed",
+    "answer": false,
+    "remaining": [
+     "c3"
+    ]
+   }
+  ],
+  "rcj_time_sec": 6.45,
+  "rcj_time_source": "pbp_total_time_sec from the paper run log (CoIN-Bench Val Seen, 2x RTX 3090, Qwen3-VL-8B); includes LLM/NLI and the simulated user answers"
+ },
+ "notes": "Same house as bed_ep152. c0 and c1 are the same master bed (blue-gray pintuck comforter, dark leather bench at the foot, black rug); c1's single wide view also shows a second, damask-covered bed in the back, but the prominent bed is the master bed and the MLLM caption (blue quilted comforter next to a black bench) matches it, so c1 is labeled as the master bed. c3 (target) has one view through a doorway; the bed is small but clearly the soccer patchwork bed of the target photo. Answer check (Claude): Q1 'black bench under bed' = No is correct: the target bed has no bench at its foot (storage drawers only). Q2 'brown textured pillow on bed' = No is correct: its pillows are a soccer-ball pillow, plaid and navy patterned shams; the brown fuzzy pillow belongs to the nautical bed (c2). Log pruning matches the truth table: Q1 leaves {c2,c3}, Q2 leaves {c3}. ProCompNav ended via PBP_FALLBACK_SINGLE_CANDIDATE. Master-bed pillows are gray, cream and greige (not brown), so the brown-pillow truth is false for c0/c1."
+}

@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>You vs ProCompNav</title>
+<meta name="description" content="You vs ProCompNav. Can you beat ProCompNav? A mini-game from the NeurIPS 2026 Oral paper: find the right object with fewer yes/no questions than the robot.">
+<meta name="color-scheme" content="light dark">
+<!-- ===== Link preview (Open Graph / Twitter). og:url and og:image MUST be absolute URLs on the final host:
+     replace https://tree-jhk.github.io/procompnav/game/ below (2 places) with the public URL of this folder. ===== -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="You vs ProCompNav">
+<meta property="og:description" content="Can you beat a NeurIPS 2026 robot? Find the hidden target with as few yes/no questions as you can.">
+<meta property="og:url" content="https://tree-jhk.github.io/procompnav/game/">
+<meta property="og:image" content="https://tree-jhk.github.io/procompnav/game/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="You vs ProCompNav: four cabinet photos, one is the hidden target.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="You vs ProCompNav">
+<meta name="twitter:description" content="Can you beat a NeurIPS 2026 robot? Find the hidden target with as few yes/no questions as you can.">
+<!-- twitter:image falls back to og:image -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jersey+10&family=Nunito:wght@500;700;800;900&display=swap">
+<link rel="stylesheet" href="game.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to game</a>
+
+<header class="topbar">
+  <div class="topbar-in">
+    <button type="button" class="brand" id="brand" aria-label="You vs ProCompNav: back to start">
+      <span class="brand-cube" aria-hidden="true"></span><span class="brand-txt">You <b>vs</b> ProCompNav</span>
+    </button>
+    <div class="topbar-right">
+      <a class="mini-link" id="open-full" href="index.html" target="_blank" rel="noopener" hidden>Full screen</a>
+      <button type="button" class="icon-btn" id="theme-btn" aria-label="Switch color theme">
+        <svg viewBox="0 0 16 16" aria-hidden="true" shape-rendering="crispEdges"><path d="M7 1h2v2H7zM7 13h2v2H7zM1 7h2v2H1zM13 7h2v2h-2zM3 3h2v2H3zM11 3h2v2h-2zM3 11h2v2H3zM11 11h2v2h-2zM5 5h6v6H5z"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============ TITLE ============ -->
+  <section class="screen" id="screen-title" aria-labelledby="title-h">
+    <div class="hero">
+      <p class="eyebrow">A mini-game from the NeurIPS 2026 Oral paper <b>ProCompNav</b></p>
+      <h1 id="title-h" class="title" tabindex="-1">
+        <span class="t-you">You</span>
+        <span class="t-vs" aria-hidden="true">vs</span><span class="sr-only">versus</span>
+        <span class="t-bot">ProCompNav</span>
+      </h1>
+      <p class="tagline">Can you beat ProCompNav?</p>
+      <div class="hero-faces" aria-hidden="true">
+        <span class="face-chip you" data-avatar="you"></span>
+        <span class="face-chip human" data-avatar="human"></span>
+        <span class="face-chip bot" data-avatar="bot"></span>
+      </div>
+    </div>
+
+    <ol class="rules" aria-label="How to play">
+      <li><span class="rule-n">1</span><span>Someone asks for <q>the cabinet</q>. There are several. Only one is right.</span></li>
+      <li><span class="rule-n">2</span><span>Ask yes/no questions. Cards that don't match flip over.</span></li>
+      <li><span class="rule-n">3</span><span>Go to the right one using fewer questions than the robot.</span></li>
+    </ol>
+
+    <div class="start-row">
+      <button type="button" class="btn btn-go btn-xl" id="warmup-btn" hidden>
+        <span>Warm-up round</span><small id="warmup-sub">The paper's 4 cabinets</small>
+      </button>
+    </div>
+
+    <div class="picker" id="picker" hidden>
+      <h2 class="h2">Pick an object</h2>
+      <p class="muted small">Real episodes from CoIN-Bench. More cards = harder.</p>
+      <div class="cat-grid" id="cat-grid"></div>
+      <div class="round-pills" id="round-pills" hidden></div>
+    </div>
+
+    <div class="tally" id="tally-title" aria-live="polite"></div>
+    <p class="load-msg" id="load-msg" role="alert" hidden></p>
+  </section>
+
+  <!-- ============ ROUND ============ -->
+  <section class="screen" id="screen-round" aria-labelledby="round-h" hidden>
+    <div class="statusbar" id="statusbar">
+      <div class="stat stat-q"><span class="stat-k">Questions</span><span class="stat-v" id="q-count">0</span></div>
+      <div class="stat stat-hearts"><span class="stat-k">Patience</span><span class="hearts" id="hearts" role="img" aria-label="Patience"></span></div>
+      <div class="stat stat-left"><span class="stat-k">Cards left</span><span class="pips" id="pips" role="img" aria-label="Cards left"></span></div>
+    </div>
+
+    <h2 class="sr-only" id="round-h" tabindex="-1">Round</h2>
+    <div class="scene">
+      <div class="who human-who">
+        <span class="avatar" id="human-avatar" data-avatar="human"></span>
+        <div class="bubble bubble-human" id="request-bubble"><b>User:</b> <span id="query-text">Find the cabinet.</span></div>
+      </div>
+      <div class="rival" id="rival">
+        <span class="avatar sm" data-avatar="bot"></span>
+        <span class="rival-txt">ProCompNav solved this in <span class="rival-q" id="rival-q">?</span> questions</span>
+      </div>
+    </div>
+
+    <div class="board">
+      <div class="board-main">
+        <p class="board-hint muted small" id="board-hint">Tap a photo to see every view. Tap <b>Go here</b> when you're sure.</p>
+        <ul class="cards" id="cards" aria-label="Candidates"></ul>
+      </div>
+
+      <aside class="board-side" aria-label="Questions">
+        <div class="chat" id="chat" aria-live="polite">
+          <div class="msg msg-you" id="msg-you" hidden><span class="avatar xs" data-avatar="you"></span><span class="bubble bubble-you" id="msg-you-txt"></span></div>
+          <div class="msg msg-human" id="msg-human" hidden><span class="avatar xs" id="msg-human-av" data-avatar="human"></span><span class="bubble bubble-human" id="msg-human-txt"></span></div>
+        </div>
+        <ol class="asked-log" id="asked-log" aria-label="Asked so far" hidden></ol>
+        <h3 class="h3" id="bank-h">Ask the user</h3>
+        <div class="bank" id="bank" role="group" aria-labelledby="bank-h"></div>
+        <p class="bank-note muted small" id="bank-note">Every question costs one heart. After each answer, questions that can no longer split the cards left disappear.</p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ============ RESULT ============ -->
+  <section class="screen" id="screen-result" aria-labelledby="verdict-h" hidden>
+    <div class="verdict" id="verdict">
+      <h2 class="verdict-h" id="verdict-h" tabindex="-1"></h2>
+      <p class="verdict-line" id="verdict-line"></p>
+      <div class="score">
+        <div class="score-side you"><span class="avatar" data-avatar="you"></span><span class="score-name">You</span><span class="score-n" id="score-you">0</span></div>
+        <span class="score-vs" aria-hidden="true">vs</span>
+        <div class="score-side bot"><span class="avatar" data-avatar="bot"></span><span class="score-name">ProCompNav</span><span class="score-n" id="score-bot">0</span></div>
+      </div>
+      <div class="time-race" id="time-line"></div>
+      <img class="card-preview" id="card-preview" alt="Your result card: a scoreboard of your questions versus the robot's" hidden>
+      <div class="share-row">
+        <button type="button" class="btn btn-share" id="share-btn">
+          <svg viewBox="0 0 16 16" aria-hidden="true" shape-rendering="crispEdges"><path d="M7 1h2v2H7zM5 3h2v2H5zM9 3h2v2H9zM7 3h2v8H7zM2 7h2v7H2zM12 7h2v7h-2zM4 12h8v2H4z"/></svg>
+          Share result
+        </button>
+        <button type="button" class="btn btn-ghost" id="save-btn" hidden>Save image</button>
+      </div>
+      <div class="share-box" id="share-box" hidden>
+        <label for="share-text">Copy this and send it to a friend:</label>
+        <textarea id="share-text" rows="7" readonly></textarea>
+      </div>
+      <div class="tally" id="tally-result"></div>
+    </div>
+
+    <div class="reveal">
+      <figure class="target-fig">
+        <figcaption id="target-cap">The user meant this one</figcaption>
+        <div class="target-photos" id="target-photos"></div>
+      </figure>
+
+      <div class="replay">
+        <div class="replay-head">
+          <h3 class="h3">Question by question</h3>
+          <button type="button" class="btn btn-sm" id="replay-btn">Replay</button>
+        </div>
+        <div class="paths">
+          <div class="path you"><h4 class="path-h"><span class="avatar xs" data-avatar="you"></span>You</h4><ol class="steps" id="steps-you"></ol></div>
+          <div class="path bot"><h4 class="path-h"><span class="avatar xs" data-avatar="bot"></span>ProCompNav</h4><ol class="steps" id="steps-bot"></ol></div>
+        </div>
+        <p class="muted small" id="best-note"></p>
+      </div>
+    </div>
+
+    <div class="lesson">
+      <p class="lesson-big">Questions that split the pool remove many cards at once — that's <b>Recursive Comparative Judgment</b>.</p>
+      <p class="small">ProCompNav first collects every candidate, then asks short yes/no questions that split the pool until one is left. On CoIN-Bench Val Seen it asks 2.2 questions on average (when it asks), and the user replies with 4.2 tokens per episode — versus 460.2 when an agent asks an open question about each candidate.</p>
+      <p class="links">
+        <a class="btn btn-sm btn-ghost" href="https://arxiv.org/abs/2605.06223" target="_blank" rel="noopener">Paper (arXiv 2605.06223)</a>
+        <a class="btn btn-sm btn-ghost" href="https://github.com/ml-postech/ProCompNav" target="_blank" rel="noopener">Code on GitHub</a>
+      </p>
+    </div>
+
+    <div class="result-actions">
+      <button type="button" class="btn btn-go" id="next-btn">Next round</button>
+      <button type="button" class="btn" id="again-btn">Play again</button>
+      <button type="button" class="btn btn-ghost" id="home-btn">All rounds</button>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <p>From <a href="https://arxiv.org/abs/2605.06223" target="_blank" rel="noopener">ProCompNav: Proactive Instance Navigation with Comparative Judgment for Ambiguous User Queries</a> (NeurIPS 2026 Oral) · <a href="https://github.com/ml-postech/ProCompNav" target="_blank" rel="noopener">code</a>.
+  Rounds are real CoIN-Bench Val Seen episodes; the robot's questions come from the paper's run.</p>
+</footer>
+
+<dialog class="lightbox" id="lightbox" aria-labelledby="lb-title">
+  <div class="lb-in">
+    <div class="lb-head">
+      <h2 class="lb-title" id="lb-title">Card A</h2>
+      <button type="button" class="icon-btn" id="lb-close" aria-label="Close">
+        <svg viewBox="0 0 16 16" aria-hidden="true" shape-rendering="crispEdges"><path d="M2 2h2v2H2zM4 4h2v2H4zM6 6h4v4H6zM10 4h2v2h-2zM12 2h2v2h-2zM4 10h2v2H4zM2 12h2v2H2zM10 10h2v2h-2zM12 12h2v2h-2z"/></svg>
+      </button>
+    </div>
+    <div class="lb-stage">
+      <button type="button" class="icon-btn lb-nav" id="lb-prev" aria-label="Previous view">
+        <svg viewBox="0 0 16 16" aria-hidden="true" shape-rendering="crispEdges"><path d="M9 2h2v2H9zM7 4h2v2H7zM5 6h2v4H5zM7 10h2v2H7zM9 12h2v2H9z"/></svg>
+      </button>
+      <img id="lb-img" alt="">
+      <button type="button" class="icon-btn lb-nav" id="lb-next" aria-label="Next view">
+        <svg viewBox="0 0 16 16" aria-hidden="true" shape-rendering="crispEdges"><path d="M5 2h2v2H5zM7 4h2v2H7zM9 6h2v4H9zM7 10h2v2H7zM5 12h2v2H5z"/></svg>
+      </button>
+    </div>
+    <p class="lb-count muted small" id="lb-count"></p>
+    <div class="lb-thumbs" id="lb-thumbs"></div>
+    <div class="lb-actions">
+      <button type="button" class="btn btn-go" id="lb-go">Go here</button>
+      <button type="button" class="btn btn-ghost" id="lb-close2">Back</button>
+    </div>
+  </div>
+</dialog>
+
+<div class="toast" id="toast" aria-hidden="true"><span class="toast-big" id="toast-big"></span><span class="toast-small" id="toast-small"></span></div>
+<div class="sr-only" id="sr-live" aria-live="assertive"></div>
+
+<noscript><p class="noscript">This game needs JavaScript.</p></noscript>
+<script src="game.js" defer></script>
+</body>
+</html>

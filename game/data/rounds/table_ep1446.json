@@ -1,0 +1,219 @@
+{
+ "id": "table_ep1446",
+ "category": "table",
+ "episode": 1446,
+ "source": "CoIN-Bench Val Seen, ProCompNav paper run",
+ "query": "Find the table.",
+ "candidates": [
+  {
+   "id": "c0",
+   "group": "group_000_merged",
+   "img": "img/table_ep1446/c0_v0.jpg",
+   "views": [
+    "img/table_ep1446/c0_v0.jpg",
+    "img/table_ep1446/c0_v1.jpg",
+    "img/table_ep1446/c0_v2.jpg",
+    "img/table_ep1446/c0_v3.jpg"
+   ],
+   "caption": "The table has a brownish-gray granite top with a speckled pattern and a rectangular shape. It is supported by white cabinetry underneath. Next to the table, there is a black stove under which the table is positioned. A silver microwave is mounted above the stove, next to the table. A large window with blinds is located behind the table, and a brown leather couch is situated to the right of the table."
+  },
+  {
+   "id": "c1",
+   "group": "group_001_merged",
+   "img": "img/table_ep1446/c1_v0.jpg",
+   "views": [
+    "img/table_ep1446/c1_v0.jpg",
+    "img/table_ep1446/c1_v1.jpg"
+   ],
+   "caption": "The table is dark brown and rectangular with a lower shelf. A small orange box is on top of the table. Two black cylindrical stools are next to the table. A brown couch is next to the table. A light gray rug is under the table."
+  },
+  {
+   "id": "c2",
+   "group": "group_002_merged",
+   "img": "img/table_ep1446/c2_v0.jpg",
+   "views": [
+    "img/table_ep1446/c2_v0.jpg"
+   ],
+   "caption": "The table is brown and rectangular. A blue object is on top of the table. A white tray is under the table."
+  },
+  {
+   "id": "c3",
+   "group": "group_003_merged",
+   "img": "img/table_ep1446/c3_v0.jpg",
+   "views": [
+    "img/table_ep1446/c3_v0.jpg"
+   ],
+   "caption": "The table is brown and rectangular. A refrigerator is next to the table. A cabinet is next to the refrigerator. A door is next to the cabinet."
+  },
+  {
+   "id": "c4",
+   "group": "group_004_merged",
+   "img": "img/table_ep1446/c4_v1.jpg",
+   "views": [
+    "img/table_ep1446/c4_v0.jpg",
+    "img/table_ep1446/c4_v1.jpg",
+    "img/table_ep1446/c4_v2.jpg",
+    "img/table_ep1446/c4_v3.jpg"
+   ],
+   "caption": "The table is brown and rectangular. It has a wooden surface and four legs. Next to the table are chairs that are brown and have wooden backs. One chair is under the table, and another chair is next to the table."
+  }
+ ],
+ "target": "c4",
+ "target_photo": "img/table_ep1446/target.jpg",
+ "questions": [
+  {
+   "id": "q1",
+   "text": "Are there chairs around it?",
+   "attr": "nearby chairs",
+   "truth": {
+    "c0": false,
+    "c1": false,
+    "c2": false,
+    "c3": false,
+    "c4": true
+   },
+   "source": "procompnav_asked"
+  },
+  {
+   "id": "q2",
+   "text": "Are there two black round stools near it?",
+   "attr": "two black cylindrical stools nearby",
+   "truth": {
+    "c0": false,
+    "c1": true,
+    "c2": false,
+    "c3": false,
+    "c4": false
+   },
+   "source": "procompnav_asked"
+  },
+  {
+   "id": "q3",
+   "text": "Does it have a stone (granite) top?",
+   "attr": "granite top",
+   "truth": {
+    "c0": true,
+    "c1": false,
+    "c2": true,
+    "c3": true,
+    "c4": false
+   },
+   "source": "curated"
+  },
+  {
+   "id": "q4",
+   "text": "Is the top made of wood?",
+   "attr": "wooden top",
+   "truth": {
+    "c0": false,
+    "c1": true,
+    "c2": false,
+    "c3": false,
+    "c4": true
+   },
+   "source": "curated"
+  },
+  {
+   "id": "q5",
+   "text": "Is it a low coffee table?",
+   "attr": "low coffee table",
+   "truth": {
+    "c0": false,
+    "c1": true,
+    "c2": false,
+    "c3": false,
+    "c4": false
+   },
+   "source": "curated"
+  },
+  {
+   "id": "q6",
+   "text": "Is there a pet bowl under it?",
+   "attr": "pet bowl under",
+   "truth": {
+    "c0": false,
+    "c1": false,
+    "c2": true,
+    "c3": false,
+    "c4": false
+   },
+   "source": "curated"
+  },
+  {
+   "id": "q7",
+   "text": "Is there a stove right beside it?",
+   "attr": "stove beside",
+   "truth": {
+    "c0": false,
+    "c1": false,
+    "c2": true,
+    "c3": false,
+    "c4": false
+   },
+   "source": "curated"
+  },
+  {
+   "id": "q8",
+   "text": "Is there a dark gray wall right next to it?",
+   "attr": "dark gray wall nearby",
+   "truth": {
+    "c0": true,
+    "c1": true,
+    "c2": true,
+    "c3": true,
+    "c4": false
+   },
+   "source": "curated"
+  },
+  {
+   "id": "q9",
+   "text": "Is it on a wooden floor?",
+   "attr": "wood floor",
+   "truth": {
+    "c0": true,
+    "c1": true,
+    "c2": true,
+    "c3": true,
+    "c4": true
+   },
+   "source": "curated"
+  },
+  {
+   "id": "q10",
+   "text": "Is it round?",
+   "attr": "round",
+   "truth": {
+    "c0": false,
+    "c1": false,
+    "c2": false,
+    "c3": false,
+    "c4": false
+   },
+   "source": "curated"
+  }
+ ],
+ "procompnav": {
+  "n_questions": 2,
+  "steps": [
+   {
+    "question_id": "q1",
+    "attr": "nearby chairs",
+    "answer": true,
+    "remaining": [
+     "c4"
+    ]
+   },
+   {
+    "question_id": "q2",
+    "attr": "two black cylindrical stools nearby",
+    "answer": false,
+    "remaining": [
+     "c4"
+    ]
+   }
+  ],
+  "rcj_time_sec": 4.5,
+  "rcj_time_source": "pbp_total_time_sec from the paper run log (CoIN-Bench Val Seen, 2x RTX 3090, Qwen3-VL-8B); includes LLM/NLI and the simulated user answers"
+ },
+ "notes": "Answers checked against target photo (wooden dining table with slatted wooden chairs): (1) nearby chairs = Yes. (2) two black cylindrical stools = No: those ottoman-stools stand by the living-room coffee table (c1). Pruning differs from the log: the log kept c1 after Q1 (its caption mentions stools), but the stools are not chairs, so under this truth table Q1 already leaves only c4 and Q2 just confirms it. c3 is a granite counter beside the refrigerator, about 1 m from the island (c0). Group positions put it about 4.7 m from the dining table, so the dining chairs seen in the background of its view are not 'around it'. Same house as ep 1447/1452, which were rejected."
+}

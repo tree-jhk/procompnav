@@ -1,0 +1,47 @@
+{
+  "id": "demo_teaser",
+  "category": "cabinet",
+  "demo": true,
+  "title": "Warm-up: the paper's 4 cabinets",
+  "episode": null,
+  "source": "ProCompNav paper teaser figure",
+  "query": "Find the cabinet.",
+  "candidates": [
+    {"id": "c0", "group": "teaser_A", "img": "img/demo_teaser/c0.jpg", "views": ["img/demo_teaser/c0.jpg"],
+     "caption": "White bathroom vanity cabinet under a mirror."},
+    {"id": "c1", "group": "teaser_B", "img": "img/demo_teaser/c1.jpg", "views": ["img/demo_teaser/c1.jpg"],
+     "caption": "Dark wood cabinet with a TV on top, in a bedroom."},
+    {"id": "c2", "group": "teaser_C", "img": "img/demo_teaser/c2.jpg", "views": ["img/demo_teaser/c2.jpg"],
+     "caption": "Dark wood bathroom vanity cabinet under a mirror."},
+    {"id": "c3", "group": "teaser_D", "img": "img/demo_teaser/c3.jpg", "views": ["img/demo_teaser/c3.jpg"],
+     "caption": "White dresser with a TV on top, in a bedroom."}
+  ],
+  "target": "c2",
+  "target_photo": "img/demo_teaser/c2.jpg",
+  "questions": [
+    {"id": "q1", "text": "Is it wood-tone?", "attr": "wood-tone",
+     "truth": {"c0": false, "c1": true, "c2": true, "c3": false}, "source": "procompnav_asked"},
+    {"id": "q2", "text": "Is there a TV on top?", "attr": "TV on top",
+     "truth": {"c0": false, "c1": true, "c2": false, "c3": true}, "source": "procompnav_asked"},
+    {"id": "q3", "text": "Is it under a mirror?", "attr": "near a mirror",
+     "truth": {"c0": true, "c1": false, "c2": true, "c3": false}, "source": "curated"},
+    {"id": "q4", "text": "Is it in a bathroom?", "attr": "in a bathroom",
+     "truth": {"c0": true, "c1": false, "c2": true, "c3": false}, "source": "curated"},
+    {"id": "q5", "text": "Is it white?", "attr": "white",
+     "truth": {"c0": true, "c1": false, "c2": false, "c3": true}, "source": "curated"},
+    {"id": "q6", "text": "Is there a bed nearby?", "attr": "bed nearby",
+     "truth": {"c0": false, "c1": true, "c2": false, "c3": true}, "source": "curated"},
+    {"id": "q7", "text": "Is there a plant on it?", "attr": "plant on top",
+     "truth": {"c0": true, "c1": false, "c2": false, "c3": false}, "source": "curated"},
+    {"id": "q8", "text": "Does it have doors?", "attr": "has doors",
+     "truth": {"c0": true, "c1": true, "c2": true, "c3": false}, "source": "curated"}
+  ],
+  "procompnav": {
+    "n_questions": 2,
+    "steps": [
+      {"question_id": "q1", "attr": "wood-tone", "answer": true, "remaining": ["c1", "c2"]},
+      {"question_id": "q2", "attr": "TV on top", "answer": false, "remaining": ["c2"]}
+    ]
+  },
+  "notes": "Teaser figure of the paper (A=c0, B=c1, C=c2 target, D=c3). Single view per card; target photo = card C. Curated truths checked by eye: A has a plant and a mirror; B has side doors plus drawers; D is drawers only."
+}

@@ -1,0 +1,40 @@
+{
+ "rounds": {
+  "bed_ep143": {
+   "max_y": 5,
+   "robot_q": 2
+  },
+  "cabinet_ep1616": {
+   "max_y": 5,
+   "robot_q": 2
+  },
+  "cabinet_ep477": {
+   "max_y": 5,
+   "robot_q": 2
+  },
+  "cabinet_ep505": {
+   "max_y": 5,
+   "robot_q": 2
+  },
+  "demo_teaser": {
+   "max_y": 5,
+   "robot_q": 2
+  },
+  "desk_ep530": {
+   "max_y": 5,
+   "robot_q": 2
+  },
+  "table_ep1028": {
+   "max_y": 6,
+   "robot_q": 3
+  },
+  "table_ep1446": {
+   "max_y": 5,
+   "robot_q": 2
+  },
+  "table_ep1468": {
+   "max_y": 5,
+   "robot_q": 2
+  }
+ }
+}

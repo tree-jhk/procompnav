@@ -1,0 +1,238 @@
+{
+ "id": "cabinet_ep1616",
+ "category": "cabinet",
+ "episode": 1616,
+ "source": "CoIN-Bench Val Seen, ProCompNav paper run",
+ "query": "Find the cabinet.",
+ "candidates": [
+  {
+   "id": "c0",
+   "group": "group_000_merged",
+   "img": "img/cabinet_ep1616/c0_v2.jpg",
+   "views": [
+    "img/cabinet_ep1616/c0_v0.jpg",
+    "img/cabinet_ep1616/c0_v1.jpg",
+    "img/cabinet_ep1616/c0_v2.jpg",
+    "img/cabinet_ep1616/c0_v3.jpg",
+    "img/cabinet_ep1616/c0_v4.jpg"
+   ],
+   "caption": "The cabinet is a wooden dresser with a curved top edge and multiple drawers. It has a warm brown color and ornate metal handles.\n\nOn top of the cabinet is a lamp with a white, rounded base and a white lampshade. The cabinet is next to a white table, which is positioned in front of it. The cabinet is also next to a window with patterned curtains."
+  },
+  {
+   "id": "c1",
+   "group": "group_001_merged",
+   "img": "img/cabinet_ep1616/c1_v1.jpg",
+   "views": [
+    "img/cabinet_ep1616/c1_v0.jpg",
+    "img/cabinet_ep1616/c1_v1.jpg",
+    "img/cabinet_ep1616/c1_v2.jpg",
+    "img/cabinet_ep1616/c1_v3.jpg"
+   ],
+   "caption": "The cabinet is light blue with a rectangular shape and vertical slats. It is next to a bed, with a lamp on top of it."
+  },
+  {
+   "id": "c2",
+   "group": "group_002_merged",
+   "img": "img/cabinet_ep1616/c2_v0.jpg",
+   "views": [
+    "img/cabinet_ep1616/c2_v0.jpg",
+    "img/cabinet_ep1616/c2_v1.jpg"
+   ],
+   "caption": "The cabinet is dark blue and rectangular. It has a flat top surface and straight sides. On top of the cabinet, there is a white countertop. Next to the cabinet, there is a white toilet. Under the cabinet, there is no visible object."
+  },
+  {
+   "id": "c3",
+   "group": "group_003_merged",
+   "img": "img/cabinet_ep1616/c3_v0.jpg",
+   "views": [
+    "img/cabinet_ep1616/c3_v0.jpg",
+    "img/cabinet_ep1616/c3_v1.jpg"
+   ],
+   "caption": "The cabinet is white and rectangular. It is next to a white bench, which is under a row of windows. A painting is on the wall next to the cabinet."
+  },
+  {
+   "id": "c4",
+   "group": "group_004_merged",
+   "img": "img/cabinet_ep1616/c4_v1.jpg",
+   "views": [
+    "img/cabinet_ep1616/c4_v0.jpg",
+    "img/cabinet_ep1616/c4_v1.jpg",
+    "img/cabinet_ep1616/c4_v2.jpg",
+    "img/cabinet_ep1616/c4_v3.jpg"
+   ],
+   "caption": "The cabinet is white and has a rectangular shape with three drawers.\n\nA vase is on top of the cabinet. A painting is on top of the vase. The cabinet is next to a wall. The cabinet is next to a staircase."
+  }
+ ],
+ "target": "c4",
+ "target_photo": "img/cabinet_ep1616/target.jpg",
+ "questions": [
+  {
+   "id": "q1",
+   "text": "Is it white?",
+   "attr": "white color",
+   "truth": {
+    "c0": false,
+    "c1": false,
+    "c2": false,
+    "c3": true,
+    "c4": true
+   },
+   "source": "procompnav_asked"
+  },
+  {
+   "id": "q2",
+   "text": "Is it right next to a chair, sofa or bench?",
+   "attr": "cabinet positioned beside seating",
+   "truth": {
+    "c0": false,
+    "c1": false,
+    "c2": false,
+    "c3": true,
+    "c4": false
+   },
+   "source": "procompnav_asked"
+  },
+  {
+   "id": "q3",
+   "text": "Is there a lamp on top of it?",
+   "attr": "lamp on top",
+   "truth": {
+    "c0": true,
+    "c1": true,
+    "c2": false,
+    "c3": false,
+    "c4": false
+   },
+   "source": "curated"
+  },
+  {
+   "id": "q4",
+   "text": "Is it in a hallway with a staircase?",
+   "attr": "staircase hallway",
+   "truth": {
+    "c0": false,
+    "c1": false,
+    "c2": false,
+    "c3": true,
+    "c4": true
+   },
+   "source": "curated"
+  },
+  {
+   "id": "q5",
+   "text": "Is it in a bathroom?",
+   "attr": "in bathroom",
+   "truth": {
+    "c0": false,
+    "c1": false,
+    "c2": true,
+    "c3": false,
+    "c4": false
+   },
+   "source": "curated"
+  },
+  {
+   "id": "q6",
+   "text": "Is it made of brown, natural-looking wood?",
+   "attr": "brown natural wood",
+   "truth": {
+    "c0": true,
+    "c1": false,
+    "c2": false,
+    "c3": false,
+    "c4": false
+   },
+   "source": "curated"
+  },
+  {
+   "id": "q7",
+   "text": "Does it have slatted (louvered) doors?",
+   "attr": "louvered doors",
+   "truth": {
+    "c0": false,
+    "c1": true,
+    "c2": false,
+    "c3": false,
+    "c4": false
+   },
+   "source": "curated"
+  },
+  {
+   "id": "q8",
+   "text": "Is it in a bedroom?",
+   "attr": "in bedroom",
+   "truth": {
+    "c0": true,
+    "c1": true,
+    "c2": false,
+    "c3": false,
+    "c4": false
+   },
+   "source": "curated"
+  },
+  {
+   "id": "q9",
+   "text": "Is it a small nightstand right beside a bed?",
+   "attr": "nightstand beside bed",
+   "truth": {
+    "c0": false,
+    "c1": true,
+    "c2": false,
+    "c3": false,
+    "c4": false
+   },
+   "source": "curated"
+  },
+  {
+   "id": "q10",
+   "text": "Is it bright red?",
+   "attr": "red color",
+   "truth": {
+    "c0": false,
+    "c1": false,
+    "c2": false,
+    "c3": false,
+    "c4": false
+   },
+   "source": "curated"
+  },
+  {
+   "id": "q11",
+   "text": "Is it taller than a person?",
+   "attr": "taller than a person",
+   "truth": {
+    "c0": false,
+    "c1": false,
+    "c2": false,
+    "c3": false,
+    "c4": false
+   },
+   "source": "curated"
+  }
+ ],
+ "procompnav": {
+  "n_questions": 2,
+  "steps": [
+   {
+    "question_id": "q1",
+    "attr": "white color",
+    "answer": true,
+    "remaining": [
+     "c3",
+     "c4"
+    ]
+   },
+   {
+    "question_id": "q2",
+    "attr": "cabinet positioned beside seating",
+    "answer": false,
+    "remaining": [
+     "c4"
+    ]
+   }
+  ],
+  "rcj_time_sec": 5.79,
+  "rcj_time_source": "pbp_total_time_sec from the paper run log (CoIN-Bench Val Seen, 2x RTX 3090, Qwen3-VL-8B); includes LLM/NLI and the simulated user answers"
+ },
+ "notes": "ProCompNav answers checked against the target photo (white distressed 3-drawer chest with a vase on top, under a colorful painting, at the foot of the staircase; c4 views show the same chest by the stairs): (1) white color = Yes: the chest is painted white. (2) beside seating = No: it stands alone in a stair nook, no chair, sofa or bench next to it. Truth table follows the log's pruning exactly ([c3,c4] then [c4]). Labeling notes: c1 is a pale blue-gray louvered nightstand, labeled NOT white (it reads clearly bluish next to the white doors/trim; this is the one judgement call that matters for the log path). c3's 'cabinet' is the white cubby storage under the mudroom bench, so it counts as next to seating (it is part of a bench). c2 is a navy bathroom vanity next to a toilet; the toilet is not counted as a chair/sofa/bench. c0 is a brown wood dresser with a lamp, next to a white desk and windows."
+}

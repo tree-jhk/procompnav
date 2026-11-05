@@ -1,0 +1,225 @@
+{
+ "id": "cabinet_ep505",
+ "category": "cabinet",
+ "episode": 505,
+ "source": "CoIN-Bench Val Seen, ProCompNav paper run",
+ "query": "Find the cabinet.",
+ "candidates": [
+  {
+   "id": "c0",
+   "group": "group_000_merged",
+   "img": "img/cabinet_ep505/c0_v0.jpg",
+   "views": [
+    "img/cabinet_ep505/c0_v0.jpg",
+    "img/cabinet_ep505/c0_v1.jpg",
+    "img/cabinet_ep505/c0_v2.jpg",
+    "img/cabinet_ep505/c0_v3.jpg"
+   ],
+   "caption": "The cabinet is white and has a rectangular shape with arched panel doors. It is mounted on the wall and has a flat top surface.\n\nThe cabinet is next to a white refrigerator, which is partially visible to its left. The cabinet is also next to a white wall with white brick texture, which is to its right. A black chair is under the cabinet, positioned in front of it. A wooden table is next to the chair and also under the cabinet. A black chest of drawers is next to the cabinet, positioned on the right side of the room."
+  },
+  {
+   "id": "c1",
+   "group": "group_001_merged",
+   "img": "img/cabinet_ep505/c1_v2.jpg",
+   "views": [
+    "img/cabinet_ep505/c1_v0.jpg",
+    "img/cabinet_ep505/c1_v1.jpg",
+    "img/cabinet_ep505/c1_v2.jpg"
+   ],
+   "caption": "The cabinet is white and has a rectangular shape with arched panel doors. It is mounted on the wall and has a flat top surface.\n\nThe cabinet is next to a white door, which is also rectangular. A black refrigerator is next to the cabinet, positioned to its left. A yellow shelf unit is under the cabinet, and a patterned floor is under both the cabinet and the refrigerator."
+  },
+  {
+   "id": "c2",
+   "group": "group_002_merged",
+   "img": "img/cabinet_ep505/c2_v0.jpg",
+   "views": [
+    "img/cabinet_ep505/c2_v0.jpg",
+    "img/cabinet_ep505/c2_v1.jpg"
+   ],
+   "caption": "The cabinet is a long, rectangular table with a light yellow top and dark brown wooden legs. It is positioned against a white brick wall.\n\nNext to the cabinet, there is a dark gray sofa. The sofa is located on the left side of the cabinet, and the cabinet is next to the sofa. Under the cabinet, there are two small round tables with light yellow tops and wooden legs. These tables are placed in front of the cabinet."
+  },
+  {
+   "id": "c3",
+   "group": "group_003_merged",
+   "img": "img/cabinet_ep505/c3_v0.jpg",
+   "views": [
+    "img/cabinet_ep505/c3_v0.jpg",
+    "img/cabinet_ep505/c3_v1.jpg",
+    "img/cabinet_ep505/c3_v2.jpg",
+    "img/cabinet_ep505/c3_v3.jpg"
+   ],
+   "caption": "The cabinet is dark brown and rectangular with a flat top.\n\nA wooden table is next to the cabinet. A chair is next to the cabinet. A rug is under the cabinet."
+  },
+  {
+   "id": "c4",
+   "group": "group_004_merged",
+   "img": "img/cabinet_ep505/c4_v1.jpg",
+   "views": [
+    "img/cabinet_ep505/c4_v0.jpg",
+    "img/cabinet_ep505/c4_v1.jpg",
+    "img/cabinet_ep505/c4_v2.jpg"
+   ],
+   "caption": "The cabinet is long and rectangular with a multi-toned, weathered wood finish. It has a flat top surface and vertical sides.\n\nThe cabinet is next to a white louvered door. A bed with a light gray comforter is next to the cabinet, on its right side. A patterned rug is under the cabinet."
+  }
+ ],
+ "target": "c4",
+ "target_photo": "img/cabinet_ep505/target.jpg",
+ "questions": [
+  {
+   "id": "q1",
+   "text": "Does it have arched panel doors?",
+   "attr": "arched panel doors",
+   "truth": {
+    "c0": true,
+    "c1": true,
+    "c2": false,
+    "c3": false,
+    "c4": false
+   },
+   "source": "procompnav_asked"
+  },
+  {
+   "id": "q2",
+   "text": "Is there a wooden table right beside it?",
+   "attr": "wooden table beside",
+   "truth": {
+    "c0": true,
+    "c1": true,
+    "c2": true,
+    "c3": true,
+    "c4": false
+   },
+   "source": "procompnav_asked"
+  },
+  {
+   "id": "q3",
+   "text": "Is it in a kitchen?",
+   "attr": "in kitchen",
+   "truth": {
+    "c0": true,
+    "c1": true,
+    "c2": false,
+    "c3": false,
+    "c4": false
+   },
+   "source": "curated"
+  },
+  {
+   "id": "q4",
+   "text": "Is it white?",
+   "attr": "white color",
+   "truth": {
+    "c0": true,
+    "c1": true,
+    "c2": false,
+    "c3": false,
+    "c4": false
+   },
+   "source": "curated"
+  },
+  {
+   "id": "q5",
+   "text": "Is it right next to a bed?",
+   "attr": "next to bed",
+   "truth": {
+    "c0": false,
+    "c1": false,
+    "c2": false,
+    "c3": false,
+    "c4": true
+   },
+   "source": "curated"
+  },
+  {
+   "id": "q6",
+   "text": "Is it black?",
+   "attr": "black color",
+   "truth": {
+    "c0": false,
+    "c1": false,
+    "c2": false,
+    "c3": true,
+    "c4": false
+   },
+   "source": "curated"
+  },
+  {
+   "id": "q7",
+   "text": "Is there a sofa right next to it?",
+   "attr": "sofa next to it",
+   "truth": {
+    "c0": false,
+    "c1": false,
+    "c2": true,
+    "c3": false,
+    "c4": false
+   },
+   "source": "curated"
+  },
+  {
+   "id": "q8",
+   "text": "Is there a staircase right next to it?",
+   "attr": "staircase next to it",
+   "truth": {
+    "c0": false,
+    "c1": false,
+    "c2": true,
+    "c3": false,
+    "c4": false
+   },
+   "source": "curated"
+  },
+  {
+   "id": "q9",
+   "text": "Is it in a room with white-painted brick walls?",
+   "attr": "white brick walls",
+   "truth": {
+    "c0": true,
+    "c1": true,
+    "c2": true,
+    "c3": true,
+    "c4": false
+   },
+   "source": "curated"
+  },
+  {
+   "id": "q10",
+   "text": "Is it bright red?",
+   "attr": "red color",
+   "truth": {
+    "c0": false,
+    "c1": false,
+    "c2": false,
+    "c3": false,
+    "c4": false
+   },
+   "source": "curated"
+  }
+ ],
+ "procompnav": {
+  "n_questions": 2,
+  "steps": [
+   {
+    "question_id": "q1",
+    "attr": "arched panel doors",
+    "answer": false,
+    "remaining": [
+     "c2",
+     "c3",
+     "c4"
+    ]
+   },
+   {
+    "question_id": "q2",
+    "attr": "wooden table beside",
+    "answer": false,
+    "remaining": [
+     "c4"
+    ]
+   }
+  ],
+  "rcj_time_sec": 5.97,
+  "rcj_time_source": "pbp_total_time_sec from the paper run log (CoIN-Bench Val Seen, 2x RTX 3090, Qwen3-VL-8B); includes LLM/NLI and the simulated user answers"
+ },
+ "notes": "ProCompNav answers checked against the target photo (long low cabinet with a weathered multicolor plank front, beside a bed with a lavender spread, louvered closet door behind it; c4 view 2 shows it at the foot of the bed): (1) arched panel doors = No: plain plank front, no arches. (2) wooden table beside = No: a bed is beside it, no table. Truth table follows the log's pruning exactly ([c2,c3,c4] then [c4]). c0 and c1 are two detections of the same white basement kitchenette with arched-panel doors; the round wooden dining table stands right in front of it in their views, so both are labeled 'wooden table beside'. c2 = yellow-topped console by the stairs with round wooden coffee tables in front and a sofa beside it; c3 = black nightstand next to the round wooden dining table and the sliding glass door."
+}

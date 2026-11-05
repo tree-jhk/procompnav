@@ -1,0 +1,234 @@
+{
+ "id": "table_ep1468",
+ "category": "table",
+ "episode": 1468,
+ "source": "CoIN-Bench Val Seen, ProCompNav paper run",
+ "query": "Find the table.",
+ "candidates": [
+  {
+   "id": "c0",
+   "group": "group_000_merged",
+   "img": "img/table_ep1468/c0_v0.jpg",
+   "views": [
+    "img/table_ep1468/c0_v0.jpg",
+    "img/table_ep1468/c0_v1.jpg",
+    "img/table_ep1468/c0_v2.jpg",
+    "img/table_ep1468/c0_v3.jpg",
+    "img/table_ep1468/c0_v4.jpg"
+   ],
+   "caption": "The table is dark-colored and rectangular. On top of the table, there is a white keyboard and a black laptop. Next to the table, there is a gray office chair. Under the table, there are some items that appear to be boxes or papers."
+  },
+  {
+   "id": "c1",
+   "group": "group_001_merged",
+   "img": "img/table_ep1468/c1_v0.jpg",
+   "views": [
+    "img/table_ep1468/c1_v0.jpg",
+    "img/table_ep1468/c1_v1.jpg",
+    "img/table_ep1468/c1_v2.jpg",
+    "img/table_ep1468/c1_v3.jpg"
+   ],
+   "caption": "The table is rectangular with a green playing surface and a light wood frame. Next to the table is a gray office chair. Under the table, there is a clear plastic mat. On top of the table, there are black and white game pieces."
+  },
+  {
+   "id": "c2",
+   "group": "group_002_merged",
+   "img": "img/table_ep1468/c2_v0.jpg",
+   "views": [
+    "img/table_ep1468/c2_v0.jpg"
+   ],
+   "caption": "The table is dark brown and rectangular. It is next to a bed and under a ceiling fan."
+  },
+  {
+   "id": "c3",
+   "group": "group_003_merged",
+   "img": "img/table_ep1468/c3_v0.jpg",
+   "views": [
+    "img/table_ep1468/c3_v0.jpg"
+   ],
+   "caption": "The table is dark brown and rectangular. A lamp with a white lampshade is on top of the table. The table is next to a bed."
+  },
+  {
+   "id": "c4",
+   "group": "group_004_merged",
+   "img": "img/table_ep1468/c4_card.jpg",
+   "views": [
+    "img/table_ep1468/c4_v0.jpg"
+   ],
+   "caption": "The table is rectangular and dark brown. It is next to a brown couch. A coffee table is on top of the couch."
+  }
+ ],
+ "target": "c4",
+ "target_photo": "img/table_ep1468/target.jpg",
+ "questions": [
+  {
+   "id": "q1",
+   "text": "Is it next to a bed?",
+   "attr": "next to bed",
+   "truth": {
+    "c0": false,
+    "c1": false,
+    "c2": true,
+    "c3": true,
+    "c4": false
+   },
+   "source": "procompnav_asked"
+  },
+  {
+   "id": "q2",
+   "text": "Is there an office chair right next to it?",
+   "attr": "has surrounding office chair",
+   "truth": {
+    "c0": true,
+    "c1": true,
+    "c2": false,
+    "c3": false,
+    "c4": false
+   },
+   "source": "procompnav_asked"
+  },
+  {
+   "id": "q3",
+   "text": "Is it a game table (foosball)?",
+   "attr": "foosball table",
+   "truth": {
+    "c0": false,
+    "c1": true,
+    "c2": false,
+    "c3": false,
+    "c4": false
+   },
+   "source": "curated"
+  },
+  {
+   "id": "q4",
+   "text": "Is there a laptop or computer on it?",
+   "attr": "computer on top",
+   "truth": {
+    "c0": true,
+    "c1": false,
+    "c2": false,
+    "c3": false,
+    "c4": false
+   },
+   "source": "curated"
+  },
+  {
+   "id": "q5",
+   "text": "Is there a lamp on it?",
+   "attr": "lamp on top",
+   "truth": {
+    "c0": false,
+    "c1": false,
+    "c2": false,
+    "c3": true,
+    "c4": false
+   },
+   "source": "curated"
+  },
+  {
+   "id": "q6",
+   "text": "Is it in front of a sofa?",
+   "attr": "in front of sofa",
+   "truth": {
+    "c0": false,
+    "c1": false,
+    "c2": false,
+    "c3": false,
+    "c4": true
+   },
+   "source": "curated"
+  },
+  {
+   "id": "q7",
+   "text": "Is it dark-colored?",
+   "attr": "dark color",
+   "truth": {
+    "c0": true,
+    "c1": false,
+    "c2": true,
+    "c3": true,
+    "c4": true
+   },
+   "source": "curated"
+  },
+  {
+   "id": "q8",
+   "text": "Is it right under a window?",
+   "attr": "under window",
+   "truth": {
+    "c0": true,
+    "c1": false,
+    "c2": false,
+    "c3": false,
+    "c4": false
+   },
+   "source": "curated"
+  },
+  {
+   "id": "q9",
+   "text": "Is there a tray on top?",
+   "attr": "tray on top",
+   "truth": {
+    "c0": false,
+    "c1": false,
+    "c2": false,
+    "c3": false,
+    "c4": true
+   },
+   "source": "curated"
+  },
+  {
+   "id": "q10",
+   "text": "Does it have curved, carved legs?",
+   "attr": "curved legs",
+   "truth": {
+    "c0": false,
+    "c1": false,
+    "c2": false,
+    "c3": false,
+    "c4": true
+   },
+   "source": "curated"
+  },
+  {
+   "id": "q11",
+   "text": "Is it rectangular?",
+   "attr": "rectangular",
+   "truth": {
+    "c0": true,
+    "c1": true,
+    "c2": true,
+    "c3": true,
+    "c4": true
+   },
+   "source": "curated"
+  }
+ ],
+ "procompnav": {
+  "n_questions": 2,
+  "steps": [
+   {
+    "question_id": "q1",
+    "attr": "next to bed",
+    "answer": false,
+    "remaining": [
+     "c0",
+     "c1",
+     "c4"
+    ]
+   },
+   {
+    "question_id": "q2",
+    "attr": "has surrounding office chair",
+    "answer": false,
+    "remaining": [
+     "c4"
+    ]
+   }
+  ],
+  "rcj_time_sec": 3.85,
+  "rcj_time_source": "pbp_total_time_sec from the paper run log (CoIN-Bench Val Seen, 2x RTX 3090, Qwen3-VL-8B); includes LLM/NLI and the simulated user answers"
+ },
+ "notes": "Answers checked against target photo (dark wood coffee table in front of a beige sectional, tray with remote on top): (1) next to bed = No: living room, no bed. (2) office chair = No: only a sofa around it. Truth table follows the log's pruning exactly. c1 (foosball) shares a small room with c0's desk, and the gray office chair stands right beside it in every view, so it is labeled Yes like the log did. c4's only candidate view is a far hallway shot; its card image c4_card.jpg is a zoomed crop of that view (the full view is c4_v0). Tray and curved legs are visible in the target photo."
+}
