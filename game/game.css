@@ -189,6 +189,11 @@ main { max-width: 1180px; margin: 0 auto; padding-top: 16px; padding-bottom: 32p
 
 .tally { text-align: center; margin: 18px auto 0; font-weight: 700; font-size: .9rem; color: var(--ink-soft); }
 .tally b { color: var(--ink); }
+.tally .t-w { color: var(--grass-dark); }
+.tally .t-l { color: #b3261e; }
+:root[data-theme="dark"] .tally .t-w { color: var(--grass-hi); }
+:root[data-theme="dark"] .tally .t-l { color: var(--red); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .tally .t-w { color: var(--grass-hi); } :root:not([data-theme="light"]) .tally .t-l { color: var(--red); } }
 .tally .linkish { background: none; border: 0; padding: 0 2px; text-decoration: underline; cursor: pointer; color: var(--ink-soft); font-weight: 700; font-size: inherit; }
 .load-msg { max-width: 640px; margin: 18px auto; padding: 12px; background: var(--red-soft); border: 3px solid var(--red); border-radius: 8px; font-weight: 700; }
 

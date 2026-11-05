@@ -248,7 +248,10 @@ const SHARE_BASE_URL = "";
     node.innerHTML = '';
     if (!t.played) { node.textContent = withReset ? 'Your record vs ProCompNav will show up here.' : ''; return; }
     node.appendChild(document.createTextNode('Your record vs ProCompNav: '));
-    node.appendChild(el('b', { text: t.win + 'W ' + t.tie + 'T ' + t.loss + 'L', 'aria-label': t.win + ' wins, ' + t.tie + ' ties, ' + t.loss + ' losses' }));
+    // W in green, T as is, L in red
+    node.appendChild(el('b', { 'aria-label': t.win + ' wins, ' + t.tie + ' ties, ' + t.loss + ' losses' }, [
+      el('span', { class: 't-w', text: t.win + 'W' }), document.createTextNode(' ' + t.tie + 'T '), el('span', { class: 't-l', text: t.loss + 'L' })
+    ]));
     node.appendChild(document.createTextNode(' · ' + plural(t.played, 'round')));
     if (withReset) {
       node.appendChild(document.createTextNode(' · '));
