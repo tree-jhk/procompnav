@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="ProCompNav - NeurIPS 2026 (Oral). Proactive Instance Navigation with Comparative Judgment for Ambiguous User Queries.">
 <title>ProCompNav | NeurIPS 2026 (Oral)</title>
 <meta name="citation_title" content="ProCompNav: Proactive Instance Navigation with Comparative Judgment for Ambiguous User Queries">
@@ -28,120 +28,345 @@
 <meta name="twitter:description" content="NeurIPS 2026 (Oral). Disambiguate user queries by collecting candidates first and narrowing the pool with comparative binary questions.">
 <meta name="twitter:image" content="https://tree-jhk.github.io/procompnav/static/images/teaser.jpg">
 
-<link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&amp;display=swap&amp;text=%F0%9F%8E%89" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+<script>
+/* Apply a saved theme choice before first paint; default follows the system. */
+(function () { try { var t = localStorage.getItem('pcn-theme'); if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t); } catch (e) {} })();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&amp;family=Schibsted+Grotesk:wght@500;600;700;800&amp;family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="static/css/index.css">
 </head>
 
 <body>
+<a class="skip-link" href="#overview">Skip to content</a>
+
+<!-- NAV ====================================================================== -->
+<nav class="site-nav" aria-label="Sections">
+  <div class="wrap">
+    <a class="brand" href="#top">ProCompNav</a>
+    <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="#why">Why Proactive</a></li>
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#method">Method</a></li>
+      <li><a href="#comparison">Comparison</a></li>
+      <li><a href="#results">Results</a></li>
+      <li><a href="#human-evaluation">Human Study</a></li>
+      <li><a href="#BibTeX">BibTeX</a></li>
+      <li><a class="nav-play" href="game/index.html"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8h12a4 4 0 0 1 4 4v1a4 4 0 0 1-7 2.6L14 15h-4l-1 .6A4 4 0 0 1 2 13v-1a4 4 0 0 1 4-4z"/><path d="M7 11v3M5.5 12.5h3"/><circle cx="16" cy="11.5" r=".9" fill="currentColor" stroke="none"/><circle cx="18" cy="13.5" r=".9" fill="currentColor" stroke="none"/></svg>Play</a></li>
+    </ul>
+    <button type="button" class="theme-btn" id="theme-btn" aria-label="Switch to dark mode">
+      <svg viewBox="0 0 16 16" aria-hidden="true" shape-rendering="crispEdges"><path d="M7 1h2v2H7zM7 13h2v2H7zM1 7h2v2H1zM13 7h2v2h-2zM3 3h2v2H3zM11 3h2v2h-2zM3 11h2v2H3zM11 11h2v2h-2zM5 5h6v6H5z"/></svg>
+    </button>
+    </div>
+  </div>
+</nav>
+
+<main>
 
 <!-- HERO ===================================================================== -->
-<section class="hero">
-  <div class="hero-body">
-    <div class="container is-max-desktop">
-      <div class="columns is-centered">
-        <div class="column has-text-centered">
+<header class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div class="hero-text">
+      <p class="badge">NeurIPS 2026 &middot; Oral</p>
+      <p class="hero-kicker">Agentic robotics &middot; Proactive agents</p>
 
-          <p class="publication-venue"><span aria-hidden="true">🎉</span> NeurIPS 2026 (Oral) <span aria-hidden="true">🎉</span></p>
+      <h1><span class="accent">Pro</span>Comp<span class="accent">Nav</span></h1>
+      <p class="subtitle">Proactive Instance Navigation with Comparative Judgment for Ambiguous User Queries</p>
 
-          <h1 class="title is-1 publication-title">
-            <span class="title-accent">ProCompNav:</span> Proactive Instance Navigation with Comparative Judgment for Ambiguous User Queries
-          </h1>
-
-          <div class="is-size-5 publication-authors">
-            <span class="author-block"><a href="https://github.com/tree-jhk" target="_blank">Junhyuk Kwon</a><sup>1</sup>,</span>
-            <span class="author-block">Seungjoon Lee<sup>2</sup>,</span>
-            <span class="author-block">Hyejin Park<sup>1</sup>,</span>
-            <span class="author-block">Kyle Min<sup>3</sup>,</span>
-            <span class="author-block">Jungseul Ok<sup>1,2</sup><sup>&dagger;</sup></span>
-          </div>
-
-          <div class="is-size-6 publication-authors" style="margin-top:0.5em;">
-            <span class="author-block"><sup>1</sup>GSAI, POSTECH&nbsp;&nbsp;</span>
-            <span class="author-block"><sup>2</sup>CSE, POSTECH&nbsp;&nbsp;</span>
-            <span class="author-block"><sup>3</sup>Oracle</span>
-          </div>
-          <div class="is-size-7 publication-authors" style="margin-top:0.25em; color:#666;">
-            <span><sup>&dagger;</sup>Corresponding author</span>
-          </div>
-
-          <div class="publication-links" style="margin-top:1.5em;">
-            <span class="link-block">
-              <a href="https://arxiv.org/abs/2605.06223" target="_blank" class="external-link button is-normal is-rounded is-dark">
-                <span class="icon"><i class="ai ai-arxiv"></i></span>
-                <span>arXiv</span>
-              </a>
-            </span>
-            <span class="link-block">
-              <a href="https://arxiv.org/pdf/2605.06223" target="_blank" class="external-link button is-normal is-rounded is-dark">
-                <span class="icon"><i class="fas fa-file-pdf"></i></span>
-                <span>Paper</span>
-              </a>
-            </span>
-            <span class="link-block">
-              <a href="https://github.com/ml-postech/ProCompNav" target="_blank" class="external-link button is-normal is-rounded is-dark">
-                <span class="icon"><i class="fab fa-github"></i></span>
-                <span>Code</span>
-              </a>
-            </span>
-          </div>
-
-        </div>
+      <p class="authors">
+        <span class="author-block"><a href="https://github.com/tree-jhk" target="_blank" rel="noopener">Junhyuk Kwon</a><sup>1</sup>,</span>
+        <span class="author-block">Seungjoon Lee<sup>2</sup>,</span>
+        <span class="author-block">Hyejin Park<sup>1</sup>,</span>
+        <span class="author-block">Kyle Min<sup>3</sup>,</span>
+        <span class="author-block">Jungseul Ok<sup>1,2</sup><sup>&dagger;</sup></span>
+      </p>
+      <p class="affiliations">
+        <span class="author-block"><sup>1</sup>GSAI, POSTECH</span>
+        <span class="author-block"><sup>2</sup>CSE, POSTECH</span>
+        <span class="author-block"><sup>3</sup>Oracle</span>
+      </p>
+      <div class="logos">
+        <span class="logo"><img src="static/images/logos/postech.png" alt="POSTECH" width="1280" height="109"></span>
+        <span class="logo"><img src="static/images/logos/oracle.png" alt="Oracle" width="1280" height="167"></span>
       </div>
+      <p class="footnote"><sup>&dagger;</sup>Corresponding author</p>
+
+      <!-- Paper/Code icons: Font Awesome Free 6.5.1 (CC BY 4.0); arXiv icon: Academicons 1.9.4 (SIL OFL 1.1) -->
+      <div class="buttons">
+        <a href="https://arxiv.org/pdf/2605.06223" target="_blank" rel="noopener" class="btn">
+          <svg class="ico" viewBox="0 0 512 512" aria-hidden="true" fill="currentColor"><path d="M0 64C0 28.7 28.7 0 64 0L224 0l0 128c0 17.7 14.3 32 32 32l128 0 0 144-208 0c-35.3 0-64 28.7-64 64l0 144-48 0c-35.3 0-64-28.7-64-64L0 64zm384 64l-128 0L256 0 384 128zM176 352l32 0c30.9 0 56 25.1 56 56s-25.1 56-56 56l-16 0 0 32c0 8.8-7.2 16-16 16s-16-7.2-16-16l0-48 0-80c0-8.8 7.2-16 16-16zm32 80c13.3 0 24-10.7 24-24s-10.7-24-24-24l-16 0 0 48 16 0zm96-80l32 0c26.5 0 48 21.5 48 48l0 64c0 26.5-21.5 48-48 48l-32 0c-8.8 0-16-7.2-16-16l0-128c0-8.8 7.2-16 16-16zm32 128c8.8 0 16-7.2 16-16l0-64c0-8.8-7.2-16-16-16l-16 0 0 96 16 0zm80-112c0-8.8 7.2-16 16-16l48 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-32 0 0 32 32 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-32 0 0 48c0 8.8-7.2 16-16 16s-16-7.2-16-16l0-64 0-64z"/></svg><span>Paper</span>
+        </a>
+        <a href="https://arxiv.org/abs/2605.06223" target="_blank" rel="noopener" class="btn">
+          <svg class="ico" viewBox="0 0 448 512" aria-hidden="true" fill="currentColor"><g transform="matrix(1.5499998,0,0,-1.5499998,-123.19936,553.59966)"><path d="m 119.65,351.996 c -5.84961,0.13477 -11.1943,-3.29883 -13.502,-8.67578 -2.19629,-5.27051 -0.61914,-8.9668 4.19727,-15.8652 7.05469,-10.3799 78.8242,-96.5625 78.8242,-96.5625 l -15.8828,-14.8633 c -13.3809,-13.3779 -13.9561,-31.333 -1.50977,-43.7754 l 18.4922,-17.6133 -51.5977,-63.377 c -4.00586,-4.26758 -6.48535,-11.7559 -4.24805,-17.1309 2.27832,-5.53613 7.69727,-9.12891 13.6836,-9.07031 3.83398,0.0957 7.43262,1.87402 9.83789,4.86133 l 61.3691,57.0566 94.5762,-90.0703 c 3.19434,-3.08398 7.44336,-4.83984 11.8828,-4.91016 1.60449,0.0039 3.19824,0.245117 4.73242,0.714844 5.7793,1.80566 10.249,6.41797 11.8711,12.252 1.2998,5.47363 -0.27637,11.2334 -4.18164,15.2832 l -83.0859,100.011996 14.8789,13.834 c 11.0957,10.0029 11.1543,27.3906 0.12695,37.4688 l -16.2949,15.6309 56.2559,66.4434 0.0742,0.0859 0.0664,0.0899 c 5.02734,6.53125 7.43164,11.5615 4.83984,17.9395 -3.13379,5.96875 -8.69727,10.29 -15.2559,11.8516 -0.67676,0.0908 -1.35938,0.13574 -2.04297,0.13671 l -0.004,-0.0117 c -4.42871,-0.27051 -8.61035,-2.13086 -11.7754,-5.24023 l -0.13086,-0.10743 -0.12304,-0.11132 -65.207,-59.127 -89.8965,86.2402 c 0,0 -5.33398,6.47754 -10.9707,6.61133 z m 178.104,-33.041 c 0.47852,-0.002 0.95703,-0.0332 1.43164,-0.0957 4.84277,-1.33301 8.95605,-4.54004 11.4316,-8.91016 1.44922,-3.5625 1.00293,-6.45703 -4.19727,-13.2148 l -56.0586,-66.2188 -26.375,25.3027 64.9551,58.9062 c 2.33887,2.41504 5.46484,3.91113 8.8125,4.2168 v 0.0137 z M 192.436,227.402 334.446,57.244 c 2.78711,-3.48926 4.5293,-6.97949 3.3418,-10.9121 -1.16113,-4.30273 -4.43457,-7.71777 -8.68555,-9.05664 -1.08105,-0.333984 -2.20508,-0.503906 -3.33594,-0.505859 -3.20801,0.07617 -6.26953,1.35645 -8.57617,3.58789 l -142.033,135.284999 c -11.1719,11.1719 -9.48242,26.0195 1.39258,36.8945 z"/></g></svg><span>arXiv</span>
+        </a>
+        <a href="https://github.com/ml-postech/ProCompNav" target="_blank" rel="noopener" class="btn">
+          <svg class="ico" viewBox="0 0 496 512" aria-hidden="true" fill="currentColor"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg><span>Code</span>
+        </a>
+        <a href="https://neurips.cc/virtual/2026/loc/sydney/poster/153423" target="_blank" rel="noopener" class="btn is-ghost">
+          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="13" rx="1.5"/><path d="M12 16v4M8 21l4-1 4 1M7 8h6M7 11h10"/></svg><span>Poster</span>
+        </a>
+        <a href="game/index.html" class="btn is-play">
+          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8h12a4 4 0 0 1 4 4v1a4 4 0 0 1-7 2.6L14 15h-4l-1 .6A4 4 0 0 1 2 13v-1a4 4 0 0 1 4-4z"/><path d="M7 11v3M5.5 12.5h3"/><circle cx="16" cy="11.5" r=".9" fill="currentColor" stroke="none"/><circle cx="18" cy="13.5" r=".9" fill="currentColor" stroke="none"/></svg><span>Play: You vs ProCompNav</span>
+        </a>
+      </div>
+      <p class="poster-note">
+        <a href="https://neurips.cc/virtual/2026/loc/sydney/poster/153423" target="_blank" rel="noopener">NeurIPS 2026 Poster Session 5</a>
+        &middot; Thu Dec 10, 10:00 AM &ndash; 1:00 PM AEDT &middot; Hall 1-4, ICC Sydney
+      </p>
+    </div>
+
+    <div class="hero-loop">
+      <div class="hl" id="hero-loop" role="img" aria-label="A person asks a robot: Find the cabinet. Four cabinets appear. The robot asks: Wood-tone? The person says yes, so the two white cabinets drop out. The robot asks: TV on top? The person says no, so one more drops out. The robot finds the last cabinet and smiles.">
+        <div class="hl-line hl-line-user hl-req"><span class="hl-bub is-user">Find the cabinet.</span><svg class="px hl-av" viewBox="0 0 10 10" shape-rendering="crispEdges" aria-hidden="true"><rect x="1" y="0" width="1" height="1" fill="#2B1D16"/><rect x="2" y="0" width="1" height="1" fill="#2B1D16"/><rect x="3" y="0" width="1" height="1" fill="#2B1D16"/><rect x="4" y="0" width="1" height="1" fill="#2B1D16"/><rect x="5" y="0" width="1" height="1" fill="#2B1D16"/><rect x="6" y="0" width="1" height="1" fill="#2B1D16"/><rect x="7" y="0" width="1" height="1" fill="#2B1D16"/><rect x="8" y="0" width="1" height="1" fill="#2B1D16"/><rect x="0" y="1" width="1" height="1" fill="#2B1D16"/><rect x="1" y="1" width="1" height="1" fill="#2B1D16"/><rect x="2" y="1" width="1" height="1" fill="#2B1D16"/><rect x="3" y="1" width="1" height="1" fill="#2B1D16"/><rect x="4" y="1" width="1" height="1" fill="#2B1D16"/><rect x="5" y="1" width="1" height="1" fill="#2B1D16"/><rect x="6" y="1" width="1" height="1" fill="#2B1D16"/><rect x="7" y="1" width="1" height="1" fill="#2B1D16"/><rect x="8" y="1" width="1" height="1" fill="#2B1D16"/><rect x="9" y="1" width="1" height="1" fill="#2B1D16"/><rect x="0" y="2" width="1" height="1" fill="#2B1D16"/><rect x="1" y="2" width="1" height="1" fill="#2B1D16"/><rect x="2" y="2" width="1" height="1" fill="#2B1D16"/><rect x="3" y="2" width="1" height="1" fill="#2B1D16"/><rect x="4" y="2" width="1" height="1" fill="#2B1D16"/><rect x="5" y="2" width="1" height="1" fill="#2B1D16"/><rect x="6" y="2" width="1" height="1" fill="#2B1D16"/><rect x="7" y="2" width="1" height="1" fill="#2B1D16"/><rect x="8" y="2" width="1" height="1" fill="#2B1D16"/><rect x="9" y="2" width="1" height="1" fill="#2B1D16"/><rect x="0" y="3" width="1" height="1" fill="#2B1D16"/><rect x="1" y="3" width="1" height="1" fill="#2B1D16"/><rect x="2" y="3" width="1" height="1" fill="#F0B98D"/><rect x="3" y="3" width="1" height="1" fill="#F0B98D"/><rect x="4" y="3" width="1" height="1" fill="#F0B98D"/><rect x="5" y="3" width="1" height="1" fill="#2B1D16"/><rect x="6" y="3" width="1" height="1" fill="#2B1D16"/><rect x="7" y="3" width="1" height="1" fill="#F0B98D"/><rect x="8" y="3" width="1" height="1" fill="#F0B98D"/><rect x="9" y="3" width="1" height="1" fill="#2B1D16"/><rect x="0" y="4" width="1" height="1" fill="#2B1D16"/><rect x="1" y="4" width="1" height="1" fill="#F0B98D"/><rect x="2" y="4" width="1" height="1" fill="#F0B98D"/><rect x="3" y="4" width="1" height="1" fill="#F0B98D"/><rect x="4" y="4" width="1" height="1" fill="#F0B98D"/><rect x="5" y="4" width="1" height="1" fill="#F0B98D"/><rect x="6" y="4" width="1" height="1" fill="#F0B98D"/><rect x="7" y="4" width="1" height="1" fill="#F0B98D"/><rect x="8" y="4" width="1" height="1" fill="#F0B98D"/><rect x="9" y="4" width="1" height="1" fill="#2B1D16"/><rect x="0" y="5" width="1" height="1" fill="#F0B98D"/><rect x="1" y="5" width="1" height="1" fill="#F0B98D"/><rect x="2" y="5" width="1" height="1" fill="#F0B98D"/><rect x="3" y="5" width="1" height="1" fill="#F0B98D"/><rect x="4" y="5" width="1" height="1" fill="#F0B98D"/><rect x="5" y="5" width="1" height="1" fill="#F0B98D"/><rect x="6" y="5" width="1" height="1" fill="#F0B98D"/><rect x="7" y="5" width="1" height="1" fill="#F0B98D"/><rect x="8" y="5" width="1" height="1" fill="#F0B98D"/><rect x="9" y="5" width="1" height="1" fill="#F0B98D"/><rect x="0" y="6" width="1" height="1" fill="#F0B98D"/><rect x="1" y="6" width="1" height="1" fill="#F0B98D"/><rect x="2" y="6" width="1" height="1" fill="#F0B98D"/><rect x="3" y="6" width="1" height="1" fill="#F0B98D"/><rect x="4" y="6" width="1" height="1" fill="#F0B98D"/><rect x="5" y="6" width="1" height="1" fill="#F0B98D"/><rect x="6" y="6" width="1" height="1" fill="#F0B98D"/><rect x="7" y="6" width="1" height="1" fill="#F0B98D"/><rect x="8" y="6" width="1" height="1" fill="#F0B98D"/><rect x="9" y="6" width="1" height="1" fill="#F0B98D"/><rect x="0" y="7" width="1" height="1" fill="#F0B98D"/><rect x="1" y="7" width="1" height="1" fill="#F0B98D"/><rect x="2" y="7" width="1" height="1" fill="#F0B98D"/><rect x="3" y="7" width="1" height="1" fill="#F0B98D"/><rect x="4" y="7" width="1" height="1" fill="#F0B98D"/><rect x="5" y="7" width="1" height="1" fill="#F0B98D"/><rect x="6" y="7" width="1" height="1" fill="#F0B98D"/><rect x="7" y="7" width="1" height="1" fill="#F0B98D"/><rect x="8" y="7" width="1" height="1" fill="#F0B98D"/><rect x="9" y="7" width="1" height="1" fill="#F0B98D"/><rect x="0" y="8" width="1" height="1" fill="#F0B98D"/><rect x="1" y="8" width="1" height="1" fill="#F0B98D"/><rect x="2" y="8" width="1" height="1" fill="#F0B98D"/><rect x="3" y="8" width="1" height="1" fill="#F0B98D"/><rect x="4" y="8" width="1" height="1" fill="#F0B98D"/><rect x="5" y="8" width="1" height="1" fill="#F0B98D"/><rect x="6" y="8" width="1" height="1" fill="#F0B98D"/><rect x="7" y="8" width="1" height="1" fill="#F0B98D"/><rect x="8" y="8" width="1" height="1" fill="#F0B98D"/><rect x="9" y="8" width="1" height="1" fill="#F0B98D"/><rect x="0" y="9" width="1" height="1" fill="#DDA27A"/><rect x="1" y="9" width="1" height="1" fill="#F0B98D"/><rect x="2" y="9" width="1" height="1" fill="#F0B98D"/><rect x="3" y="9" width="1" height="1" fill="#F0B98D"/><rect x="4" y="9" width="1" height="1" fill="#F0B98D"/><rect x="5" y="9" width="1" height="1" fill="#F0B98D"/><rect x="6" y="9" width="1" height="1" fill="#F0B98D"/><rect x="7" y="9" width="1" height="1" fill="#F0B98D"/><rect x="8" y="9" width="1" height="1" fill="#F0B98D"/><rect x="9" y="9" width="1" height="1" fill="#DDA27A"/><g class="m-a"><rect x="2" y="5" width="1" height="1" fill="#FFFFFF"/><rect x="3" y="5" width="1" height="1" fill="#1A1A1A"/><rect x="2" y="6" width="1" height="1" fill="#FFFFFF"/><rect x="3" y="6" width="1" height="1" fill="#1A1A1A"/><rect x="6" y="5" width="1" height="1" fill="#1A1A1A"/><rect x="7" y="5" width="1" height="1" fill="#FFFFFF"/><rect x="6" y="6" width="1" height="1" fill="#1A1A1A"/><rect x="7" y="6" width="1" height="1" fill="#FFFFFF"/><rect x="4" y="8" width="1" height="1" fill="#B4664A"/><rect x="5" y="8" width="1" height="1" fill="#B4664A"/></g><g class="m-b"><rect x="2" y="5" width="1" height="1" fill="#1A1A1A"/><rect x="3" y="5" width="1" height="1" fill="#1A1A1A"/><rect x="1" y="6" width="1" height="1" fill="#1A1A1A"/><rect x="4" y="6" width="1" height="1" fill="#1A1A1A"/><rect x="6" y="5" width="1" height="1" fill="#1A1A1A"/><rect x="7" y="5" width="1" height="1" fill="#1A1A1A"/><rect x="5" y="6" width="1" height="1" fill="#1A1A1A"/><rect x="8" y="6" width="1" height="1" fill="#1A1A1A"/><rect x="2" y="7" width="1" height="1" fill="#1A1A1A"/><rect x="7" y="7" width="1" height="1" fill="#1A1A1A"/><rect x="3" y="8" width="1" height="1" fill="#1A1A1A"/><rect x="4" y="8" width="1" height="1" fill="#1A1A1A"/><rect x="5" y="8" width="1" height="1" fill="#1A1A1A"/><rect x="6" y="8" width="1" height="1" fill="#1A1A1A"/><rect x="1" y="7" width="1" height="1" fill="#FF8F86"/><rect x="8" y="7" width="1" height="1" fill="#FF8F86"/></g></svg></div>
+        <div class="hl-cards">
+          <figure class="hl-card out out1"><img src="static/images/hero/distractor_white_bathroom.jpg" alt="" width="193" height="142"></figure>
+          <figure class="hl-card out out2"><img src="static/images/hero/distractor_wood_tv.jpg" alt="" width="193" height="142"></figure>
+          <figure class="hl-card keep"><img src="static/images/hero/target_wood_bathroom.jpg" alt="" width="193" height="142"><span class="hl-found"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg>Found it</span></figure>
+          <figure class="hl-card out out1"><img src="static/images/hero/distractor_white_dresser_tv.jpg" alt="" width="193" height="142"></figure>
+        </div>
+        <div class="hl-line"><span class="hl-say hl-q1"><svg class="px hl-av" viewBox="-0.5 -5.5 13 14.5" shape-rendering="crispEdges" aria-hidden="true"><rect x="5.5" y="-3" width="1" height="3" fill="#4F5862"/><rect x="5" y="-5" width="2" height="2" fill="#FFD21F"/><rect x="1" y="0" width="10" height="9" fill="#4F5862"/><rect x="0" y="1" width="12" height="7" fill="#4F5862"/><rect x="1" y="1" width="10" height="7" fill="#EEF2F5"/><rect x="2" y="2" width="8" height="4" fill="#1C2229"/><rect x="1" y="7" width="10" height="1" fill="#D5DCE2"/><g class="m-a"><rect x="3" y="3" width="2" height="2" fill="#FFD21F"/><rect x="7" y="3" width="2" height="2" fill="#FFD21F"/></g><g class="m-b"><rect x="3" y="4" width="1" height="1" fill="#FFD21F"/><rect x="4" y="3" width="1" height="1" fill="#FFD21F"/><rect x="5" y="4" width="1" height="1" fill="#FFD21F"/><rect x="6" y="4" width="1" height="1" fill="#FFD21F"/><rect x="7" y="3" width="1" height="1" fill="#FFD21F"/><rect x="8" y="4" width="1" height="1" fill="#FFD21F"/></g></svg><span class="hl-bub is-robot">Wood-tone?</span></span><span class="hl-say hl-a1"><span class="hl-bub is-user">Yes</span><svg class="px hl-av" viewBox="0 0 10 10" shape-rendering="crispEdges" aria-hidden="true"><rect x="1" y="0" width="1" height="1" fill="#2B1D16"/><rect x="2" y="0" width="1" height="1" fill="#2B1D16"/><rect x="3" y="0" width="1" height="1" fill="#2B1D16"/><rect x="4" y="0" width="1" height="1" fill="#2B1D16"/><rect x="5" y="0" width="1" height="1" fill="#2B1D16"/><rect x="6" y="0" width="1" height="1" fill="#2B1D16"/><rect x="7" y="0" width="1" height="1" fill="#2B1D16"/><rect x="8" y="0" width="1" height="1" fill="#2B1D16"/><rect x="0" y="1" width="1" height="1" fill="#2B1D16"/><rect x="1" y="1" width="1" height="1" fill="#2B1D16"/><rect x="2" y="1" width="1" height="1" fill="#2B1D16"/><rect x="3" y="1" width="1" height="1" fill="#2B1D16"/><rect x="4" y="1" width="1" height="1" fill="#2B1D16"/><rect x="5" y="1" width="1" height="1" fill="#2B1D16"/><rect x="6" y="1" width="1" height="1" fill="#2B1D16"/><rect x="7" y="1" width="1" height="1" fill="#2B1D16"/><rect x="8" y="1" width="1" height="1" fill="#2B1D16"/><rect x="9" y="1" width="1" height="1" fill="#2B1D16"/><rect x="0" y="2" width="1" height="1" fill="#2B1D16"/><rect x="1" y="2" width="1" height="1" fill="#2B1D16"/><rect x="2" y="2" width="1" height="1" fill="#2B1D16"/><rect x="3" y="2" width="1" height="1" fill="#2B1D16"/><rect x="4" y="2" width="1" height="1" fill="#2B1D16"/><rect x="5" y="2" width="1" height="1" fill="#2B1D16"/><rect x="6" y="2" width="1" height="1" fill="#2B1D16"/><rect x="7" y="2" width="1" height="1" fill="#2B1D16"/><rect x="8" y="2" width="1" height="1" fill="#2B1D16"/><rect x="9" y="2" width="1" height="1" fill="#2B1D16"/><rect x="0" y="3" width="1" height="1" fill="#2B1D16"/><rect x="1" y="3" width="1" height="1" fill="#2B1D16"/><rect x="2" y="3" width="1" height="1" fill="#F0B98D"/><rect x="3" y="3" width="1" height="1" fill="#F0B98D"/><rect x="4" y="3" width="1" height="1" fill="#F0B98D"/><rect x="5" y="3" width="1" height="1" fill="#2B1D16"/><rect x="6" y="3" width="1" height="1" fill="#2B1D16"/><rect x="7" y="3" width="1" height="1" fill="#F0B98D"/><rect x="8" y="3" width="1" height="1" fill="#F0B98D"/><rect x="9" y="3" width="1" height="1" fill="#2B1D16"/><rect x="0" y="4" width="1" height="1" fill="#2B1D16"/><rect x="1" y="4" width="1" height="1" fill="#F0B98D"/><rect x="2" y="4" width="1" height="1" fill="#F0B98D"/><rect x="3" y="4" width="1" height="1" fill="#F0B98D"/><rect x="4" y="4" width="1" height="1" fill="#F0B98D"/><rect x="5" y="4" width="1" height="1" fill="#F0B98D"/><rect x="6" y="4" width="1" height="1" fill="#F0B98D"/><rect x="7" y="4" width="1" height="1" fill="#F0B98D"/><rect x="8" y="4" width="1" height="1" fill="#F0B98D"/><rect x="9" y="4" width="1" height="1" fill="#2B1D16"/><rect x="0" y="5" width="1" height="1" fill="#F0B98D"/><rect x="1" y="5" width="1" height="1" fill="#F0B98D"/><rect x="2" y="5" width="1" height="1" fill="#F0B98D"/><rect x="3" y="5" width="1" height="1" fill="#F0B98D"/><rect x="4" y="5" width="1" height="1" fill="#F0B98D"/><rect x="5" y="5" width="1" height="1" fill="#F0B98D"/><rect x="6" y="5" width="1" height="1" fill="#F0B98D"/><rect x="7" y="5" width="1" height="1" fill="#F0B98D"/><rect x="8" y="5" width="1" height="1" fill="#F0B98D"/><rect x="9" y="5" width="1" height="1" fill="#F0B98D"/><rect x="0" y="6" width="1" height="1" fill="#F0B98D"/><rect x="1" y="6" width="1" height="1" fill="#F0B98D"/><rect x="2" y="6" width="1" height="1" fill="#F0B98D"/><rect x="3" y="6" width="1" height="1" fill="#F0B98D"/><rect x="4" y="6" width="1" height="1" fill="#F0B98D"/><rect x="5" y="6" width="1" height="1" fill="#F0B98D"/><rect x="6" y="6" width="1" height="1" fill="#F0B98D"/><rect x="7" y="6" width="1" height="1" fill="#F0B98D"/><rect x="8" y="6" width="1" height="1" fill="#F0B98D"/><rect x="9" y="6" width="1" height="1" fill="#F0B98D"/><rect x="0" y="7" width="1" height="1" fill="#F0B98D"/><rect x="1" y="7" width="1" height="1" fill="#F0B98D"/><rect x="2" y="7" width="1" height="1" fill="#F0B98D"/><rect x="3" y="7" width="1" height="1" fill="#F0B98D"/><rect x="4" y="7" width="1" height="1" fill="#F0B98D"/><rect x="5" y="7" width="1" height="1" fill="#F0B98D"/><rect x="6" y="7" width="1" height="1" fill="#F0B98D"/><rect x="7" y="7" width="1" height="1" fill="#F0B98D"/><rect x="8" y="7" width="1" height="1" fill="#F0B98D"/><rect x="9" y="7" width="1" height="1" fill="#F0B98D"/><rect x="0" y="8" width="1" height="1" fill="#F0B98D"/><rect x="1" y="8" width="1" height="1" fill="#F0B98D"/><rect x="2" y="8" width="1" height="1" fill="#F0B98D"/><rect x="3" y="8" width="1" height="1" fill="#F0B98D"/><rect x="4" y="8" width="1" height="1" fill="#F0B98D"/><rect x="5" y="8" width="1" height="1" fill="#F0B98D"/><rect x="6" y="8" width="1" height="1" fill="#F0B98D"/><rect x="7" y="8" width="1" height="1" fill="#F0B98D"/><rect x="8" y="8" width="1" height="1" fill="#F0B98D"/><rect x="9" y="8" width="1" height="1" fill="#F0B98D"/><rect x="0" y="9" width="1" height="1" fill="#DDA27A"/><rect x="1" y="9" width="1" height="1" fill="#F0B98D"/><rect x="2" y="9" width="1" height="1" fill="#F0B98D"/><rect x="3" y="9" width="1" height="1" fill="#F0B98D"/><rect x="4" y="9" width="1" height="1" fill="#F0B98D"/><rect x="5" y="9" width="1" height="1" fill="#F0B98D"/><rect x="6" y="9" width="1" height="1" fill="#F0B98D"/><rect x="7" y="9" width="1" height="1" fill="#F0B98D"/><rect x="8" y="9" width="1" height="1" fill="#F0B98D"/><rect x="9" y="9" width="1" height="1" fill="#DDA27A"/><g class="m-a"><rect x="2" y="5" width="1" height="1" fill="#FFFFFF"/><rect x="3" y="5" width="1" height="1" fill="#1A1A1A"/><rect x="2" y="6" width="1" height="1" fill="#FFFFFF"/><rect x="3" y="6" width="1" height="1" fill="#1A1A1A"/><rect x="6" y="5" width="1" height="1" fill="#1A1A1A"/><rect x="7" y="5" width="1" height="1" fill="#FFFFFF"/><rect x="6" y="6" width="1" height="1" fill="#1A1A1A"/><rect x="7" y="6" width="1" height="1" fill="#FFFFFF"/><rect x="4" y="8" width="1" height="1" fill="#B4664A"/><rect x="5" y="8" width="1" height="1" fill="#B4664A"/></g><g class="m-b"><rect x="2" y="5" width="1" height="1" fill="#1A1A1A"/><rect x="3" y="5" width="1" height="1" fill="#1A1A1A"/><rect x="1" y="6" width="1" height="1" fill="#1A1A1A"/><rect x="4" y="6" width="1" height="1" fill="#1A1A1A"/><rect x="6" y="5" width="1" height="1" fill="#1A1A1A"/><rect x="7" y="5" width="1" height="1" fill="#1A1A1A"/><rect x="5" y="6" width="1" height="1" fill="#1A1A1A"/><rect x="8" y="6" width="1" height="1" fill="#1A1A1A"/><rect x="2" y="7" width="1" height="1" fill="#1A1A1A"/><rect x="7" y="7" width="1" height="1" fill="#1A1A1A"/><rect x="3" y="8" width="1" height="1" fill="#1A1A1A"/><rect x="4" y="8" width="1" height="1" fill="#1A1A1A"/><rect x="5" y="8" width="1" height="1" fill="#1A1A1A"/><rect x="6" y="8" width="1" height="1" fill="#1A1A1A"/><rect x="1" y="7" width="1" height="1" fill="#FF8F86"/><rect x="8" y="7" width="1" height="1" fill="#FF8F86"/></g></svg></span></div>
+        <div class="hl-line"><span class="hl-say hl-q2"><svg class="px hl-av" viewBox="-0.5 -5.5 13 14.5" shape-rendering="crispEdges" aria-hidden="true"><rect x="5.5" y="-3" width="1" height="3" fill="#4F5862"/><rect x="5" y="-5" width="2" height="2" fill="#FFD21F"/><rect x="1" y="0" width="10" height="9" fill="#4F5862"/><rect x="0" y="1" width="12" height="7" fill="#4F5862"/><rect x="1" y="1" width="10" height="7" fill="#EEF2F5"/><rect x="2" y="2" width="8" height="4" fill="#1C2229"/><rect x="1" y="7" width="10" height="1" fill="#D5DCE2"/><g class="m-a"><rect x="3" y="3" width="2" height="2" fill="#FFD21F"/><rect x="7" y="3" width="2" height="2" fill="#FFD21F"/></g><g class="m-b"><rect x="3" y="4" width="1" height="1" fill="#FFD21F"/><rect x="4" y="3" width="1" height="1" fill="#FFD21F"/><rect x="5" y="4" width="1" height="1" fill="#FFD21F"/><rect x="6" y="4" width="1" height="1" fill="#FFD21F"/><rect x="7" y="3" width="1" height="1" fill="#FFD21F"/><rect x="8" y="4" width="1" height="1" fill="#FFD21F"/></g></svg><span class="hl-bub is-robot">TV on top?</span></span><span class="hl-say hl-a2"><span class="hl-bub is-user">No</span><svg class="px hl-av" viewBox="0 0 10 10" shape-rendering="crispEdges" aria-hidden="true"><rect x="1" y="0" width="1" height="1" fill="#2B1D16"/><rect x="2" y="0" width="1" height="1" fill="#2B1D16"/><rect x="3" y="0" width="1" height="1" fill="#2B1D16"/><rect x="4" y="0" width="1" height="1" fill="#2B1D16"/><rect x="5" y="0" width="1" height="1" fill="#2B1D16"/><rect x="6" y="0" width="1" height="1" fill="#2B1D16"/><rect x="7" y="0" width="1" height="1" fill="#2B1D16"/><rect x="8" y="0" width="1" height="1" fill="#2B1D16"/><rect x="0" y="1" width="1" height="1" fill="#2B1D16"/><rect x="1" y="1" width="1" height="1" fill="#2B1D16"/><rect x="2" y="1" width="1" height="1" fill="#2B1D16"/><rect x="3" y="1" width="1" height="1" fill="#2B1D16"/><rect x="4" y="1" width="1" height="1" fill="#2B1D16"/><rect x="5" y="1" width="1" height="1" fill="#2B1D16"/><rect x="6" y="1" width="1" height="1" fill="#2B1D16"/><rect x="7" y="1" width="1" height="1" fill="#2B1D16"/><rect x="8" y="1" width="1" height="1" fill="#2B1D16"/><rect x="9" y="1" width="1" height="1" fill="#2B1D16"/><rect x="0" y="2" width="1" height="1" fill="#2B1D16"/><rect x="1" y="2" width="1" height="1" fill="#2B1D16"/><rect x="2" y="2" width="1" height="1" fill="#2B1D16"/><rect x="3" y="2" width="1" height="1" fill="#2B1D16"/><rect x="4" y="2" width="1" height="1" fill="#2B1D16"/><rect x="5" y="2" width="1" height="1" fill="#2B1D16"/><rect x="6" y="2" width="1" height="1" fill="#2B1D16"/><rect x="7" y="2" width="1" height="1" fill="#2B1D16"/><rect x="8" y="2" width="1" height="1" fill="#2B1D16"/><rect x="9" y="2" width="1" height="1" fill="#2B1D16"/><rect x="0" y="3" width="1" height="1" fill="#2B1D16"/><rect x="1" y="3" width="1" height="1" fill="#2B1D16"/><rect x="2" y="3" width="1" height="1" fill="#F0B98D"/><rect x="3" y="3" width="1" height="1" fill="#F0B98D"/><rect x="4" y="3" width="1" height="1" fill="#F0B98D"/><rect x="5" y="3" width="1" height="1" fill="#2B1D16"/><rect x="6" y="3" width="1" height="1" fill="#2B1D16"/><rect x="7" y="3" width="1" height="1" fill="#F0B98D"/><rect x="8" y="3" width="1" height="1" fill="#F0B98D"/><rect x="9" y="3" width="1" height="1" fill="#2B1D16"/><rect x="0" y="4" width="1" height="1" fill="#2B1D16"/><rect x="1" y="4" width="1" height="1" fill="#F0B98D"/><rect x="2" y="4" width="1" height="1" fill="#F0B98D"/><rect x="3" y="4" width="1" height="1" fill="#F0B98D"/><rect x="4" y="4" width="1" height="1" fill="#F0B98D"/><rect x="5" y="4" width="1" height="1" fill="#F0B98D"/><rect x="6" y="4" width="1" height="1" fill="#F0B98D"/><rect x="7" y="4" width="1" height="1" fill="#F0B98D"/><rect x="8" y="4" width="1" height="1" fill="#F0B98D"/><rect x="9" y="4" width="1" height="1" fill="#2B1D16"/><rect x="0" y="5" width="1" height="1" fill="#F0B98D"/><rect x="1" y="5" width="1" height="1" fill="#F0B98D"/><rect x="2" y="5" width="1" height="1" fill="#F0B98D"/><rect x="3" y="5" width="1" height="1" fill="#F0B98D"/><rect x="4" y="5" width="1" height="1" fill="#F0B98D"/><rect x="5" y="5" width="1" height="1" fill="#F0B98D"/><rect x="6" y="5" width="1" height="1" fill="#F0B98D"/><rect x="7" y="5" width="1" height="1" fill="#F0B98D"/><rect x="8" y="5" width="1" height="1" fill="#F0B98D"/><rect x="9" y="5" width="1" height="1" fill="#F0B98D"/><rect x="0" y="6" width="1" height="1" fill="#F0B98D"/><rect x="1" y="6" width="1" height="1" fill="#F0B98D"/><rect x="2" y="6" width="1" height="1" fill="#F0B98D"/><rect x="3" y="6" width="1" height="1" fill="#F0B98D"/><rect x="4" y="6" width="1" height="1" fill="#F0B98D"/><rect x="5" y="6" width="1" height="1" fill="#F0B98D"/><rect x="6" y="6" width="1" height="1" fill="#F0B98D"/><rect x="7" y="6" width="1" height="1" fill="#F0B98D"/><rect x="8" y="6" width="1" height="1" fill="#F0B98D"/><rect x="9" y="6" width="1" height="1" fill="#F0B98D"/><rect x="0" y="7" width="1" height="1" fill="#F0B98D"/><rect x="1" y="7" width="1" height="1" fill="#F0B98D"/><rect x="2" y="7" width="1" height="1" fill="#F0B98D"/><rect x="3" y="7" width="1" height="1" fill="#F0B98D"/><rect x="4" y="7" width="1" height="1" fill="#F0B98D"/><rect x="5" y="7" width="1" height="1" fill="#F0B98D"/><rect x="6" y="7" width="1" height="1" fill="#F0B98D"/><rect x="7" y="7" width="1" height="1" fill="#F0B98D"/><rect x="8" y="7" width="1" height="1" fill="#F0B98D"/><rect x="9" y="7" width="1" height="1" fill="#F0B98D"/><rect x="0" y="8" width="1" height="1" fill="#F0B98D"/><rect x="1" y="8" width="1" height="1" fill="#F0B98D"/><rect x="2" y="8" width="1" height="1" fill="#F0B98D"/><rect x="3" y="8" width="1" height="1" fill="#F0B98D"/><rect x="4" y="8" width="1" height="1" fill="#F0B98D"/><rect x="5" y="8" width="1" height="1" fill="#F0B98D"/><rect x="6" y="8" width="1" height="1" fill="#F0B98D"/><rect x="7" y="8" width="1" height="1" fill="#F0B98D"/><rect x="8" y="8" width="1" height="1" fill="#F0B98D"/><rect x="9" y="8" width="1" height="1" fill="#F0B98D"/><rect x="0" y="9" width="1" height="1" fill="#DDA27A"/><rect x="1" y="9" width="1" height="1" fill="#F0B98D"/><rect x="2" y="9" width="1" height="1" fill="#F0B98D"/><rect x="3" y="9" width="1" height="1" fill="#F0B98D"/><rect x="4" y="9" width="1" height="1" fill="#F0B98D"/><rect x="5" y="9" width="1" height="1" fill="#F0B98D"/><rect x="6" y="9" width="1" height="1" fill="#F0B98D"/><rect x="7" y="9" width="1" height="1" fill="#F0B98D"/><rect x="8" y="9" width="1" height="1" fill="#F0B98D"/><rect x="9" y="9" width="1" height="1" fill="#DDA27A"/><g class="m-a"><rect x="2" y="5" width="1" height="1" fill="#FFFFFF"/><rect x="3" y="5" width="1" height="1" fill="#1A1A1A"/><rect x="2" y="6" width="1" height="1" fill="#FFFFFF"/><rect x="3" y="6" width="1" height="1" fill="#1A1A1A"/><rect x="6" y="5" width="1" height="1" fill="#1A1A1A"/><rect x="7" y="5" width="1" height="1" fill="#FFFFFF"/><rect x="6" y="6" width="1" height="1" fill="#1A1A1A"/><rect x="7" y="6" width="1" height="1" fill="#FFFFFF"/><rect x="4" y="8" width="1" height="1" fill="#B4664A"/><rect x="5" y="8" width="1" height="1" fill="#B4664A"/></g><g class="m-b"><rect x="2" y="5" width="1" height="1" fill="#1A1A1A"/><rect x="3" y="5" width="1" height="1" fill="#1A1A1A"/><rect x="1" y="6" width="1" height="1" fill="#1A1A1A"/><rect x="4" y="6" width="1" height="1" fill="#1A1A1A"/><rect x="6" y="5" width="1" height="1" fill="#1A1A1A"/><rect x="7" y="5" width="1" height="1" fill="#1A1A1A"/><rect x="5" y="6" width="1" height="1" fill="#1A1A1A"/><rect x="8" y="6" width="1" height="1" fill="#1A1A1A"/><rect x="2" y="7" width="1" height="1" fill="#1A1A1A"/><rect x="7" y="7" width="1" height="1" fill="#1A1A1A"/><rect x="3" y="8" width="1" height="1" fill="#1A1A1A"/><rect x="4" y="8" width="1" height="1" fill="#1A1A1A"/><rect x="5" y="8" width="1" height="1" fill="#1A1A1A"/><rect x="6" y="8" width="1" height="1" fill="#1A1A1A"/><rect x="1" y="7" width="1" height="1" fill="#FF8F86"/><rect x="8" y="7" width="1" height="1" fill="#FF8F86"/></g></svg></span></div>
+      </div>
+      <button type="button" class="hl-pause" id="hl-pause" aria-pressed="false" aria-label="Pause animation"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5v14M15 5v14"/></svg></button>
     </div>
   </div>
-</section>
 
-
-<!-- ABSTRACT ================================================================ -->
-<section class="section">
-  <div class="container is-max-desktop">
-    <h2 class="title is-3 has-text-centered">Abstract</h2>
-    <div class="content has-text-justified">
-      <p>In human-robot interaction, agentic robots should resolve ambiguous user requests through proactive clarification while keeping user burden low. We study this challenge in interactive instance navigation, where an agent must identify and reach the user-intended target among similar objects. Existing approaches often fall short of this goal by mistaking distractors that strongly match the accumulated user-provided information for the target. As a result, despite the dialogue, the agent may still fail to distinguish the target from distractors, leading to premature decisions and lengthy user responses.</p>
-      <p>We propose Proactive Instance Navigation with Comparative Judgment (ProCompNav), a two-stage framework that first constructs a candidate pool and then identifies the target through Recursive Comparative Judgment (RCJ). RCJ iteratively narrows the pool by selecting an attribute-value pair that divides the candidates, asking the user a binary question, and removing inconsistent candidates, without requiring an attribute unique to the target.</p>
-      <p>On interactive CoIN-Bench, ProCompNav improves Success Rate over the evaluated baselines while substantially reducing Response Length. It also achieves the highest Success Rate among evaluated methods on the non-interactive TextNav benchmark. In two human studies, participants preferred its binary questions to open-ended questions and its batched delivery to interleaved interaction. Code is available at <a href="https://github.com/ml-postech/ProCompNav" target="_blank" rel="noopener">https://github.com/ml-postech/ProCompNav</a>.</p>
-    </div>
-  </div>
-</section>
-
-
-<!-- TEASER + TABLE 1 (a unit) =============================================== -->
-<section class="section">
-  <div class="container is-max-desktop">
-
-    <h2 class="title is-3 has-text-centered">Three strategies for ambiguous instance navigation</h2>
-
-    <p class="content">
-      Prior work on collaborative instance navigation typically follows <i>independent matching</i>,
-      scoring each candidate against accumulated facts. A natural way to reduce premature decisions
-      is to defer the choice until several candidates are collected
-      (<i>pooled independent matching</i>). ProCompNav goes further with
-      <i>comparative judgment</i>: at each round it picks an attribute-value pair that splits the
-      current pool and asks a single yes/no question to prune it.
+  <div class="wrap">
+    <p class="tldr">
+      <span class="label">TL;DR</span>
+      A proactive robot should take the initiative <em>without becoming a burden</em>.
+      ProCompNav explores without interrupting you, then asks a few yes/no questions that split the candidates:
+      higher success on ambiguous requests, with far less user effort.
     </p>
+    <div class="game-strip">
+      <div class="game-copy">
+        <p class="game-title">Can you beat the robot?</p>
+        <p class="game-sub">Fewer yes/no questions wins.</p>
+        <a href="game/index.html" class="btn is-play"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8h12a4 4 0 0 1 4 4v1a4 4 0 0 1-7 2.6L14 15h-4l-1 .6A4 4 0 0 1 2 13v-1a4 4 0 0 1 4-4z"/><path d="M7 11v3M5.5 12.5h3"/><circle cx="16" cy="11.5" r=".9" fill="currentColor" stroke="none"/><circle cx="18" cy="13.5" r=".9" fill="currentColor" stroke="none"/></svg><span>Play</span></a>
+      </div>
+      <a class="game-thumb" href="game/index.html" aria-label="Play You vs ProCompNav"><img src="game/og-image.png" alt="You vs ProCompNav game preview" width="1200" height="630" loading="lazy"></a>
+    </div>
+  </div>
+</header>
 
-    <figure class="image teaser-figure">
-      <img src="static/images/teaser.jpg" alt="ProCompNav teaser figure">
+
+<!-- WHY PROACTIVE ============================================================ -->
+<section class="section" id="why">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="kicker">Why proactive?</p>
+      <h2>Proactive, with minimal user effort</h2>
+    </div>
+    <div class="agents">
+      <figure class="agent-card">
+        <figcaption class="agent-h"><b>Digital agents</b><span>daily software tasks</span></figcaption>
+        <div class="dg" role="img" aria-label="A digital agent is asked to book a room for Friday's seminar, checks the calendar, finds two free rooms, and asks: 301 (30 seats) or 412 (60 seats)?">
+          <p class="dg-req"><span>Book a room for Friday&rsquo;s seminar.</span></p>
+          <p class="dg-step"><span class="dg-dot" aria-hidden="true"></span><span class="dg-act">Checked the calendar</span> &rarr; <b>2 rooms free</b></p>
+          <p class="dg-ask">301 (30 seats) or 412 (60 seats)?</p>
+        </div>
+      </figure>
+      <span class="agents-arrow" aria-hidden="true">&rarr;</span>
+      <figure class="agent-card is-ours">
+        <figcaption class="agent-h"><b>Agentic robots</b><span>daily physical tasks</span></figcaption>
+            <div class="hl hl-static" role="img" aria-label="A person asks a robot to find the cabinet. Four cabinets. The robot asks Wood-tone? (yes) and TV on top? (no), and finds the right one.">
+              <div class="hl-line hl-line-user hl-req"><span class="hl-bub is-user">Find the cabinet.</span><svg class="px hl-av" viewBox="0 0 10 10" shape-rendering="crispEdges" aria-hidden="true"><rect x="1" y="0" width="1" height="1" fill="#2B1D16"/><rect x="2" y="0" width="1" height="1" fill="#2B1D16"/><rect x="3" y="0" width="1" height="1" fill="#2B1D16"/><rect x="4" y="0" width="1" height="1" fill="#2B1D16"/><rect x="5" y="0" width="1" height="1" fill="#2B1D16"/><rect x="6" y="0" width="1" height="1" fill="#2B1D16"/><rect x="7" y="0" width="1" height="1" fill="#2B1D16"/><rect x="8" y="0" width="1" height="1" fill="#2B1D16"/><rect x="0" y="1" width="1" height="1" fill="#2B1D16"/><rect x="1" y="1" width="1" height="1" fill="#2B1D16"/><rect x="2" y="1" width="1" height="1" fill="#2B1D16"/><rect x="3" y="1" width="1" height="1" fill="#2B1D16"/><rect x="4" y="1" width="1" height="1" fill="#2B1D16"/><rect x="5" y="1" width="1" height="1" fill="#2B1D16"/><rect x="6" y="1" width="1" height="1" fill="#2B1D16"/><rect x="7" y="1" width="1" height="1" fill="#2B1D16"/><rect x="8" y="1" width="1" height="1" fill="#2B1D16"/><rect x="9" y="1" width="1" height="1" fill="#2B1D16"/><rect x="0" y="2" width="1" height="1" fill="#2B1D16"/><rect x="1" y="2" width="1" height="1" fill="#2B1D16"/><rect x="2" y="2" width="1" height="1" fill="#2B1D16"/><rect x="3" y="2" width="1" height="1" fill="#2B1D16"/><rect x="4" y="2" width="1" height="1" fill="#2B1D16"/><rect x="5" y="2" width="1" height="1" fill="#2B1D16"/><rect x="6" y="2" width="1" height="1" fill="#2B1D16"/><rect x="7" y="2" width="1" height="1" fill="#2B1D16"/><rect x="8" y="2" width="1" height="1" fill="#2B1D16"/><rect x="9" y="2" width="1" height="1" fill="#2B1D16"/><rect x="0" y="3" width="1" height="1" fill="#2B1D16"/><rect x="1" y="3" width="1" height="1" fill="#2B1D16"/><rect x="2" y="3" width="1" height="1" fill="#F0B98D"/><rect x="3" y="3" width="1" height="1" fill="#F0B98D"/><rect x="4" y="3" width="1" height="1" fill="#F0B98D"/><rect x="5" y="3" width="1" height="1" fill="#2B1D16"/><rect x="6" y="3" width="1" height="1" fill="#2B1D16"/><rect x="7" y="3" width="1" height="1" fill="#F0B98D"/><rect x="8" y="3" width="1" height="1" fill="#F0B98D"/><rect x="9" y="3" width="1" height="1" fill="#2B1D16"/><rect x="0" y="4" width="1" height="1" fill="#2B1D16"/><rect x="1" y="4" width="1" height="1" fill="#F0B98D"/><rect x="2" y="4" width="1" height="1" fill="#F0B98D"/><rect x="3" y="4" width="1" height="1" fill="#F0B98D"/><rect x="4" y="4" width="1" height="1" fill="#F0B98D"/><rect x="5" y="4" width="1" height="1" fill="#F0B98D"/><rect x="6" y="4" width="1" height="1" fill="#F0B98D"/><rect x="7" y="4" width="1" height="1" fill="#F0B98D"/><rect x="8" y="4" width="1" height="1" fill="#F0B98D"/><rect x="9" y="4" width="1" height="1" fill="#2B1D16"/><rect x="0" y="5" width="1" height="1" fill="#F0B98D"/><rect x="1" y="5" width="1" height="1" fill="#F0B98D"/><rect x="2" y="5" width="1" height="1" fill="#F0B98D"/><rect x="3" y="5" width="1" height="1" fill="#F0B98D"/><rect x="4" y="5" width="1" height="1" fill="#F0B98D"/><rect x="5" y="5" width="1" height="1" fill="#F0B98D"/><rect x="6" y="5" width="1" height="1" fill="#F0B98D"/><rect x="7" y="5" width="1" height="1" fill="#F0B98D"/><rect x="8" y="5" width="1" height="1" fill="#F0B98D"/><rect x="9" y="5" width="1" height="1" fill="#F0B98D"/><rect x="0" y="6" width="1" height="1" fill="#F0B98D"/><rect x="1" y="6" width="1" height="1" fill="#F0B98D"/><rect x="2" y="6" width="1" height="1" fill="#F0B98D"/><rect x="3" y="6" width="1" height="1" fill="#F0B98D"/><rect x="4" y="6" width="1" height="1" fill="#F0B98D"/><rect x="5" y="6" width="1" height="1" fill="#F0B98D"/><rect x="6" y="6" width="1" height="1" fill="#F0B98D"/><rect x="7" y="6" width="1" height="1" fill="#F0B98D"/><rect x="8" y="6" width="1" height="1" fill="#F0B98D"/><rect x="9" y="6" width="1" height="1" fill="#F0B98D"/><rect x="0" y="7" width="1" height="1" fill="#F0B98D"/><rect x="1" y="7" width="1" height="1" fill="#F0B98D"/><rect x="2" y="7" width="1" height="1" fill="#F0B98D"/><rect x="3" y="7" width="1" height="1" fill="#F0B98D"/><rect x="4" y="7" width="1" height="1" fill="#F0B98D"/><rect x="5" y="7" width="1" height="1" fill="#F0B98D"/><rect x="6" y="7" width="1" height="1" fill="#F0B98D"/><rect x="7" y="7" width="1" height="1" fill="#F0B98D"/><rect x="8" y="7" width="1" height="1" fill="#F0B98D"/><rect x="9" y="7" width="1" height="1" fill="#F0B98D"/><rect x="0" y="8" width="1" height="1" fill="#F0B98D"/><rect x="1" y="8" width="1" height="1" fill="#F0B98D"/><rect x="2" y="8" width="1" height="1" fill="#F0B98D"/><rect x="3" y="8" width="1" height="1" fill="#F0B98D"/><rect x="4" y="8" width="1" height="1" fill="#F0B98D"/><rect x="5" y="8" width="1" height="1" fill="#F0B98D"/><rect x="6" y="8" width="1" height="1" fill="#F0B98D"/><rect x="7" y="8" width="1" height="1" fill="#F0B98D"/><rect x="8" y="8" width="1" height="1" fill="#F0B98D"/><rect x="9" y="8" width="1" height="1" fill="#F0B98D"/><rect x="0" y="9" width="1" height="1" fill="#DDA27A"/><rect x="1" y="9" width="1" height="1" fill="#F0B98D"/><rect x="2" y="9" width="1" height="1" fill="#F0B98D"/><rect x="3" y="9" width="1" height="1" fill="#F0B98D"/><rect x="4" y="9" width="1" height="1" fill="#F0B98D"/><rect x="5" y="9" width="1" height="1" fill="#F0B98D"/><rect x="6" y="9" width="1" height="1" fill="#F0B98D"/><rect x="7" y="9" width="1" height="1" fill="#F0B98D"/><rect x="8" y="9" width="1" height="1" fill="#F0B98D"/><rect x="9" y="9" width="1" height="1" fill="#DDA27A"/><g class="m-a"><rect x="2" y="5" width="1" height="1" fill="#FFFFFF"/><rect x="3" y="5" width="1" height="1" fill="#1A1A1A"/><rect x="2" y="6" width="1" height="1" fill="#FFFFFF"/><rect x="3" y="6" width="1" height="1" fill="#1A1A1A"/><rect x="6" y="5" width="1" height="1" fill="#1A1A1A"/><rect x="7" y="5" width="1" height="1" fill="#FFFFFF"/><rect x="6" y="6" width="1" height="1" fill="#1A1A1A"/><rect x="7" y="6" width="1" height="1" fill="#FFFFFF"/><rect x="4" y="8" width="1" height="1" fill="#B4664A"/><rect x="5" y="8" width="1" height="1" fill="#B4664A"/></g><g class="m-b"><rect x="2" y="5" width="1" height="1" fill="#1A1A1A"/><rect x="3" y="5" width="1" height="1" fill="#1A1A1A"/><rect x="1" y="6" width="1" height="1" fill="#1A1A1A"/><rect x="4" y="6" width="1" height="1" fill="#1A1A1A"/><rect x="6" y="5" width="1" height="1" fill="#1A1A1A"/><rect x="7" y="5" width="1" height="1" fill="#1A1A1A"/><rect x="5" y="6" width="1" height="1" fill="#1A1A1A"/><rect x="8" y="6" width="1" height="1" fill="#1A1A1A"/><rect x="2" y="7" width="1" height="1" fill="#1A1A1A"/><rect x="7" y="7" width="1" height="1" fill="#1A1A1A"/><rect x="3" y="8" width="1" height="1" fill="#1A1A1A"/><rect x="4" y="8" width="1" height="1" fill="#1A1A1A"/><rect x="5" y="8" width="1" height="1" fill="#1A1A1A"/><rect x="6" y="8" width="1" height="1" fill="#1A1A1A"/><rect x="1" y="7" width="1" height="1" fill="#FF8F86"/><rect x="8" y="7" width="1" height="1" fill="#FF8F86"/></g></svg></div>
+              <div class="hl-cards">
+                <figure class="hl-card out out1"><img src="static/images/hero/distractor_white_bathroom.jpg" alt="" width="193" height="142"></figure>
+                <figure class="hl-card out out2"><img src="static/images/hero/distractor_wood_tv.jpg" alt="" width="193" height="142"></figure>
+                <figure class="hl-card keep"><img src="static/images/hero/target_wood_bathroom.jpg" alt="" width="193" height="142"><span class="hl-found"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg>Found it</span></figure>
+                <figure class="hl-card out out1"><img src="static/images/hero/distractor_white_dresser_tv.jpg" alt="" width="193" height="142"></figure>
+              </div>
+              <div class="hl-line"><span class="hl-say hl-q1"><svg class="px hl-av" viewBox="-0.5 -5.5 13 14.5" shape-rendering="crispEdges" aria-hidden="true"><rect x="5.5" y="-3" width="1" height="3" fill="#4F5862"/><rect x="5" y="-5" width="2" height="2" fill="#FFD21F"/><rect x="1" y="0" width="10" height="9" fill="#4F5862"/><rect x="0" y="1" width="12" height="7" fill="#4F5862"/><rect x="1" y="1" width="10" height="7" fill="#EEF2F5"/><rect x="2" y="2" width="8" height="4" fill="#1C2229"/><rect x="1" y="7" width="10" height="1" fill="#D5DCE2"/><g class="m-a"><rect x="3" y="3" width="2" height="2" fill="#FFD21F"/><rect x="7" y="3" width="2" height="2" fill="#FFD21F"/></g><g class="m-b"><rect x="3" y="4" width="1" height="1" fill="#FFD21F"/><rect x="4" y="3" width="1" height="1" fill="#FFD21F"/><rect x="5" y="4" width="1" height="1" fill="#FFD21F"/><rect x="6" y="4" width="1" height="1" fill="#FFD21F"/><rect x="7" y="3" width="1" height="1" fill="#FFD21F"/><rect x="8" y="4" width="1" height="1" fill="#FFD21F"/></g></svg><span class="hl-bub is-robot">Wood-tone?</span></span><span class="hl-say hl-a1"><span class="hl-bub is-user">Yes</span><svg class="px hl-av" viewBox="0 0 10 10" shape-rendering="crispEdges" aria-hidden="true"><rect x="1" y="0" width="1" height="1" fill="#2B1D16"/><rect x="2" y="0" width="1" height="1" fill="#2B1D16"/><rect x="3" y="0" width="1" height="1" fill="#2B1D16"/><rect x="4" y="0" width="1" height="1" fill="#2B1D16"/><rect x="5" y="0" width="1" height="1" fill="#2B1D16"/><rect x="6" y="0" width="1" height="1" fill="#2B1D16"/><rect x="7" y="0" width="1" height="1" fill="#2B1D16"/><rect x="8" y="0" width="1" height="1" fill="#2B1D16"/><rect x="0" y="1" width="1" height="1" fill="#2B1D16"/><rect x="1" y="1" width="1" height="1" fill="#2B1D16"/><rect x="2" y="1" width="1" height="1" fill="#2B1D16"/><rect x="3" y="1" width="1" height="1" fill="#2B1D16"/><rect x="4" y="1" width="1" height="1" fill="#2B1D16"/><rect x="5" y="1" width="1" height="1" fill="#2B1D16"/><rect x="6" y="1" width="1" height="1" fill="#2B1D16"/><rect x="7" y="1" width="1" height="1" fill="#2B1D16"/><rect x="8" y="1" width="1" height="1" fill="#2B1D16"/><rect x="9" y="1" width="1" height="1" fill="#2B1D16"/><rect x="0" y="2" width="1" height="1" fill="#2B1D16"/><rect x="1" y="2" width="1" height="1" fill="#2B1D16"/><rect x="2" y="2" width="1" height="1" fill="#2B1D16"/><rect x="3" y="2" width="1" height="1" fill="#2B1D16"/><rect x="4" y="2" width="1" height="1" fill="#2B1D16"/><rect x="5" y="2" width="1" height="1" fill="#2B1D16"/><rect x="6" y="2" width="1" height="1" fill="#2B1D16"/><rect x="7" y="2" width="1" height="1" fill="#2B1D16"/><rect x="8" y="2" width="1" height="1" fill="#2B1D16"/><rect x="9" y="2" width="1" height="1" fill="#2B1D16"/><rect x="0" y="3" width="1" height="1" fill="#2B1D16"/><rect x="1" y="3" width="1" height="1" fill="#2B1D16"/><rect x="2" y="3" width="1" height="1" fill="#F0B98D"/><rect x="3" y="3" width="1" height="1" fill="#F0B98D"/><rect x="4" y="3" width="1" height="1" fill="#F0B98D"/><rect x="5" y="3" width="1" height="1" fill="#2B1D16"/><rect x="6" y="3" width="1" height="1" fill="#2B1D16"/><rect x="7" y="3" width="1" height="1" fill="#F0B98D"/><rect x="8" y="3" width="1" height="1" fill="#F0B98D"/><rect x="9" y="3" width="1" height="1" fill="#2B1D16"/><rect x="0" y="4" width="1" height="1" fill="#2B1D16"/><rect x="1" y="4" width="1" height="1" fill="#F0B98D"/><rect x="2" y="4" width="1" height="1" fill="#F0B98D"/><rect x="3" y="4" width="1" height="1" fill="#F0B98D"/><rect x="4" y="4" width="1" height="1" fill="#F0B98D"/><rect x="5" y="4" width="1" height="1" fill="#F0B98D"/><rect x="6" y="4" width="1" height="1" fill="#F0B98D"/><rect x="7" y="4" width="1" height="1" fill="#F0B98D"/><rect x="8" y="4" width="1" height="1" fill="#F0B98D"/><rect x="9" y="4" width="1" height="1" fill="#2B1D16"/><rect x="0" y="5" width="1" height="1" fill="#F0B98D"/><rect x="1" y="5" width="1" height="1" fill="#F0B98D"/><rect x="2" y="5" width="1" height="1" fill="#F0B98D"/><rect x="3" y="5" width="1" height="1" fill="#F0B98D"/><rect x="4" y="5" width="1" height="1" fill="#F0B98D"/><rect x="5" y="5" width="1" height="1" fill="#F0B98D"/><rect x="6" y="5" width="1" height="1" fill="#F0B98D"/><rect x="7" y="5" width="1" height="1" fill="#F0B98D"/><rect x="8" y="5" width="1" height="1" fill="#F0B98D"/><rect x="9" y="5" width="1" height="1" fill="#F0B98D"/><rect x="0" y="6" width="1" height="1" fill="#F0B98D"/><rect x="1" y="6" width="1" height="1" fill="#F0B98D"/><rect x="2" y="6" width="1" height="1" fill="#F0B98D"/><rect x="3" y="6" width="1" height="1" fill="#F0B98D"/><rect x="4" y="6" width="1" height="1" fill="#F0B98D"/><rect x="5" y="6" width="1" height="1" fill="#F0B98D"/><rect x="6" y="6" width="1" height="1" fill="#F0B98D"/><rect x="7" y="6" width="1" height="1" fill="#F0B98D"/><rect x="8" y="6" width="1" height="1" fill="#F0B98D"/><rect x="9" y="6" width="1" height="1" fill="#F0B98D"/><rect x="0" y="7" width="1" height="1" fill="#F0B98D"/><rect x="1" y="7" width="1" height="1" fill="#F0B98D"/><rect x="2" y="7" width="1" height="1" fill="#F0B98D"/><rect x="3" y="7" width="1" height="1" fill="#F0B98D"/><rect x="4" y="7" width="1" height="1" fill="#F0B98D"/><rect x="5" y="7" width="1" height="1" fill="#F0B98D"/><rect x="6" y="7" width="1" height="1" fill="#F0B98D"/><rect x="7" y="7" width="1" height="1" fill="#F0B98D"/><rect x="8" y="7" width="1" height="1" fill="#F0B98D"/><rect x="9" y="7" width="1" height="1" fill="#F0B98D"/><rect x="0" y="8" width="1" height="1" fill="#F0B98D"/><rect x="1" y="8" width="1" height="1" fill="#F0B98D"/><rect x="2" y="8" width="1" height="1" fill="#F0B98D"/><rect x="3" y="8" width="1" height="1" fill="#F0B98D"/><rect x="4" y="8" width="1" height="1" fill="#F0B98D"/><rect x="5" y="8" width="1" height="1" fill="#F0B98D"/><rect x="6" y="8" width="1" height="1" fill="#F0B98D"/><rect x="7" y="8" width="1" height="1" fill="#F0B98D"/><rect x="8" y="8" width="1" height="1" fill="#F0B98D"/><rect x="9" y="8" width="1" height="1" fill="#F0B98D"/><rect x="0" y="9" width="1" height="1" fill="#DDA27A"/><rect x="1" y="9" width="1" height="1" fill="#F0B98D"/><rect x="2" y="9" width="1" height="1" fill="#F0B98D"/><rect x="3" y="9" width="1" height="1" fill="#F0B98D"/><rect x="4" y="9" width="1" height="1" fill="#F0B98D"/><rect x="5" y="9" width="1" height="1" fill="#F0B98D"/><rect x="6" y="9" width="1" height="1" fill="#F0B98D"/><rect x="7" y="9" width="1" height="1" fill="#F0B98D"/><rect x="8" y="9" width="1" height="1" fill="#F0B98D"/><rect x="9" y="9" width="1" height="1" fill="#DDA27A"/><g class="m-a"><rect x="2" y="5" width="1" height="1" fill="#FFFFFF"/><rect x="3" y="5" width="1" height="1" fill="#1A1A1A"/><rect x="2" y="6" width="1" height="1" fill="#FFFFFF"/><rect x="3" y="6" width="1" height="1" fill="#1A1A1A"/><rect x="6" y="5" width="1" height="1" fill="#1A1A1A"/><rect x="7" y="5" width="1" height="1" fill="#FFFFFF"/><rect x="6" y="6" width="1" height="1" fill="#1A1A1A"/><rect x="7" y="6" width="1" height="1" fill="#FFFFFF"/><rect x="4" y="8" width="1" height="1" fill="#B4664A"/><rect x="5" y="8" width="1" height="1" fill="#B4664A"/></g><g class="m-b"><rect x="2" y="5" width="1" height="1" fill="#1A1A1A"/><rect x="3" y="5" width="1" height="1" fill="#1A1A1A"/><rect x="1" y="6" width="1" height="1" fill="#1A1A1A"/><rect x="4" y="6" width="1" height="1" fill="#1A1A1A"/><rect x="6" y="5" width="1" height="1" fill="#1A1A1A"/><rect x="7" y="5" width="1" height="1" fill="#1A1A1A"/><rect x="5" y="6" width="1" height="1" fill="#1A1A1A"/><rect x="8" y="6" width="1" height="1" fill="#1A1A1A"/><rect x="2" y="7" width="1" height="1" fill="#1A1A1A"/><rect x="7" y="7" width="1" height="1" fill="#1A1A1A"/><rect x="3" y="8" width="1" height="1" fill="#1A1A1A"/><rect x="4" y="8" width="1" height="1" fill="#1A1A1A"/><rect x="5" y="8" width="1" height="1" fill="#1A1A1A"/><rect x="6" y="8" width="1" height="1" fill="#1A1A1A"/><rect x="1" y="7" width="1" height="1" fill="#FF8F86"/><rect x="8" y="7" width="1" height="1" fill="#FF8F86"/></g></svg></span></div>
+              <div class="hl-line"><span class="hl-say hl-q2"><svg class="px hl-av" viewBox="-0.5 -5.5 13 14.5" shape-rendering="crispEdges" aria-hidden="true"><rect x="5.5" y="-3" width="1" height="3" fill="#4F5862"/><rect x="5" y="-5" width="2" height="2" fill="#FFD21F"/><rect x="1" y="0" width="10" height="9" fill="#4F5862"/><rect x="0" y="1" width="12" height="7" fill="#4F5862"/><rect x="1" y="1" width="10" height="7" fill="#EEF2F5"/><rect x="2" y="2" width="8" height="4" fill="#1C2229"/><rect x="1" y="7" width="10" height="1" fill="#D5DCE2"/><g class="m-a"><rect x="3" y="3" width="2" height="2" fill="#FFD21F"/><rect x="7" y="3" width="2" height="2" fill="#FFD21F"/></g><g class="m-b"><rect x="3" y="4" width="1" height="1" fill="#FFD21F"/><rect x="4" y="3" width="1" height="1" fill="#FFD21F"/><rect x="5" y="4" width="1" height="1" fill="#FFD21F"/><rect x="6" y="4" width="1" height="1" fill="#FFD21F"/><rect x="7" y="3" width="1" height="1" fill="#FFD21F"/><rect x="8" y="4" width="1" height="1" fill="#FFD21F"/></g></svg><span class="hl-bub is-robot">TV on top?</span></span><span class="hl-say hl-a2"><span class="hl-bub is-user">No</span><svg class="px hl-av" viewBox="0 0 10 10" shape-rendering="crispEdges" aria-hidden="true"><rect x="1" y="0" width="1" height="1" fill="#2B1D16"/><rect x="2" y="0" width="1" height="1" fill="#2B1D16"/><rect x="3" y="0" width="1" height="1" fill="#2B1D16"/><rect x="4" y="0" width="1" height="1" fill="#2B1D16"/><rect x="5" y="0" width="1" height="1" fill="#2B1D16"/><rect x="6" y="0" width="1" height="1" fill="#2B1D16"/><rect x="7" y="0" width="1" height="1" fill="#2B1D16"/><rect x="8" y="0" width="1" height="1" fill="#2B1D16"/><rect x="0" y="1" width="1" height="1" fill="#2B1D16"/><rect x="1" y="1" width="1" height="1" fill="#2B1D16"/><rect x="2" y="1" width="1" height="1" fill="#2B1D16"/><rect x="3" y="1" width="1" height="1" fill="#2B1D16"/><rect x="4" y="1" width="1" height="1" fill="#2B1D16"/><rect x="5" y="1" width="1" height="1" fill="#2B1D16"/><rect x="6" y="1" width="1" height="1" fill="#2B1D16"/><rect x="7" y="1" width="1" height="1" fill="#2B1D16"/><rect x="8" y="1" width="1" height="1" fill="#2B1D16"/><rect x="9" y="1" width="1" height="1" fill="#2B1D16"/><rect x="0" y="2" width="1" height="1" fill="#2B1D16"/><rect x="1" y="2" width="1" height="1" fill="#2B1D16"/><rect x="2" y="2" width="1" height="1" fill="#2B1D16"/><rect x="3" y="2" width="1" height="1" fill="#2B1D16"/><rect x="4" y="2" width="1" height="1" fill="#2B1D16"/><rect x="5" y="2" width="1" height="1" fill="#2B1D16"/><rect x="6" y="2" width="1" height="1" fill="#2B1D16"/><rect x="7" y="2" width="1" height="1" fill="#2B1D16"/><rect x="8" y="2" width="1" height="1" fill="#2B1D16"/><rect x="9" y="2" width="1" height="1" fill="#2B1D16"/><rect x="0" y="3" width="1" height="1" fill="#2B1D16"/><rect x="1" y="3" width="1" height="1" fill="#2B1D16"/><rect x="2" y="3" width="1" height="1" fill="#F0B98D"/><rect x="3" y="3" width="1" height="1" fill="#F0B98D"/><rect x="4" y="3" width="1" height="1" fill="#F0B98D"/><rect x="5" y="3" width="1" height="1" fill="#2B1D16"/><rect x="6" y="3" width="1" height="1" fill="#2B1D16"/><rect x="7" y="3" width="1" height="1" fill="#F0B98D"/><rect x="8" y="3" width="1" height="1" fill="#F0B98D"/><rect x="9" y="3" width="1" height="1" fill="#2B1D16"/><rect x="0" y="4" width="1" height="1" fill="#2B1D16"/><rect x="1" y="4" width="1" height="1" fill="#F0B98D"/><rect x="2" y="4" width="1" height="1" fill="#F0B98D"/><rect x="3" y="4" width="1" height="1" fill="#F0B98D"/><rect x="4" y="4" width="1" height="1" fill="#F0B98D"/><rect x="5" y="4" width="1" height="1" fill="#F0B98D"/><rect x="6" y="4" width="1" height="1" fill="#F0B98D"/><rect x="7" y="4" width="1" height="1" fill="#F0B98D"/><rect x="8" y="4" width="1" height="1" fill="#F0B98D"/><rect x="9" y="4" width="1" height="1" fill="#2B1D16"/><rect x="0" y="5" width="1" height="1" fill="#F0B98D"/><rect x="1" y="5" width="1" height="1" fill="#F0B98D"/><rect x="2" y="5" width="1" height="1" fill="#F0B98D"/><rect x="3" y="5" width="1" height="1" fill="#F0B98D"/><rect x="4" y="5" width="1" height="1" fill="#F0B98D"/><rect x="5" y="5" width="1" height="1" fill="#F0B98D"/><rect x="6" y="5" width="1" height="1" fill="#F0B98D"/><rect x="7" y="5" width="1" height="1" fill="#F0B98D"/><rect x="8" y="5" width="1" height="1" fill="#F0B98D"/><rect x="9" y="5" width="1" height="1" fill="#F0B98D"/><rect x="0" y="6" width="1" height="1" fill="#F0B98D"/><rect x="1" y="6" width="1" height="1" fill="#F0B98D"/><rect x="2" y="6" width="1" height="1" fill="#F0B98D"/><rect x="3" y="6" width="1" height="1" fill="#F0B98D"/><rect x="4" y="6" width="1" height="1" fill="#F0B98D"/><rect x="5" y="6" width="1" height="1" fill="#F0B98D"/><rect x="6" y="6" width="1" height="1" fill="#F0B98D"/><rect x="7" y="6" width="1" height="1" fill="#F0B98D"/><rect x="8" y="6" width="1" height="1" fill="#F0B98D"/><rect x="9" y="6" width="1" height="1" fill="#F0B98D"/><rect x="0" y="7" width="1" height="1" fill="#F0B98D"/><rect x="1" y="7" width="1" height="1" fill="#F0B98D"/><rect x="2" y="7" width="1" height="1" fill="#F0B98D"/><rect x="3" y="7" width="1" height="1" fill="#F0B98D"/><rect x="4" y="7" width="1" height="1" fill="#F0B98D"/><rect x="5" y="7" width="1" height="1" fill="#F0B98D"/><rect x="6" y="7" width="1" height="1" fill="#F0B98D"/><rect x="7" y="7" width="1" height="1" fill="#F0B98D"/><rect x="8" y="7" width="1" height="1" fill="#F0B98D"/><rect x="9" y="7" width="1" height="1" fill="#F0B98D"/><rect x="0" y="8" width="1" height="1" fill="#F0B98D"/><rect x="1" y="8" width="1" height="1" fill="#F0B98D"/><rect x="2" y="8" width="1" height="1" fill="#F0B98D"/><rect x="3" y="8" width="1" height="1" fill="#F0B98D"/><rect x="4" y="8" width="1" height="1" fill="#F0B98D"/><rect x="5" y="8" width="1" height="1" fill="#F0B98D"/><rect x="6" y="8" width="1" height="1" fill="#F0B98D"/><rect x="7" y="8" width="1" height="1" fill="#F0B98D"/><rect x="8" y="8" width="1" height="1" fill="#F0B98D"/><rect x="9" y="8" width="1" height="1" fill="#F0B98D"/><rect x="0" y="9" width="1" height="1" fill="#DDA27A"/><rect x="1" y="9" width="1" height="1" fill="#F0B98D"/><rect x="2" y="9" width="1" height="1" fill="#F0B98D"/><rect x="3" y="9" width="1" height="1" fill="#F0B98D"/><rect x="4" y="9" width="1" height="1" fill="#F0B98D"/><rect x="5" y="9" width="1" height="1" fill="#F0B98D"/><rect x="6" y="9" width="1" height="1" fill="#F0B98D"/><rect x="7" y="9" width="1" height="1" fill="#F0B98D"/><rect x="8" y="9" width="1" height="1" fill="#F0B98D"/><rect x="9" y="9" width="1" height="1" fill="#DDA27A"/><g class="m-a"><rect x="2" y="5" width="1" height="1" fill="#FFFFFF"/><rect x="3" y="5" width="1" height="1" fill="#1A1A1A"/><rect x="2" y="6" width="1" height="1" fill="#FFFFFF"/><rect x="3" y="6" width="1" height="1" fill="#1A1A1A"/><rect x="6" y="5" width="1" height="1" fill="#1A1A1A"/><rect x="7" y="5" width="1" height="1" fill="#FFFFFF"/><rect x="6" y="6" width="1" height="1" fill="#1A1A1A"/><rect x="7" y="6" width="1" height="1" fill="#FFFFFF"/><rect x="4" y="8" width="1" height="1" fill="#B4664A"/><rect x="5" y="8" width="1" height="1" fill="#B4664A"/></g><g class="m-b"><rect x="2" y="5" width="1" height="1" fill="#1A1A1A"/><rect x="3" y="5" width="1" height="1" fill="#1A1A1A"/><rect x="1" y="6" width="1" height="1" fill="#1A1A1A"/><rect x="4" y="6" width="1" height="1" fill="#1A1A1A"/><rect x="6" y="5" width="1" height="1" fill="#1A1A1A"/><rect x="7" y="5" width="1" height="1" fill="#1A1A1A"/><rect x="5" y="6" width="1" height="1" fill="#1A1A1A"/><rect x="8" y="6" width="1" height="1" fill="#1A1A1A"/><rect x="2" y="7" width="1" height="1" fill="#1A1A1A"/><rect x="7" y="7" width="1" height="1" fill="#1A1A1A"/><rect x="3" y="8" width="1" height="1" fill="#1A1A1A"/><rect x="4" y="8" width="1" height="1" fill="#1A1A1A"/><rect x="5" y="8" width="1" height="1" fill="#1A1A1A"/><rect x="6" y="8" width="1" height="1" fill="#1A1A1A"/><rect x="1" y="7" width="1" height="1" fill="#FF8F86"/><rect x="8" y="7" width="1" height="1" fill="#FF8F86"/></g></svg></span></div>
+            </div>
+      </figure>
+    </div>
+    <p class="lede"><b>Human requests are rarely complete,</b> so agents must ask clarifying questions.</p>
+    <p class="lede is-question">How should a robot ask, so the user does the least work?</p>
+    <div class="shift-box">
+    <button type="button" class="hl-pause shift-pause" id="shift-pause" aria-pressed="false" aria-label="Pause animation"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5v14M15 5v14"/></svg></button>
+    <ol class="shift" id="shift">
+      <li class="shift-panel" style="--d:0s">
+        <div class="scene">
+          <div class="who who-h" style="--d:.15s"><svg class="px " viewBox="-2.5 -1 15 25" shape-rendering="crispEdges" aria-hidden="true"><rect x="-1" y="22.6" width="12" height="0.8" fill="var(--px-shadow)"/><rect x="2" y="17" width="3" height="5" fill="#3B4252"/><rect x="5" y="17" width="3" height="5" fill="#3B4252"/><rect x="2" y="22" width="3" height="1" fill="#F4F4F4"/><rect x="5" y="22" width="3" height="1" fill="#F4F4F4"/><rect x="-1" y="10" width="2" height="6" fill="#FF7A2F"/><rect x="-1" y="16" width="2" height="2" fill="#F0B98D"/><rect x="9" y="10" width="2" height="6" fill="#FF7A2F"/><rect x="9" y="16" width="2" height="2" fill="#F0B98D"/><rect x="1" y="10" width="8" height="8" fill="#FF7A2F"/><rect x="1" y="17" width="8" height="1" fill="#D9601C"/><rect x="3" y="10" width="4" height="1" fill="#D9601C"/><rect x="3" y="14" width="4" height="2" fill="#D9601C"/><rect x="1" y="0" width="1" height="1" fill="#2B1D16"/><rect x="2" y="0" width="1" height="1" fill="#2B1D16"/><rect x="3" y="0" width="1" height="1" fill="#2B1D16"/><rect x="4" y="0" width="1" height="1" fill="#2B1D16"/><rect x="5" y="0" width="1" height="1" fill="#2B1D16"/><rect x="6" y="0" width="1" height="1" fill="#2B1D16"/><rect x="7" y="0" width="1" height="1" fill="#2B1D16"/><rect x="8" y="0" width="1" height="1" fill="#2B1D16"/><rect x="0" y="1" width="1" height="1" fill="#2B1D16"/><rect x="1" y="1" width="1" height="1" fill="#2B1D16"/><rect x="2" y="1" width="1" height="1" fill="#2B1D16"/><rect x="3" y="1" width="1" height="1" fill="#2B1D16"/><rect x="4" y="1" width="1" height="1" fill="#2B1D16"/><rect x="5" y="1" width="1" height="1" fill="#2B1D16"/><rect x="6" y="1" width="1" height="1" fill="#2B1D16"/><rect x="7" y="1" width="1" height="1" fill="#2B1D16"/><rect x="8" y="1" width="1" height="1" fill="#2B1D16"/><rect x="9" y="1" width="1" height="1" fill="#2B1D16"/><rect x="0" y="2" width="1" height="1" fill="#2B1D16"/><rect x="1" y="2" width="1" height="1" fill="#2B1D16"/><rect x="2" y="2" width="1" height="1" fill="#2B1D16"/><rect x="3" y="2" width="1" height="1" fill="#2B1D16"/><rect x="4" y="2" width="1" height="1" fill="#2B1D16"/><rect x="5" y="2" width="1" height="1" fill="#2B1D16"/><rect x="6" y="2" width="1" height="1" fill="#2B1D16"/><rect x="7" y="2" width="1" height="1" fill="#2B1D16"/><rect x="8" y="2" width="1" height="1" fill="#2B1D16"/><rect x="9" y="2" width="1" height="1" fill="#2B1D16"/><rect x="0" y="3" width="1" height="1" fill="#2B1D16"/><rect x="1" y="3" width="1" height="1" fill="#2B1D16"/><rect x="2" y="3" width="1" height="1" fill="#F0B98D"/><rect x="3" y="3" width="1" height="1" fill="#F0B98D"/><rect x="4" y="3" width="1" height="1" fill="#F0B98D"/><rect x="5" y="3" width="1" height="1" fill="#2B1D16"/><rect x="6" y="3" width="1" height="1" fill="#2B1D16"/><rect x="7" y="3" width="1" height="1" fill="#F0B98D"/><rect x="8" y="3" width="1" height="1" fill="#F0B98D"/><rect x="9" y="3" width="1" height="1" fill="#2B1D16"/><rect x="0" y="4" width="1" height="1" fill="#2B1D16"/><rect x="1" y="4" width="1" height="1" fill="#F0B98D"/><rect x="2" y="4" width="1" height="1" fill="#F0B98D"/><rect x="3" y="4" width="1" height="1" fill="#F0B98D"/><rect x="4" y="4" width="1" height="1" fill="#F0B98D"/><rect x="5" y="4" width="1" height="1" fill="#F0B98D"/><rect x="6" y="4" width="1" height="1" fill="#F0B98D"/><rect x="7" y="4" width="1" height="1" fill="#F0B98D"/><rect x="8" y="4" width="1" height="1" fill="#F0B98D"/><rect x="9" y="4" width="1" height="1" fill="#2B1D16"/><rect x="0" y="5" width="1" height="1" fill="#F0B98D"/><rect x="1" y="5" width="1" height="1" fill="#F0B98D"/><rect x="2" y="5" width="1" height="1" fill="#F0B98D"/><rect x="3" y="5" width="1" height="1" fill="#F0B98D"/><rect x="4" y="5" width="1" height="1" fill="#F0B98D"/><rect x="5" y="5" width="1" height="1" fill="#F0B98D"/><rect x="6" y="5" width="1" height="1" fill="#F0B98D"/><rect x="7" y="5" width="1" height="1" fill="#F0B98D"/><rect x="8" y="5" width="1" height="1" fill="#F0B98D"/><rect x="9" y="5" width="1" height="1" fill="#F0B98D"/><rect x="0" y="6" width="1" height="1" fill="#F0B98D"/><rect x="1" y="6" width="1" height="1" fill="#F0B98D"/><rect x="2" y="6" width="1" height="1" fill="#F0B98D"/><rect x="3" y="6" width="1" height="1" fill="#F0B98D"/><rect x="4" y="6" width="1" height="1" fill="#F0B98D"/><rect x="5" y="6" width="1" height="1" fill="#F0B98D"/><rect x="6" y="6" width="1" height="1" fill="#F0B98D"/><rect x="7" y="6" width="1" height="1" fill="#F0B98D"/><rect x="8" y="6" width="1" height="1" fill="#F0B98D"/><rect x="9" y="6" width="1" height="1" fill="#F0B98D"/><rect x="0" y="7" width="1" height="1" fill="#F0B98D"/><rect x="1" y="7" width="1" height="1" fill="#F0B98D"/><rect x="2" y="7" width="1" height="1" fill="#F0B98D"/><rect x="3" y="7" width="1" height="1" fill="#F0B98D"/><rect x="4" y="7" width="1" height="1" fill="#F0B98D"/><rect x="5" y="7" width="1" height="1" fill="#F0B98D"/><rect x="6" y="7" width="1" height="1" fill="#F0B98D"/><rect x="7" y="7" width="1" height="1" fill="#F0B98D"/><rect x="8" y="7" width="1" height="1" fill="#F0B98D"/><rect x="9" y="7" width="1" height="1" fill="#F0B98D"/><rect x="0" y="8" width="1" height="1" fill="#F0B98D"/><rect x="1" y="8" width="1" height="1" fill="#F0B98D"/><rect x="2" y="8" width="1" height="1" fill="#F0B98D"/><rect x="3" y="8" width="1" height="1" fill="#F0B98D"/><rect x="4" y="8" width="1" height="1" fill="#F0B98D"/><rect x="5" y="8" width="1" height="1" fill="#F0B98D"/><rect x="6" y="8" width="1" height="1" fill="#F0B98D"/><rect x="7" y="8" width="1" height="1" fill="#F0B98D"/><rect x="8" y="8" width="1" height="1" fill="#F0B98D"/><rect x="9" y="8" width="1" height="1" fill="#F0B98D"/><rect x="0" y="9" width="1" height="1" fill="#DDA27A"/><rect x="1" y="9" width="1" height="1" fill="#F0B98D"/><rect x="2" y="9" width="1" height="1" fill="#F0B98D"/><rect x="3" y="9" width="1" height="1" fill="#F0B98D"/><rect x="4" y="9" width="1" height="1" fill="#F0B98D"/><rect x="5" y="9" width="1" height="1" fill="#F0B98D"/><rect x="6" y="9" width="1" height="1" fill="#F0B98D"/><rect x="7" y="9" width="1" height="1" fill="#F0B98D"/><rect x="8" y="9" width="1" height="1" fill="#F0B98D"/><rect x="9" y="9" width="1" height="1" fill="#DDA27A"/><rect x="2" y="5" width="1" height="1" fill="#FFFFFF"/><rect x="3" y="5" width="1" height="1" fill="#1A1A1A"/><rect x="2" y="6" width="1" height="1" fill="#FFFFFF"/><rect x="3" y="6" width="1" height="1" fill="#1A1A1A"/><rect x="6" y="5" width="1" height="1" fill="#1A1A1A"/><rect x="7" y="5" width="1" height="1" fill="#FFFFFF"/><rect x="6" y="6" width="1" height="1" fill="#1A1A1A"/><rect x="7" y="6" width="1" height="1" fill="#FFFFFF"/><rect x="4" y="8" width="1" height="1" fill="#B4664A"/><rect x="5" y="8" width="1" height="1" fill="#B4664A"/></svg></div>
+          <div class="who who-r" style="--d:.15s"><svg class="px " viewBox="-2 -6 16 28" shape-rendering="crispEdges" aria-hidden="true"><rect x="0" y="20.6" width="12" height="0.8" fill="var(--px-shadow)"/><rect x="2" y="17" width="3" height="4" fill="#4F5862"/><rect x="7" y="17" width="3" height="4" fill="#4F5862"/><rect x="1.5" y="20" width="4" height="1" fill="#1C2229"/><rect x="6.5" y="20" width="4" height="1" fill="#1C2229"/><rect x="-1" y="10" width="2" height="6" fill="#4F5862"/><rect x="-1" y="15" width="2" height="1.5" fill="#98A1AB"/><rect x="11" y="10" width="2" height="6" fill="#4F5862"/><rect x="11" y="15" width="2" height="1.5" fill="#98A1AB"/><rect x="1" y="10" width="10" height="7" fill="#4F5862"/><rect x="2" y="11" width="8" height="5" fill="#C7CDD4"/><rect x="5" y="12" width="2" height="2" fill="#98A1AB"/><rect x="3" y="15" width="6" height="1" fill="#AEB5BD"/><rect x="5" y="9" width="2" height="1" fill="#4F5862"/><rect x="5.5" y="-3" width="1" height="3" fill="#4F5862"/><rect x="5" y="-5" width="2" height="2" fill="#98A1AB"/><rect x="1" y="0" width="10" height="9" fill="#4F5862"/><rect x="0" y="1" width="12" height="7" fill="#4F5862"/><rect x="1" y="1" width="10" height="7" fill="#C7CDD4"/><rect x="2" y="2" width="8" height="4" fill="#1C2229"/><rect x="1" y="7" width="10" height="1" fill="#AEB5BD"/><rect x="3" y="3" width="2" height="2" fill="#98A1AB"/><rect x="7" y="3" width="2" height="2" fill="#98A1AB"/></svg></div>
+          <span class="bub is-user" style="--d:0.45s;left:5%;top:8%;max-width:60%">Dark wood one, by the mirror.</span>
+          <span class="bub is-robot" style="--d:0.85s;right:9%;top:34%">OK.</span>
+        </div>
+        <p class="shift-label">Follows commands</p>
+        <p class="shift-sub">You spell out everything</p>
+      </li>
+      <li class="shift-panel" style="--d:.5s">
+        <div class="scene">
+          <div class="who who-h" style="--d:.65s"><svg class="px " viewBox="-2.5 -1 15 25" shape-rendering="crispEdges" aria-hidden="true"><rect x="-1" y="22.6" width="12" height="0.8" fill="var(--px-shadow)"/><rect x="2" y="17" width="3" height="5" fill="#3B4252"/><rect x="5" y="17" width="3" height="5" fill="#3B4252"/><rect x="2" y="22" width="3" height="1" fill="#F4F4F4"/><rect x="5" y="22" width="3" height="1" fill="#F4F4F4"/><rect x="-2" y="5" width="2" height="6" fill="#FF7A2F"/><rect x="-2" y="3" width="2" height="2" fill="#F0B98D"/><rect x="10" y="5" width="2" height="6" fill="#FF7A2F"/><rect x="10" y="3" width="2" height="2" fill="#F0B98D"/><rect x="1" y="10" width="8" height="8" fill="#FF7A2F"/><rect x="1" y="17" width="8" height="1" fill="#D9601C"/><rect x="3" y="10" width="4" height="1" fill="#D9601C"/><rect x="3" y="14" width="4" height="2" fill="#D9601C"/><rect x="1" y="0" width="1" height="1" fill="#2B1D16"/><rect x="2" y="0" width="1" height="1" fill="#2B1D16"/><rect x="3" y="0" width="1" height="1" fill="#2B1D16"/><rect x="4" y="0" width="1" height="1" fill="#2B1D16"/><rect x="5" y="0" width="1" height="1" fill="#2B1D16"/><rect x="6" y="0" width="1" height="1" fill="#2B1D16"/><rect x="7" y="0" width="1" height="1" fill="#2B1D16"/><rect x="8" y="0" width="1" height="1" fill="#2B1D16"/><rect x="0" y="1" width="1" height="1" fill="#2B1D16"/><rect x="1" y="1" width="1" height="1" fill="#2B1D16"/><rect x="2" y="1" width="1" height="1" fill="#2B1D16"/><rect x="3" y="1" width="1" height="1" fill="#2B1D16"/><rect x="4" y="1" width="1" height="1" fill="#2B1D16"/><rect x="5" y="1" width="1" height="1" fill="#2B1D16"/><rect x="6" y="1" width="1" height="1" fill="#2B1D16"/><rect x="7" y="1" width="1" height="1" fill="#2B1D16"/><rect x="8" y="1" width="1" height="1" fill="#2B1D16"/><rect x="9" y="1" width="1" height="1" fill="#2B1D16"/><rect x="0" y="2" width="1" height="1" fill="#2B1D16"/><rect x="1" y="2" width="1" height="1" fill="#2B1D16"/><rect x="2" y="2" width="1" height="1" fill="#2B1D16"/><rect x="3" y="2" width="1" height="1" fill="#2B1D16"/><rect x="4" y="2" width="1" height="1" fill="#2B1D16"/><rect x="5" y="2" width="1" height="1" fill="#2B1D16"/><rect x="6" y="2" width="1" height="1" fill="#2B1D16"/><rect x="7" y="2" width="1" height="1" fill="#2B1D16"/><rect x="8" y="2" width="1" height="1" fill="#2B1D16"/><rect x="9" y="2" width="1" height="1" fill="#2B1D16"/><rect x="0" y="3" width="1" height="1" fill="#2B1D16"/><rect x="1" y="3" width="1" height="1" fill="#2B1D16"/><rect x="2" y="3" width="1" height="1" fill="#F0B98D"/><rect x="3" y="3" width="1" height="1" fill="#F0B98D"/><rect x="4" y="3" width="1" height="1" fill="#F0B98D"/><rect x="5" y="3" width="1" height="1" fill="#2B1D16"/><rect x="6" y="3" width="1" height="1" fill="#2B1D16"/><rect x="7" y="3" width="1" height="1" fill="#F0B98D"/><rect x="8" y="3" width="1" height="1" fill="#F0B98D"/><rect x="9" y="3" width="1" height="1" fill="#2B1D16"/><rect x="0" y="4" width="1" height="1" fill="#2B1D16"/><rect x="1" y="4" width="1" height="1" fill="#F0B98D"/><rect x="2" y="4" width="1" height="1" fill="#F0B98D"/><rect x="3" y="4" width="1" height="1" fill="#F0B98D"/><rect x="4" y="4" width="1" height="1" fill="#F0B98D"/><rect x="5" y="4" width="1" height="1" fill="#F0B98D"/><rect x="6" y="4" width="1" height="1" fill="#F0B98D"/><rect x="7" y="4" width="1" height="1" fill="#F0B98D"/><rect x="8" y="4" width="1" height="1" fill="#F0B98D"/><rect x="9" y="4" width="1" height="1" fill="#2B1D16"/><rect x="0" y="5" width="1" height="1" fill="#F0B98D"/><rect x="1" y="5" width="1" height="1" fill="#F0B98D"/><rect x="2" y="5" width="1" height="1" fill="#F0B98D"/><rect x="3" y="5" width="1" height="1" fill="#F0B98D"/><rect x="4" y="5" width="1" height="1" fill="#F0B98D"/><rect x="5" y="5" width="1" height="1" fill="#F0B98D"/><rect x="6" y="5" width="1" height="1" fill="#F0B98D"/><rect x="7" y="5" width="1" height="1" fill="#F0B98D"/><rect x="8" y="5" width="1" height="1" fill="#F0B98D"/><rect x="9" y="5" width="1" height="1" fill="#F0B98D"/><rect x="0" y="6" width="1" height="1" fill="#F0B98D"/><rect x="1" y="6" width="1" height="1" fill="#F0B98D"/><rect x="2" y="6" width="1" height="1" fill="#F0B98D"/><rect x="3" y="6" width="1" height="1" fill="#F0B98D"/><rect x="4" y="6" width="1" height="1" fill="#F0B98D"/><rect x="5" y="6" width="1" height="1" fill="#F0B98D"/><rect x="6" y="6" width="1" height="1" fill="#F0B98D"/><rect x="7" y="6" width="1" height="1" fill="#F0B98D"/><rect x="8" y="6" width="1" height="1" fill="#F0B98D"/><rect x="9" y="6" width="1" height="1" fill="#F0B98D"/><rect x="0" y="7" width="1" height="1" fill="#F0B98D"/><rect x="1" y="7" width="1" height="1" fill="#F0B98D"/><rect x="2" y="7" width="1" height="1" fill="#F0B98D"/><rect x="3" y="7" width="1" height="1" fill="#F0B98D"/><rect x="4" y="7" width="1" height="1" fill="#F0B98D"/><rect x="5" y="7" width="1" height="1" fill="#F0B98D"/><rect x="6" y="7" width="1" height="1" fill="#F0B98D"/><rect x="7" y="7" width="1" height="1" fill="#F0B98D"/><rect x="8" y="7" width="1" height="1" fill="#F0B98D"/><rect x="9" y="7" width="1" height="1" fill="#F0B98D"/><rect x="0" y="8" width="1" height="1" fill="#F0B98D"/><rect x="1" y="8" width="1" height="1" fill="#F0B98D"/><rect x="2" y="8" width="1" height="1" fill="#F0B98D"/><rect x="3" y="8" width="1" height="1" fill="#F0B98D"/><rect x="4" y="8" width="1" height="1" fill="#F0B98D"/><rect x="5" y="8" width="1" height="1" fill="#F0B98D"/><rect x="6" y="8" width="1" height="1" fill="#F0B98D"/><rect x="7" y="8" width="1" height="1" fill="#F0B98D"/><rect x="8" y="8" width="1" height="1" fill="#F0B98D"/><rect x="9" y="8" width="1" height="1" fill="#F0B98D"/><rect x="0" y="9" width="1" height="1" fill="#DDA27A"/><rect x="1" y="9" width="1" height="1" fill="#F0B98D"/><rect x="2" y="9" width="1" height="1" fill="#F0B98D"/><rect x="3" y="9" width="1" height="1" fill="#F0B98D"/><rect x="4" y="9" width="1" height="1" fill="#F0B98D"/><rect x="5" y="9" width="1" height="1" fill="#F0B98D"/><rect x="6" y="9" width="1" height="1" fill="#F0B98D"/><rect x="7" y="9" width="1" height="1" fill="#F0B98D"/><rect x="8" y="9" width="1" height="1" fill="#F0B98D"/><rect x="9" y="9" width="1" height="1" fill="#DDA27A"/><rect x="0" y="3" width="10" height="7" fill="rgba(255,40,30,.18)"/><rect x="1" y="4" width="1" height="1" fill="#1A1A1A"/><rect x="2" y="4" width="1" height="1" fill="#1A1A1A"/><rect x="3" y="5" width="1" height="1" fill="#1A1A1A"/><rect x="8" y="4" width="1" height="1" fill="#1A1A1A"/><rect x="7" y="4" width="1" height="1" fill="#1A1A1A"/><rect x="6" y="5" width="1" height="1" fill="#1A1A1A"/><rect x="2" y="6" width="1" height="1" fill="#FFFFFF"/><rect x="3" y="6" width="1" height="1" fill="#1A1A1A"/><rect x="6" y="6" width="1" height="1" fill="#1A1A1A"/><rect x="7" y="6" width="1" height="1" fill="#FFFFFF"/><rect x="3" y="8" width="1" height="1" fill="#1A1A1A"/><rect x="4" y="8" width="1" height="1" fill="#1A1A1A"/><rect x="5" y="8" width="1" height="1" fill="#1A1A1A"/><rect x="6" y="8" width="1" height="1" fill="#1A1A1A"/><rect x="3" y="9" width="1" height="1" fill="#1A1A1A"/><rect x="4" y="9" width="1" height="1" fill="#E2453A"/><rect x="5" y="9" width="1" height="1" fill="#E2453A"/><rect x="6" y="9" width="1" height="1" fill="#1A1A1A"/><rect x="7" y="1" width="1" height="1" fill="#FF4A3D"/><rect x="8" y="0" width="1" height="1" fill="#FF4A3D"/><rect x="8" y="2" width="1" height="1" fill="#FF4A3D"/><rect x="9" y="1" width="1" height="1" fill="#FF4A3D"/></svg></div>
+          <div class="who who-r" style="--d:.65s"><svg class="px " viewBox="-2 -6 16 28" shape-rendering="crispEdges" aria-hidden="true"><rect x="0" y="20.6" width="12" height="0.8" fill="var(--px-shadow)"/><rect x="2" y="17" width="3" height="4" fill="#4F5862"/><rect x="7" y="17" width="3" height="4" fill="#4F5862"/><rect x="1.5" y="20" width="4" height="1" fill="#1C2229"/><rect x="6.5" y="20" width="4" height="1" fill="#1C2229"/><rect x="-1" y="10" width="2" height="6" fill="#4F5862"/><rect x="-1" y="15" width="2" height="1.5" fill="#98A1AB"/><rect x="11" y="10" width="2" height="6" fill="#4F5862"/><rect x="11" y="15" width="2" height="1.5" fill="#98A1AB"/><rect x="1" y="10" width="10" height="7" fill="#4F5862"/><rect x="2" y="11" width="8" height="5" fill="#C7CDD4"/><rect x="5" y="12" width="2" height="2" fill="#98A1AB"/><rect x="3" y="15" width="6" height="1" fill="#AEB5BD"/><rect x="5" y="9" width="2" height="1" fill="#4F5862"/><rect x="5.5" y="-3" width="1" height="3" fill="#4F5862"/><rect x="5" y="-5" width="2" height="2" fill="#98A1AB"/><rect x="1" y="0" width="10" height="9" fill="#4F5862"/><rect x="0" y="1" width="12" height="7" fill="#4F5862"/><rect x="1" y="1" width="10" height="7" fill="#C7CDD4"/><rect x="2" y="2" width="8" height="4" fill="#1C2229"/><rect x="1" y="7" width="10" height="1" fill="#AEB5BD"/><rect x="2" y="3" width="2" height="2" fill="#98A1AB"/><rect x="6" y="3" width="2" height="2" fill="#98A1AB"/></svg></div>
+          <span class="bub is-robot" style="--d:0.95s;right:22%;top:2%">What color is it?</span>
+          <span class="bub is-robot" style="--d:1.15s;right:2%;top:13%">Where is it?</span>
+          <span class="bub is-robot" style="--d:1.35s;right:17%;top:24%">What&#x27;s it made of?</span>
+          <span class="bub is-robot" style="--d:1.55s;right:2%;top:35%">What&#x27;s next to it?</span>
+          <span class="bub is-robot" style="--d:1.75s;right:27%;top:46%">What&#x27;s on top?</span>
+        </div>
+        <p class="shift-label">Proactive, but burdensome</p>
+        <p class="shift-sub">Question after question</p>
+      </li>
+      <li class="shift-panel is-ours" style="--d:1s">
+        <div class="scene">
+          <div class="who who-h" style="--d:1.15s"><svg class="px " viewBox="-2.5 -1 15 25" shape-rendering="crispEdges" aria-hidden="true"><rect x="-1" y="22.6" width="12" height="0.8" fill="var(--px-shadow)"/><rect x="2" y="17" width="3" height="5" fill="#3B4252"/><rect x="5" y="17" width="3" height="5" fill="#3B4252"/><rect x="2" y="22" width="3" height="1" fill="#F4F4F4"/><rect x="5" y="22" width="3" height="1" fill="#F4F4F4"/><rect x="-1" y="10" width="2" height="6" fill="#FF7A2F"/><rect x="-1" y="16" width="2" height="2" fill="#F0B98D"/><rect x="9" y="10" width="2" height="6" fill="#FF7A2F"/><rect x="9" y="16" width="2" height="2" fill="#F0B98D"/><rect x="1" y="10" width="8" height="8" fill="#FF7A2F"/><rect x="1" y="17" width="8" height="1" fill="#D9601C"/><rect x="3" y="10" width="4" height="1" fill="#D9601C"/><rect x="3" y="14" width="4" height="2" fill="#D9601C"/><rect x="1" y="0" width="1" height="1" fill="#2B1D16"/><rect x="2" y="0" width="1" height="1" fill="#2B1D16"/><rect x="3" y="0" width="1" height="1" fill="#2B1D16"/><rect x="4" y="0" width="1" height="1" fill="#2B1D16"/><rect x="5" y="0" width="1" height="1" fill="#2B1D16"/><rect x="6" y="0" width="1" height="1" fill="#2B1D16"/><rect x="7" y="0" width="1" height="1" fill="#2B1D16"/><rect x="8" y="0" width="1" height="1" fill="#2B1D16"/><rect x="0" y="1" width="1" height="1" fill="#2B1D16"/><rect x="1" y="1" width="1" height="1" fill="#2B1D16"/><rect x="2" y="1" width="1" height="1" fill="#2B1D16"/><rect x="3" y="1" width="1" height="1" fill="#2B1D16"/><rect x="4" y="1" width="1" height="1" fill="#2B1D16"/><rect x="5" y="1" width="1" height="1" fill="#2B1D16"/><rect x="6" y="1" width="1" height="1" fill="#2B1D16"/><rect x="7" y="1" width="1" height="1" fill="#2B1D16"/><rect x="8" y="1" width="1" height="1" fill="#2B1D16"/><rect x="9" y="1" width="1" height="1" fill="#2B1D16"/><rect x="0" y="2" width="1" height="1" fill="#2B1D16"/><rect x="1" y="2" width="1" height="1" fill="#2B1D16"/><rect x="2" y="2" width="1" height="1" fill="#2B1D16"/><rect x="3" y="2" width="1" height="1" fill="#2B1D16"/><rect x="4" y="2" width="1" height="1" fill="#2B1D16"/><rect x="5" y="2" width="1" height="1" fill="#2B1D16"/><rect x="6" y="2" width="1" height="1" fill="#2B1D16"/><rect x="7" y="2" width="1" height="1" fill="#2B1D16"/><rect x="8" y="2" width="1" height="1" fill="#2B1D16"/><rect x="9" y="2" width="1" height="1" fill="#2B1D16"/><rect x="0" y="3" width="1" height="1" fill="#2B1D16"/><rect x="1" y="3" width="1" height="1" fill="#2B1D16"/><rect x="2" y="3" width="1" height="1" fill="#F0B98D"/><rect x="3" y="3" width="1" height="1" fill="#F0B98D"/><rect x="4" y="3" width="1" height="1" fill="#F0B98D"/><rect x="5" y="3" width="1" height="1" fill="#2B1D16"/><rect x="6" y="3" width="1" height="1" fill="#2B1D16"/><rect x="7" y="3" width="1" height="1" fill="#F0B98D"/><rect x="8" y="3" width="1" height="1" fill="#F0B98D"/><rect x="9" y="3" width="1" height="1" fill="#2B1D16"/><rect x="0" y="4" width="1" height="1" fill="#2B1D16"/><rect x="1" y="4" width="1" height="1" fill="#F0B98D"/><rect x="2" y="4" width="1" height="1" fill="#F0B98D"/><rect x="3" y="4" width="1" height="1" fill="#F0B98D"/><rect x="4" y="4" width="1" height="1" fill="#F0B98D"/><rect x="5" y="4" width="1" height="1" fill="#F0B98D"/><rect x="6" y="4" width="1" height="1" fill="#F0B98D"/><rect x="7" y="4" width="1" height="1" fill="#F0B98D"/><rect x="8" y="4" width="1" height="1" fill="#F0B98D"/><rect x="9" y="4" width="1" height="1" fill="#2B1D16"/><rect x="0" y="5" width="1" height="1" fill="#F0B98D"/><rect x="1" y="5" width="1" height="1" fill="#F0B98D"/><rect x="2" y="5" width="1" height="1" fill="#F0B98D"/><rect x="3" y="5" width="1" height="1" fill="#F0B98D"/><rect x="4" y="5" width="1" height="1" fill="#F0B98D"/><rect x="5" y="5" width="1" height="1" fill="#F0B98D"/><rect x="6" y="5" width="1" height="1" fill="#F0B98D"/><rect x="7" y="5" width="1" height="1" fill="#F0B98D"/><rect x="8" y="5" width="1" height="1" fill="#F0B98D"/><rect x="9" y="5" width="1" height="1" fill="#F0B98D"/><rect x="0" y="6" width="1" height="1" fill="#F0B98D"/><rect x="1" y="6" width="1" height="1" fill="#F0B98D"/><rect x="2" y="6" width="1" height="1" fill="#F0B98D"/><rect x="3" y="6" width="1" height="1" fill="#F0B98D"/><rect x="4" y="6" width="1" height="1" fill="#F0B98D"/><rect x="5" y="6" width="1" height="1" fill="#F0B98D"/><rect x="6" y="6" width="1" height="1" fill="#F0B98D"/><rect x="7" y="6" width="1" height="1" fill="#F0B98D"/><rect x="8" y="6" width="1" height="1" fill="#F0B98D"/><rect x="9" y="6" width="1" height="1" fill="#F0B98D"/><rect x="0" y="7" width="1" height="1" fill="#F0B98D"/><rect x="1" y="7" width="1" height="1" fill="#F0B98D"/><rect x="2" y="7" width="1" height="1" fill="#F0B98D"/><rect x="3" y="7" width="1" height="1" fill="#F0B98D"/><rect x="4" y="7" width="1" height="1" fill="#F0B98D"/><rect x="5" y="7" width="1" height="1" fill="#F0B98D"/><rect x="6" y="7" width="1" height="1" fill="#F0B98D"/><rect x="7" y="7" width="1" height="1" fill="#F0B98D"/><rect x="8" y="7" width="1" height="1" fill="#F0B98D"/><rect x="9" y="7" width="1" height="1" fill="#F0B98D"/><rect x="0" y="8" width="1" height="1" fill="#F0B98D"/><rect x="1" y="8" width="1" height="1" fill="#F0B98D"/><rect x="2" y="8" width="1" height="1" fill="#F0B98D"/><rect x="3" y="8" width="1" height="1" fill="#F0B98D"/><rect x="4" y="8" width="1" height="1" fill="#F0B98D"/><rect x="5" y="8" width="1" height="1" fill="#F0B98D"/><rect x="6" y="8" width="1" height="1" fill="#F0B98D"/><rect x="7" y="8" width="1" height="1" fill="#F0B98D"/><rect x="8" y="8" width="1" height="1" fill="#F0B98D"/><rect x="9" y="8" width="1" height="1" fill="#F0B98D"/><rect x="0" y="9" width="1" height="1" fill="#DDA27A"/><rect x="1" y="9" width="1" height="1" fill="#F0B98D"/><rect x="2" y="9" width="1" height="1" fill="#F0B98D"/><rect x="3" y="9" width="1" height="1" fill="#F0B98D"/><rect x="4" y="9" width="1" height="1" fill="#F0B98D"/><rect x="5" y="9" width="1" height="1" fill="#F0B98D"/><rect x="6" y="9" width="1" height="1" fill="#F0B98D"/><rect x="7" y="9" width="1" height="1" fill="#F0B98D"/><rect x="8" y="9" width="1" height="1" fill="#F0B98D"/><rect x="9" y="9" width="1" height="1" fill="#DDA27A"/><rect x="2" y="5" width="1" height="1" fill="#1A1A1A"/><rect x="3" y="5" width="1" height="1" fill="#1A1A1A"/><rect x="1" y="6" width="1" height="1" fill="#1A1A1A"/><rect x="4" y="6" width="1" height="1" fill="#1A1A1A"/><rect x="6" y="5" width="1" height="1" fill="#1A1A1A"/><rect x="7" y="5" width="1" height="1" fill="#1A1A1A"/><rect x="5" y="6" width="1" height="1" fill="#1A1A1A"/><rect x="8" y="6" width="1" height="1" fill="#1A1A1A"/><rect x="2" y="7" width="1" height="1" fill="#1A1A1A"/><rect x="7" y="7" width="1" height="1" fill="#1A1A1A"/><rect x="3" y="8" width="1" height="1" fill="#1A1A1A"/><rect x="4" y="8" width="1" height="1" fill="#1A1A1A"/><rect x="5" y="8" width="1" height="1" fill="#1A1A1A"/><rect x="6" y="8" width="1" height="1" fill="#1A1A1A"/><rect x="1" y="7" width="1" height="1" fill="#FF8F86"/><rect x="8" y="7" width="1" height="1" fill="#FF8F86"/></svg></div>
+          <div class="who who-r" style="--d:1.15s"><svg class="px " viewBox="-2 -6 16 28" shape-rendering="crispEdges" aria-hidden="true"><rect x="0" y="20.6" width="12" height="0.8" fill="var(--px-shadow)"/><rect x="2" y="17" width="3" height="4" fill="#4F5862"/><rect x="7" y="17" width="3" height="4" fill="#4F5862"/><rect x="1.5" y="20" width="4" height="1" fill="#1C2229"/><rect x="6.5" y="20" width="4" height="1" fill="#1C2229"/><rect x="-1" y="10" width="2" height="6" fill="#4F5862"/><rect x="-1" y="15" width="2" height="1.5" fill="#FFD21F"/><rect x="11" y="10" width="2" height="6" fill="#4F5862"/><rect x="11" y="15" width="2" height="1.5" fill="#FFD21F"/><rect x="1" y="10" width="10" height="7" fill="#4F5862"/><rect x="2" y="11" width="8" height="5" fill="#EEF2F5"/><rect x="5" y="12" width="2" height="2" fill="#FFD21F"/><rect x="3" y="15" width="6" height="1" fill="#D5DCE2"/><rect x="5" y="9" width="2" height="1" fill="#4F5862"/><rect x="5.5" y="-3" width="1" height="3" fill="#4F5862"/><rect x="5" y="-5" width="2" height="2" fill="#FFD21F"/><rect x="1" y="0" width="10" height="9" fill="#4F5862"/><rect x="0" y="1" width="12" height="7" fill="#4F5862"/><rect x="1" y="1" width="10" height="7" fill="#EEF2F5"/><rect x="2" y="2" width="8" height="4" fill="#1C2229"/><rect x="1" y="7" width="10" height="1" fill="#D5DCE2"/><rect x="3" y="4" width="1" height="1" fill="#FFD21F"/><rect x="4" y="3" width="1" height="1" fill="#FFD21F"/><rect x="5" y="4" width="1" height="1" fill="#FFD21F"/><rect x="6" y="4" width="1" height="1" fill="#FFD21F"/><rect x="7" y="3" width="1" height="1" fill="#FFD21F"/><rect x="8" y="4" width="1" height="1" fill="#FFD21F"/></svg></div>
+          <span class="pile" style="--d:1.35s" aria-hidden="true"><img src="static/images/hero/distractor_white_bathroom.jpg" alt="" width="193" height="142"><img src="static/images/hero/distractor_wood_tv.jpg" alt="" width="193" height="142"><img src="static/images/hero/target_wood_bathroom.jpg" alt="" width="193" height="142"><img src="static/images/hero/distractor_white_dresser_tv.jpg" alt="" width="193" height="142"></span>
+          <span class="bub is-robot" style="--d:1.7s;right:5%;top:4%">Wood-tone?</span>
+          <span class="bub is-user" style="--d:1.9s;left:7%;top:14.5%">Yes</span>
+          <span class="bub is-robot" style="--d:2.1s;right:5%;top:25%">TV on top?</span>
+          <span class="bub is-user" style="--d:2.3s;left:7%;top:35.5%">No</span>
+        </div>
+        <p class="shift-label"><span class="tag">ProCompNav</span>Proactive, with minimal user effort</p>
+        <p class="shift-sub">Collect first, then yes/no</p>
+      </li>
+    </ol>
+    </div>
+  </div>
+
+  <div class="wrap is-wide">
+    <figure class="embed">
+      <div class="embed-head">
+        <h3 class="embed-title">Interrupt Often vs. Ask Once</h3>
+        <a class="embed-open" href="static/animations/interruptions.html" target="_blank" rel="noopener">Open full screen &#8599;</a>
+      </div>
+      <iframe class="anim-frame" scrolling="no" src="static/animations/interruptions.html" title="Interrupt Often vs. Ask Once: asking every time the robot finds something vs asking once after searching (Study 2)" loading="lazy"></iframe>
+      <figcaption class="caption-text">Asking each time pulls the user away. ProCompNav asks once, after collecting. 14 of 20 people preferred it.</figcaption>
     </figure>
-    <p class="caption-text"><b>Figure 1.</b> Three strategies for instance navigation under an
-      ambiguous user query. (a) <i>Independent Matching</i> evaluates each candidate independently.
-      (b) <i>Pooled Independent Matching</i> collects multiple candidates, accumulates user responses
-      about each candidate, and applies independent matching. (c) <i>Comparative Judgment</i> (Ours)
-      constructs a candidate pool and asks discriminative binary questions based on candidate contrasts.</p>
+    <figure class="embed">
+      <div class="embed-head">
+        <h3 class="embed-title">Describe It vs. Just Say Yes</h3>
+        <a class="embed-open" href="static/animations/answer-format.html" target="_blank" rel="noopener">Open full screen &#8599;</a>
+      </div>
+      <iframe class="anim-frame" scrolling="no" src="static/animations/answer-format.html" title="Describe It vs. Just Say Yes: describing the target vs answering yes/no (Study 1)" loading="lazy"></iframe>
+      <figcaption class="caption-text">Describing takes effort; yes/no takes one tap. All 20 people preferred yes/no.</figcaption>
+    </figure>
+  </div>
+</section>
 
-    <p class="content" style="margin-top:1.5rem;">
-      Table 1 compares three end-to-end disambiguation strategies on CoIN-Bench. Pooled Independent
-      Matching uses ProCompNav's pool construction stage and improves SR over Independent Matching,
-      but requires long responses. Using the same pool construction stage, ProCompNav further
-      improves SR and reduces Response Length from <b>460-520</b> to <b>4.2-4.3</b> tokens.
-    </p>
+
+<!-- OVERVIEW ================================================================= -->
+<section class="section is-soft" id="overview">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="kicker">Overview</p>
+      <h2>Abstract</h2>
+    </div>
+    <div class="content">
+      <p>In human-robot interaction, agentic robots should resolve ambiguous user requests through proactive clarification while keeping user burden low. We study this challenge in interactive instance navigation, where an agent must identify and reach the user-intended target among similar objects. Existing approaches ask open-ended questions and select a candidate that strongly matches the accumulated user-provided information. However, this process can require lengthy user responses and lead the agent to make premature decisions without distinguishing the target from distractors.</p>
+      <p>To address these limitations, we propose Proactive Instance Navigation with Comparative Judgment (ProCompNav), a two-stage framework that first constructs a candidate pool and then identifies the target through Recursive Comparative Judgment (RCJ). RCJ iteratively narrows the pool by selecting an attribute-value pair that divides the candidates, asking the user a binary question, and removing inconsistent candidates, without requiring an attribute unique to the target.</p>
+      <p>ProCompNav substantially improves Success Rate and reduces Response Length on an interactive navigation benchmark, and achieves the highest Success Rate among evaluated methods on a non-interactive benchmark. In two human studies, participants preferred ProCompNav&rsquo;s binary questions to open-ended questions and its batched delivery to interleaved interaction. Our results highlight the need to jointly consider task performance and user-friendly interaction strategies when designing agentic robots.</p>
+    </div>
+  </div>
+
+  <div class="wrap is-wide">
+    <figure class="figure">
+      <a class="zoom" href="static/images/teaser.jpg" target="_blank" rel="noopener" aria-label="Open full-size figure"><img src="static/images/teaser.jpg" alt="ProCompNav teaser figure" width="2978" height="1227"></a>
+      <figcaption class="caption-text"><b>Figure 1.</b> Three ways to handle an ambiguous request. (a) Independent matching checks each candidate alone. (b) Pooled independent matching collects candidates first, then still checks each alone. (c) Comparative judgment (ours) collects candidates, then asks yes/no questions that split them.</figcaption>
+    </figure>
+  </div>
+</section>
+
+
+<!-- METHOD =================================================================== -->
+<section class="section" id="method">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="kicker">Method</p>
+      <h2>Collect first, then compare</h2>
+    </div>
+
+    <ol class="steps">
+      <li>
+        <span class="num">STAGE 1</span>
+        <h3>Pool construction</h3>
+        <p>Explore before deciding. Every object of the requested category becomes a candidate.</p>
+      </li>
+      <li>
+        <span class="num">STAGE 2</span>
+        <h3>Recursive Comparative Judgment</h3>
+        <p>Ask one yes/no question about an attribute that splits the candidates, and keep the side that fits. Repeat until one is left.</p>
+      </li>
+    </ol>
+    <ul class="steps easier">
+      <li>
+        <h3>Easier for the robot</h3>
+        <p>Find one difference among the candidates, instead of matching each one to a vague target.</p>
+      </li>
+      <li>
+        <h3>Easier for the user</h3>
+        <p>Answer yes or no, asked once after collecting.</p>
+      </li>
+    </ul>
+  </div>
+
+  <div class="wrap is-wide">
+    <figure class="embed">
+      <div class="embed-head">
+        <h3 class="embed-title">How ProCompNav Works</h3>
+        <a class="embed-open" href="static/animations/method-simple.html" target="_blank" rel="noopener">Open full screen &#8599;</a>
+      </div>
+      <iframe class="anim-frame" scrolling="no" src="static/animations/method-simple.html" title="How ProCompNav Works: collect candidates, group similar ones into a core set, score attributes on both groups, ask about the largest gap, and remove the group that does not fit" loading="lazy"></iframe>
+      <figcaption class="caption-text">Collect candidates, ask about the attribute that best splits them, and drop the group that doesn&rsquo;t fit.</figcaption>
+    </figure>
+
+    <figure class="figure">
+      <a class="zoom" href="static/images/method.jpg" target="_blank" rel="noopener" aria-label="Open full-size figure"><img src="static/images/method.jpg" alt="ProCompNav method overview" width="3874" height="1268"></a>
+      <figcaption class="caption-text"><b>Figure 2. Recursive Comparative Judgment.</b> Split the pool into a core set and the rest, ask whether the target has an attribute common to the core set, and keep the side that matches.</figcaption>
+    </figure>
+  </div>
+</section>
+
+
+<!-- COMPARISON: TABLE 1 + QUALITATIVE ======================================== -->
+<section class="section is-soft" id="comparison">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="kicker">Comparison</p>
+      <h2>Three strategies for ambiguous instance navigation</h2>
+    </div>
+    <ul class="steps is-three">
+      <li>
+        <span class="num">PRIOR WORK</span>
+        <h3>Independent matching</h3>
+        <p>Asks open-ended questions and checks each candidate alone. Long answers, and it can stop at a look-alike.</p>
+      </li>
+      <li>
+        <span class="num">NATURAL FIX</span>
+        <h3>Pooled independent matching</h3>
+        <p>Collects candidates first, but still checks each one alone. Answers get even longer.</p>
+      </li>
+      <li>
+        <span class="num">OURS</span>
+        <h3>Comparative judgment</h3>
+        <p>Collects first, then asks yes/no questions that split the candidates.</p>
+      </li>
+    </ul>
+  </div>
+
+  <div class="wrap is-wide">
+    <figure class="embed">
+      <div class="embed-head">
+        <h2 class="embed-title">Same Request, Three Robots</h2>
+        <a class="embed-open" href="static/animations/three-robots.html" target="_blank" rel="noopener">Open full screen &#8599;</a>
+      </div>
+      <iframe class="anim-frame" scrolling="no" src="static/animations/three-robots.html" title="Same Request, Three Robots: independent matching, pooled independent matching, and ProCompNav on the same ambiguous request" loading="lazy"></iframe>
+      <figcaption class="caption-text">One request, &ldquo;Find the cabinet,&rdquo; handled three ways.</figcaption>
+    </figure>
+  </div>
+
+  <div class="wrap">
+    <div class="content" style="margin-top:40px;">
+      <p>Same candidate pool, different questions: comparing raises success and cuts the user&rsquo;s answers from hundreds of tokens to about four.</p>
+    </div>
 
     <div class="table-container">
-      <table class="table is-fullwidth is-narrow is-bordered has-text-centered result-table">
+      <table class="result-table">
         <thead>
           <tr>
             <th rowspan="2" class="has-text-left">Decision Strategy</th>
@@ -182,60 +407,56 @@
         </tbody>
       </table>
     </div>
-    <p class="caption-text"><b>Table 1.</b> Comparison of three disambiguation strategies on
-      CoIN-Bench. We report Success Rate (SR), average total Response Length (RL) per episode, and
-      average Number of Questions (NQ) over episodes with user interaction. Pooled Independent
-      Matching has no question limit so it can gather information from every candidate.</p>
+    <p class="caption-text"><b>Table 1.</b> Three strategies on CoIN-Bench. SR: success rate (%). RL: user response length per episode (tokens). NQ: questions per episode with dialogue.</p>
 
+    <h3 class="prose">Qualitative comparison</h3>
+    <div class="content">
+      <p>Asking for a description gets a long answer and can still pick a look-alike. Asking what splits the candidates gets short answers and the right dresser.</p>
+    </div>
   </div>
-</section>
 
-
-<!-- METHOD ================================================================== -->
-<section class="section">
-  <div class="container is-max-desktop">
-    <h2 class="title is-3 has-text-centered">Method</h2>
-
-    <p class="content">
-      ProCompNav runs in two stages. In the <b>Pool Construction Stage</b>, the agent explores the
-      environment and aggregates multi-view evidence for each category-<i>c</i> detection into a
-      candidate pool with a multi-view collage and description per candidate. The
-      <b>Recursive Comparison Stage</b> (Fig. 2) begins when the pool reaches
-      <i>N</i><sub>min</sub> = 5 on CoIN or 3 on TextNav. If it has not started by step 400 on CoIN
-      or step 600 on TextNav, it starts at that step. Recursive Comparative Judgment (RCJ) narrows
-      the pool using attribute-value comparisons, without requiring an attribute unique to the target.
-    </p>
-
-    <figure class="image">
-      <img src="static/images/method.jpg" alt="ProCompNav method overview">
+  <div class="wrap is-wide">
+    <figure class="figure">
+      <a class="zoom" href="static/images/qualitative.jpg" target="_blank" rel="noopener" aria-label="Open full-size figure"><img src="static/images/qualitative.jpg" alt="Qualitative comparison: independent matching vs ProCompNav" loading="lazy"></a>
+      <figcaption class="caption-text"><b>Figure 4.</b> &ldquo;Find the dresser.&rdquo; Left: independent matching. Right: ProCompNav.</figcaption>
     </figure>
-    <p class="caption-text"><b>Figure 2. Recursive Comparative Judgment.</b>
-      At iteration <i>t</i>, ProCompNav splits the candidate pool <i>U<sub>t</sub></i> into a core
-      set <i>G<sub>c</sub></i> and a remainder set <i>G<sub>r</sub></i> by similarity. It
-      identifies a discriminative attribute <i>a<sub>t</sub><sup>*</sup></i>, that is common in
-      <i>G<sub>c</sub></i> but not in <i>G<sub>r</sub></i>. Finally, it asks whether the target
-      has <i>a<sub>t</sub><sup>*</sup></i>, and prunes the pool to obtain the next candidate pool
-      <i>U<sub>t+1</sub></i> based on the user's response.
-    </p>
   </div>
 </section>
 
 
-<!-- TABLE 2: CoIN-Bench main ================================================ -->
-<section class="section">
-  <div class="container is-max-desktop">
-    <h2 class="title is-3 has-text-centered">Main results on CoIN-Bench</h2>
+<!-- RESULTS ================================================================== -->
+<section class="section" id="results">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="kicker">Results</p>
+      <h2>Higher success, far less user effort</h2>
+    </div>
 
-    <p class="content">
-      ProCompNav achieves the <b>highest SR among the evaluated methods on all CoIN-Bench splits</b> with only category-level input.
-      Relative to AIUTA*, SR improves by +125.7% on Val Seen, +83.7% on Val Seen Synonyms, and
-      +91.0% on Val Unseen.
-      It also surpasses training-free baselines that consume a <i>detailed description</i> of the
-      target (3D-Mem*, Context-Nav) on every split, despite using only the category.
-    </p>
+    <div class="stats" role="list">
+      <div class="stat" role="listitem">
+        <p class="value">23.7<small>% SR</small></p>
+        <p class="what">Success Rate on CoIN-Bench Val Seen</p>
+        <p class="vs">vs <b>17.5</b> for Pooled Independent Matching and <b>10.5</b> for AIUTA*</p>
+      </div>
+      <div class="stat" role="listitem">
+        <p class="value">4.2<small>tokens</small></p>
+        <p class="what">User response length per episode</p>
+        <p class="vs">vs <b>460.2</b> for Pooled Independent Matching (Val Seen)</p>
+      </div>
+      <div class="stat" role="listitem">
+        <p class="value">20/20</p>
+        <p class="what">participants preferred yes/no questions</p>
+        <p class="vs">over open-ended questions</p>
+      </div>
+    </div>
+
+    <h3 class="prose">Main results on CoIN-Bench</h3>
+    <div class="content">
+      <p>Highest success rate on every CoIN-Bench split, with only the object category as input.</p>
+    </div>
 
     <div class="table-container">
-      <table class="table is-fullwidth is-narrow is-bordered has-text-centered result-table">
+      <table class="result-table">
         <thead>
           <tr>
             <th rowspan="2" class="has-text-left">Method</th>
@@ -323,57 +544,36 @@
         </tbody>
       </table>
     </div>
-    <p class="caption-text"><b>Table 2.</b> Results on CoIN-Bench. Indep/Comp refer to
-      independent/comparative judgment.
-      <sup>*</sup>Reproduced using the same MLLM and LLM as ProCompNav.
-      <sup>&dagger;</sup>Taken from <span class="ref">[Taioli et al., 2025]</span>.
-      <sup>&Dagger;</sup>Taken from <span class="ref">[Jang and Kim, 2026]</span>.</p>
-  </div>
-</section>
+    <p class="caption-text"><b>Table 2.</b> Results on CoIN-Bench. Indep/Comp: independent/comparative judgment. <sup>*</sup>Our reproduction with the same models as ProCompNav. <sup>&dagger;</sup>From <span class="ref">[Taioli et al., 2025]</span>. <sup>&Dagger;</sup>From <span class="ref">[Jang and Kim, 2026]</span>.</p>
 
 
-<!-- TERMINATION STEP ANALYSIS ================================================ -->
-<section class="section">
-  <div class="container is-max-desktop">
-    <h2 class="title is-3 has-text-centered">Termination-step analysis</h2>
+    <h3 class="prose">Termination-step analysis</h3>
+    <div class="content">
+      <p>Pooling stops early mistakes; comparing turns the collected candidates into more successes.</p>
+    </div>
 
-    <p class="content">
-      We compare AIUTA, Pooled Independent Matching, and ProCompNav on CoIN-Bench Val Seen.
-      AIUTA can commit prematurely to a distractor or reach the episode horizon without identifying
-      the target. Pooling reduces early commitments, while comparative judgment improves decisions
-      after candidate collection. ProCompNav has a similar termination distribution to Pooled
-      Independent Matching but accumulates more successes.
-    </p>
-
-    <figure class="image is-centered">
-      <img src="static/images/termination-step-analysis.jpg" alt="Termination steps and cumulative successes for AIUTA, Pooled Independent Matching, and ProCompNav" style="max-width:700px;margin:auto;display:block;">
+    <figure class="figure tc-fig" id="term-chart">
+      <div class="tc-legend" role="group" aria-label="Show or hide a method">
+        <button type="button" data-m="0" aria-pressed="true"><i class="tc-sw tc-sw-0"></i>AIUTA</button>
+        <button type="button" data-m="1" aria-pressed="true"><i class="tc-sw tc-sw-1"></i>Pooled IM</button>
+        <button type="button" data-m="2" aria-pressed="true"><i class="tc-sw tc-sw-2"></i>ProCompNav</button>
+      </div>
+      <div class="tc-wrap">
+        <svg class="tc" role="img" aria-label="Bars: episodes that ended in each 100-step bin. Lines: cumulative successes. AIUTA ends 247 episodes in the first 100 steps and runs 270 to the 500-step limit; Pooled IM and ProCompNav end at similar steps, and ProCompNav reaches 197 successes vs 145 and 87."></svg>
+        <div class="tc-tip" hidden></div>
+      </div>
+      <div class="tc-note" aria-live="polite"><span class="tc-hint">Tap a numbered marker to see what it shows. Hover or tap a bin for its numbers.</span></div>
+      <figcaption class="caption-text"><b>Figure 3.</b> When episodes end (bars, left axis) and cumulative successes (lines, right axis), CoIN-Bench Val Seen. The last bin is the 500-step limit.</figcaption>
     </figure>
-    <p class="caption-text"><b>Figure 3.</b> Termination-step analysis of AIUTA, Pooled Independent
-      Matching, and ProCompNav. Bars show terminated episodes in 100-step bins on the left axis,
-      and lines show cumulative successful episodes on the right axis. The final bin denotes
-      the 500-step horizon.</p>
-  </div>
-</section>
 
 
-<!-- TABLE 3 (TextNav, renumbered to match page order) ======================= -->
-<section class="section">
-  <div class="container is-max-desktop">
-    <h2 class="title is-3 has-text-centered">Non-interactive setting: TextNav</h2>
+    <h3 class="prose">Non-interactive setting: TextNav</h3>
+    <div class="content">
+      <p>With no one to ask, ProCompNav reads attributes from the text description and still compares candidates. It reaches the highest success rate on TextNav.</p>
+    </div>
 
-    <p class="content">
-      Although ProCompNav is designed for interactive instance navigation, it generalises to the
-      non-interactive Text-Goal Instance Navigation (TextNav) benchmark by extracting attributes
-      directly from the detailed target description provided at episode start instead of asking
-      the user. ProCompNav achieves the <b>highest SR (28.5%) among the evaluated methods</b>, suggesting that its core
-      mechanism &mdash; deferring the target decision until a candidate pool is constructed and
-      then pruning it with discriminative attributes &mdash; is also effective in the
-      non-interactive setting, where a detailed description is available but candidates still need
-      to be compared against each other rather than scored independently.
-    </p>
-
-    <div class="table-container">
-      <table class="table is-fullwidth is-narrow is-bordered has-text-centered result-table" style="max-width:600px;margin:auto;">
+    <div class="table-container is-narrow">
+      <table class="result-table">
         <thead>
           <tr>
             <th class="has-text-left">Method</th>
@@ -396,58 +596,23 @@
         </tbody>
       </table>
     </div>
-    <p class="caption-text"><b>Table 3.</b> Performance on TextNav. In the <i>Judgment</i> column,
-      Indep/Comp indicate whether each method uses independent matching or comparative judgment for
-      target disambiguation. Results denoted by <sup>&dagger;</sup> are taken from
-      <span class="ref">[Yin et al., 2025]</span>, those denoted by <sup>&Dagger;</sup> are taken
-      from <span class="ref">[Jang and Kim, 2026]</span>. Methods denoted by <sup>*</sup> are our
-      reproductions using the same MLLM and LLM as ProCompNav.</p>
-  </div>
-</section>
-
-
-<!-- QUALITATIVE ============================================================== -->
-<section class="section">
-  <div class="container is-max-desktop">
-    <h2 class="title is-3 has-text-centered">Qualitative comparison</h2>
-
-    <p class="content">
-      Under the minimally specified query <i>"Find the dresser"</i>, the independent-matching
-      baseline asks the user to describe an attribute of the intended target without knowing
-      whether that attribute distinguishes it from distractors; this burdens the user with a long
-      response and can lead the robot to mistakenly match a distractor sharing the same attribute.
-      In contrast, ProCompNav asks about discriminative attributes (e.g.,
-      <i>"Is there a red box nearby?"</i>) in a way that elicits only short user responses,
-      reducing verbal burden while correctly isolating the user-intended target.
-    </p>
-
-    <figure class="image">
-      <img src="static/images/qualitative.jpg" alt="Qualitative comparison: independent matching vs ProCompNav">
-    </figure>
-    <p class="caption-text"><b>Figure 4.</b> Qualitative comparison of Independent Matching and
-      Comparative Judgment under a minimally specified query ("Find the dresser").
-      <b>Independent Matching</b> (left) asks the user to describe an attribute of the intended
-      target without knowing whether that attribute distinguishes it from distractors. This
-      burdens the user with a long response and can lead the robot to mistakenly match a
-      distractor sharing the same attribute. In contrast, <b>Comparative Judgment</b> (right) asks
-      about discriminative attributes in a way that elicits only short user responses, reducing
-      verbal burden while correctly isolating the user-intended target.</p>
+    <p class="caption-text"><b>Table 3.</b> Results on TextNav (no questions). Indep/Comp: independent/comparative judgment. <sup>&dagger;</sup>From <span class="ref">[Yin et al., 2025]</span>. <sup>&Dagger;</sup>From <span class="ref">[Jang and Kim, 2026]</span>. <sup>*</sup>Our reproduction with the same models as ProCompNav.</p>
   </div>
 </section>
 
 
 <!-- HUMAN EVALUATION ========================================================= -->
-<section class="section">
-  <div class="container is-max-desktop">
-    <h2 class="title is-3 has-text-centered">Human evaluation of interaction strategies</h2>
-    <p class="content">
-      Two studies, each with 20 participants, compare response format and question delivery.
-      In Study 1, all 20 participants preferred the binary-question condition and responded faster
-      in that condition. In Study 2, 14 of 20 participants preferred batched delivery over
-      interleaved questions.
-    </p>
-    <div class="table-container">
-      <table class="table is-fullwidth is-narrow is-bordered has-text-centered result-table">
+<section class="section is-soft" id="human-evaluation">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="kicker">Human Study</p>
+      <h2>Human evaluation of interaction strategies</h2>
+    </div>
+    <div class="content">
+      <p>Two studies, 20 people each. Everyone preferred yes/no questions, and 14 of 20 preferred being asked once.</p>
+    </div>
+    <div class="table-container is-narrow" style="max-width:760px;">
+      <table class="result-table">
         <thead>
           <tr><th rowspan="2" class="has-text-left">Metric</th><th colspan="2">Study 1: response format</th><th colspan="2">Study 2: question delivery</th></tr>
           <tr><th>Open-ended</th><th>Binary</th><th>Interleaved</th><th>Batched</th></tr>
@@ -458,56 +623,340 @@
         </tbody>
       </table>
     </div>
-    <p class="caption-text"><b>Table 4.</b> Human evaluation of response format and question delivery.
-      Response time is the median per question; preference is the number of participants selecting
-      each condition.</p>
-    <p class="content">
-      Human open-ended responses were much shorter than simulated responses: 89.1% of the Korean
-      open-ended responses contained at most three whitespace-delimited words. These word counts
-      are distinct from the token-based Response Length in Table 1. Binary questions constrain
-      the response format for both simulated and human users.
-    </p>
+    <p class="caption-text"><b>Table 4.</b> Median response time per question, and how many people preferred each condition.</p>
+    <div class="content" style="margin-top:28px;">
+      <p class="back-ref">See both in <a href="#why">Why proactive?</a> above.</p>
+    </div>
   </div>
+
 </section>
 
 
 <!-- BIBTEX =================================================================== -->
 <section class="section" id="BibTeX">
-  <div class="container is-max-desktop content">
-    <h2 class="title is-3 has-text-centered">BibTeX</h2>
-<pre><code>@inproceedings{kwon2026proactive,
+  <div class="wrap">
+    <div class="section-head" style="max-width:900px;">
+      <p class="kicker">Cite</p>
+      <h2>BibTeX</h2>
+    </div>
+    <div class="bib">
+      <button type="button" class="copy-btn" id="copy-bib"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/></svg><span>Copy</span></button>
+<pre id="bibtex"><code>@inproceedings{kwon2026proactive,
   title={{ProCompNav}: Proactive Instance Navigation with Comparative Judgment for Ambiguous User Queries},
   author={Kwon, Junhyuk and Lee, Seungjoon and Park, Hyejin and Min, Kyle and Ok, Jungseul},
   booktitle={Advances in Neural Information Processing Systems},
   year={2026},
   url={https://arxiv.org/abs/2605.06223}
 }</code></pre>
+      <p class="copy-status" id="copy-status" role="status" aria-live="polite"></p>
+    </div>
   </div>
 </section>
 
 
 <!-- ACK ====================================================================== -->
-<section class="section">
-  <div class="container is-max-desktop">
-    <h2 class="title is-3 has-text-centered">Acknowledgements</h2>
-    <p class="content has-text-justified">
-      This codebase is built upon <a href="https://github.com/bdaiinstitute/vlfm" target="_blank">VLFM</a>
-      and <a href="https://github.com/intelligolabs/CoIN" target="_blank">AIUTA / CoIN</a>.
-      We thank the authors for their excellent work and for releasing their code and benchmarks.
-    </p>
+<section class="ack">
+  <div class="wrap">
+    <div class="content">
+      <h2>Acknowledgements</h2>
+      <p>
+        This codebase is built upon <a href="https://github.com/bdaiinstitute/vlfm" target="_blank" rel="noopener">VLFM</a>
+        and <a href="https://github.com/intelligolabs/CoIN" target="_blank" rel="noopener">AIUTA / CoIN</a>.
+        We thank the authors for their excellent work and for releasing their code and benchmarks.
+      </p>
+    </div>
   </div>
 </section>
 
+</main>
 
 <!-- FOOTER =================================================================== -->
 <footer class="footer">
-  <div class="container is-max-desktop has-text-centered">
-    <p class="is-size-7">
+  <div class="wrap">
+    <p>
       Page template adapted from
-      <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a>.
+      <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank" rel="noopener">Academic Project Page Template</a>.
     </p>
   </div>
 </footer>
+
+<script>
+/* Size each embedded animation to its content (same-origin pages). */
+(function () {
+  function fitAnimFrame(f) {
+    try {
+      var d = f.contentDocument;
+      if (!d || !d.body) return;
+      var h = Math.max(d.body.scrollHeight, d.body.offsetHeight);
+      if (h > 200) f.style.height = (h + 4) + 'px';
+    } catch (e) {}
+  }
+  var frames = document.querySelectorAll('.anim-frame');
+  frames.forEach(function (f) {
+    f.addEventListener('load', function () {
+      fitAnimFrame(f);
+      setTimeout(function () { fitAnimFrame(f); }, 800);
+      try {
+        if ('ResizeObserver' in window && f.contentDocument && f.contentDocument.body) {
+          new ResizeObserver(function () { fitAnimFrame(f); }).observe(f.contentDocument.body);
+        }
+      } catch (e) {}
+    });
+    fitAnimFrame(f);
+  });
+  window.addEventListener('resize', function () { frames.forEach(fitAnimFrame); });
+})();
+
+/* Highlight the nav link of the section in view. */
+(function () {
+  if (!('IntersectionObserver' in window)) return;
+  var links = {};
+  document.querySelectorAll('.nav-links a').forEach(function (a) { links[a.getAttribute('href').slice(1)] = a; });
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      Object.keys(links).forEach(function (k) { links[k].classList.toggle('is-active', k === e.target.id); });
+    });
+  }, { rootMargin: '-45% 0px -50% 0px' });
+  Object.keys(links).forEach(function (id) { var s = document.getElementById(id); if (s) io.observe(s); });
+})();
+
+/* Open the game in this tab. Plain links already do this; the scripted
+   navigation also covers embedding hosts that ignore same-frame link clicks. */
+document.querySelectorAll('a[href="game/index.html"]').forEach(function (a) {
+  a.addEventListener('click', function (e) {
+    if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    e.preventDefault();
+    window.location.assign(a.href);
+  });
+});
+
+/* Theme: one sun button flips light <-> dark (starts from the system setting), as in the mini-game.
+   Embedded animations follow the page. */
+(function () {
+  var root = document.documentElement;
+  var btn = document.getElementById('theme-btn');
+  function isDark() {
+    var t = root.getAttribute('data-theme');
+    if (t) return t === 'dark';
+    return !!(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  }
+  function tellFrames() {
+    document.querySelectorAll('.anim-frame').forEach(function (f) {
+      try { f.contentWindow.postMessage({ type: 'pcn-theme' }, location.origin === 'null' ? '*' : location.origin); } catch (e) {}
+    });
+  }
+  function label() { btn.setAttribute('aria-label', isDark() ? 'Switch to light mode' : 'Switch to dark mode'); }
+  btn.addEventListener('click', function () {
+    var m = isDark() ? 'light' : 'dark';
+    root.setAttribute('data-theme', m);
+    try { localStorage.setItem('pcn-theme', m); } catch (e) {}
+    label(); tellFrames();
+  });
+  label();
+})();
+
+/* Why-proactive panels: play when scrolled into view, then loop: once all three panels reach their last
+   scene, hold for 3 s and start over. A pause button freezes the loop. */
+(function () {
+  var el = document.getElementById('shift'), btn = document.getElementById('shift-pause');
+  if (!el) return;
+  if (!('IntersectionObserver' in window) || (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) {
+    if (btn) btn.hidden = true; return;
+  }
+  var PLAY_MS = 2700, HOLD_MS = 3000, CYCLE = PLAY_MS + HOLD_MS;
+  var timer = null, cycleEnd = 0, remaining = CYCLE, paused = false, started = false;
+  function schedule(ms) { clearTimeout(timer); cycleEnd = performance.now() + ms; timer = setTimeout(restart, ms); }
+  function restart() {
+    el.classList.remove('play'); void el.offsetWidth;       // reset every animation to its start
+    el.classList.add('loop', 'play');                        // panels stay; scenes replay from the start
+    schedule(CYCLE);
+  }
+  el.classList.add('armed');
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (e) {
+      if (e.isIntersecting && !started) { started = true; el.classList.add('play'); if (!paused) schedule(CYCLE); io.disconnect(); }
+    });
+  }, { threshold: 0.3 });
+  io.observe(el);
+  btn.addEventListener('click', function () {
+    paused = !paused;
+    el.classList.toggle('is-paused', paused);
+    btn.setAttribute('aria-pressed', paused ? 'true' : 'false');
+    btn.setAttribute('aria-label', paused ? 'Play animation' : 'Pause animation');
+    btn.innerHTML = paused ? '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12-7.5z" fill="currentColor"/></svg>' : '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5v14M15 5v14"/></svg>';
+    if (!started) return;
+    if (paused) { clearTimeout(timer); remaining = Math.max(0, cycleEnd - performance.now()); }
+    else schedule(remaining);
+  });
+})();
+
+/* Hero loop pause. */
+(function () {
+  var b = document.getElementById('hl-pause'), loop = document.getElementById('hero-loop');
+  b.addEventListener('click', function () {
+    var paused = loop.classList.toggle('is-paused');
+    b.setAttribute('aria-pressed', paused ? 'true' : 'false');
+    b.setAttribute('aria-label', paused ? 'Play animation' : 'Pause animation');
+    b.innerHTML = paused ? '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12-7.5z" fill="currentColor"/></svg>' : '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5v14M15 5v14"/></svg>';
+  });
+})();
+
+/* Copy BibTeX. */
+(function () {
+  var btn = document.getElementById('copy-bib');
+  var pre = document.getElementById('bibtex');
+  var status = document.getElementById('copy-status');
+  var label = btn.querySelector('span');
+  function done(msg) {
+    label.textContent = msg;
+    setTimeout(function () { label.textContent = 'Copy'; }, 1800);
+  }
+  function selectPre() {
+    var r = document.createRange();
+    r.selectNodeContents(pre);
+    var s = window.getSelection();
+    s.removeAllRanges();
+    s.addRange(r);
+  }
+  function fallback() {
+    selectPre();
+    var ok = false;
+    try { ok = document.execCommand('copy'); } catch (e) {}
+    if (ok) { done('Copied'); status.textContent = 'BibTeX copied to clipboard.'; }
+    else { status.textContent = 'Selected. Press Ctrl+C (or ⌘C) to copy.'; }
+  }
+  btn.addEventListener('click', function () {
+    var text = pre.textContent;
+    status.textContent = '';
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(function () {
+        done('Copied'); status.textContent = 'BibTeX copied to clipboard.';
+      }, fallback);
+    } else {
+      fallback();
+    }
+  });
+})();
+/* Termination-step analysis: interactive version of the paper figure (data read from the figure: 831 episodes each). */
+(function () {
+  var fig = document.getElementById('term-chart'); if (!fig) return;
+  var svg = fig.querySelector('svg.tc'), tip = fig.querySelector('.tc-tip'), noteBox = fig.querySelector('.tc-note');
+  var BINS = ['1-99', '100-199', '200-299', '300-399', '400-499', '500'];
+  var M = [
+    { name: 'AIUTA', color: '#C44F52', end: [247, 138, 77, 51, 48, 270], cum: [28, 60, 73, 78, 87, 87], dash: '9 5', mark: 'square' },
+    { name: 'Pooled IM', color: '#009E73', end: [125, 286, 118, 45, 257, 0], cum: [14, 71, 105, 114, 145, 145], dash: '10 4 2 4', mark: 'tri' },
+    { name: 'ProCompNav', color: '#0072B2', end: [85, 307, 113, 58, 265, 3], cum: [14, 92, 130, 148, 197, 197], dash: '', mark: 'circle' }
+  ];
+  var NOTES = [
+    { bin: 0, m: 0, on: 'bar', title: 'Commits too early',
+      text: 'AIUTA ends 247 episodes within 100 steps, often at the first look-alike it meets. Collecting first cuts this to 125 (Pooled IM) and 85 (ProCompNav).' },
+    { bin: 5, m: 0, on: 'bar', title: 'Never decides',
+      text: 'AIUTA runs 270 episodes to the 500-step limit without choosing. Pooled IM and ProCompNav almost never do (0 and 3).' },
+    { bin: 4, m: 1.5, on: 'bar', title: 'Same timing',
+      text: 'Pooled IM and ProCompNav end episodes at similar steps, since both collect candidates before deciding.' },
+    { bin: 5, m: 2, on: 'line', title: 'More successes',
+      text: 'With the same timing, comparing candidates turns more decisions into successes: 197 vs 145 (AIUTA 87).' }
+  ];
+  var on = [true, true, true], active = -1, NS = 'http://www.w3.org/2000/svg';
+  function el(n, a, p) { var e = document.createElementNS(NS, n); for (var k in a) e.setAttribute(k, a[k]); if (p) p.appendChild(e); return e; }
+  function draw() {
+    var W = Math.max(320, Math.min(820, fig.querySelector('.tc-wrap').clientWidth)), narrow = W < 560;
+    var H = narrow ? 300 : 400, fs = narrow ? 11 : 13;
+    var L = narrow ? 40 : 56, R = narrow ? 36 : 56, T = 30, B = narrow ? 34 : 44;
+    var pw = W - L - R, ph = H - T - B, LMAX = 350, RMAX = 240;
+    svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H); svg.setAttribute('width', W); svg.setAttribute('height', H);
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+    var defs = el('defs', {}, svg);
+    // same fills as the paper figure: diagonal hatch, cross hatch, dots
+    [['tc-p0', 'M0 8 L8 0'], ['tc-p1', 'M0 0 L8 8 M0 8 L8 0'], ['tc-p2', '']].forEach(function (d, i) {
+      var pt = el('pattern', { id: d[0], width: 8, height: 8, patternUnits: 'userSpaceOnUse' }, defs);
+      el('rect', { width: 8, height: 8, fill: M[i].color, 'fill-opacity': 0.72 }, pt);
+      if (d[1]) el('path', { d: d[1], stroke: 'rgba(40,40,40,.55)', 'stroke-width': 1 }, pt);
+      else el('circle', { cx: 4, cy: 4, r: 1.1, fill: 'rgba(40,40,40,.6)' }, pt);
+    });
+    var yl = function (v) { return T + ph - v / LMAX * ph; }, yr = function (v) { return T + ph - v / RMAX * ph; };
+    var gw = pw / BINS.length, bw = gw * (narrow ? 0.26 : 0.22);
+    var bx = function (b, m) { return L + gw * b + gw / 2 + (m - 1.5) * bw; };   // left edge of bar m in bin b
+    var cx = function (b) { return L + gw * b + gw / 2; };
+    var g = el('g', { class: 'tc-axes' }, svg);
+    for (var v = 0; v <= LMAX; v += 50) {
+      el('line', { x1: L, x2: L + pw, y1: yl(v), y2: yl(v), class: 'tc-grid' }, g);
+      var t = el('text', { x: L - 6, y: yl(v) + 4, 'text-anchor': 'end', 'font-size': fs }, g); t.textContent = v;
+    }
+    for (v = 0; v <= 200; v += 50) { t = el('text', { x: L + pw + 6, y: yr(v) + 4, 'font-size': fs }, g); t.textContent = v; }
+    el('line', { x1: L, x2: L + pw, y1: T + ph, y2: T + ph, class: 'tc-base' }, g);
+    BINS.forEach(function (b, i) { t = el('text', { x: cx(i), y: T + ph + fs + 6, 'text-anchor': 'middle', 'font-size': fs }, g); t.textContent = i === 5 ? (narrow ? '500' : '500 (limit)') : b; });
+    t = el('text', { x: L + pw / 2, y: H - 4, 'text-anchor': 'middle', 'font-size': fs, class: 'tc-title' }, g); t.textContent = 'Episode termination step';
+    t = el('text', { x: 12, y: T + ph / 2, 'text-anchor': 'middle', 'font-size': fs, class: 'tc-title', transform: 'rotate(-90 12 ' + (T + ph / 2) + ')' }, g); t.textContent = 'Episodes ended';
+    t = el('text', { x: W - 8, y: T + ph / 2, 'text-anchor': 'middle', 'font-size': fs, class: 'tc-title', transform: 'rotate(90 ' + (W - 8) + ' ' + (T + ph / 2) + ')' }, g); t.textContent = 'Successes so far';
+    var hl = active >= 0 ? NOTES[active] : null;
+    M.forEach(function (m, mi) {
+      if (!on[mi]) return;
+      var dim = hl && (hl.on === 'line' || !(hl.m === 1.5 ? mi > 0 : mi === hl.m));
+      var gb = el('g', { opacity: dim ? 0.25 : 1 }, svg);
+      m.end.forEach(function (n, b) {
+        if (!n) return;
+        var focus = hl && hl.on === 'bar' && hl.bin === b;
+        el('rect', { x: bx(b, mi), y: yl(n), width: bw, height: T + ph - yl(n), fill: 'url(#tc-p' + mi + ')', stroke: focus && !dim ? 'var(--ink)' : 'rgba(60,60,60,.7)', 'stroke-width': focus && !dim ? 2 : 1 }, gb);
+      });
+    });
+    M.forEach(function (m, mi) {
+      if (!on[mi]) return;
+      var gl = el('g', { opacity: hl && hl.on === 'bar' ? 0.3 : 1 }, svg);
+      var d = m.cum.map(function (c, b) { return (b ? 'L' : 'M') + cx(b) + ' ' + yr(c); }).join(' ');
+      el('path', { d: d, fill: 'none', stroke: m.color, 'stroke-width': narrow ? 2.5 : 3, 'stroke-dasharray': m.dash, 'stroke-linejoin': 'round' }, gl);
+      m.cum.forEach(function (c, b) {
+        var x = cx(b), y = yr(c), r = narrow ? 4.5 : 6;
+        if (m.mark === 'square') el('rect', { x: x - r, y: y - r, width: 2 * r, height: 2 * r, fill: m.color }, gl);
+        else if (m.mark === 'tri') el('path', { d: 'M' + x + ' ' + (y - r * 1.2) + ' L' + (x + r * 1.1) + ' ' + (y + r * 0.8) + ' L' + (x - r * 1.1) + ' ' + (y + r * 0.8) + 'Z', fill: m.color }, gl);
+        else el('circle', { cx: x, cy: y, r: r, fill: m.color }, gl);
+      });
+    });
+    // hover / tap areas per bin
+    BINS.forEach(function (bn, b) {
+      var a = el('rect', { x: L + gw * b, y: T, width: gw, height: ph, fill: 'transparent', class: 'tc-hit' }, svg);
+      function show(ev) {
+        var rows = M.map(function (m, mi) { return on[mi] ? '<tr><th><i class="tc-sw tc-sw-' + mi + '"></i>' + m.name + '</th><td>' + m.end[b] + '</td><td>' + m.cum[b] + '</td></tr>' : ''; }).join('');
+        tip.innerHTML = '<b>Steps ' + (b === 5 ? '500 (limit)' : bn) + '</b><table><tr><th></th><td>ended</td><td>successes so far</td></tr>' + rows + '</table>';
+        tip.hidden = false;
+        var wr = fig.querySelector('.tc-wrap').getBoundingClientRect(), x = cx(b) / W * wr.width;
+        tip.style.left = Math.max(4, Math.min(wr.width - tip.offsetWidth - 4, x - tip.offsetWidth / 2)) + 'px';
+      }
+      a.addEventListener('mouseenter', show); a.addEventListener('click', show);
+      a.addEventListener('mouseleave', function () { tip.hidden = true; });
+    });
+    // numbered markers for the points the paper discusses
+    NOTES.forEach(function (n, i) {
+      var x, y;
+      // keep markers off the success lines: above a bar when there is room, otherwise inside it
+      if (n.on === 'bar') {
+        if (n.m === 1.5) { x = bx(n.bin, 1) + bw; y = yl(42); }
+        else if (n.bin === 5) { x = bx(n.bin, n.m) + bw / 2; y = yl(42); }
+        else { x = bx(n.bin, n.m) + bw / 2; y = yl(M[n.m].end[n.bin]) - 16; }
+      } else { x = cx(n.bin) + gw * 0.3; y = (yr(M[1].cum[n.bin]) + yr(M[2].cum[n.bin])) / 2; }
+      var pin = el('g', { class: 'tc-pin' + (active === i ? ' is-on' : ''), tabindex: 0, role: 'button', 'aria-label': (i + 1) + ': ' + n.title, transform: 'translate(' + x + ' ' + y + ')' }, svg);
+      el('circle', { r: narrow ? 10 : 12 }, pin);
+      var tx = el('text', { 'text-anchor': 'middle', y: narrow ? 4 : 4.5, 'font-size': narrow ? 11 : 13 }, pin); tx.textContent = i + 1;
+      function pick() { active = active === i ? -1 : i; draw(); showNote(); }
+      pin.addEventListener('click', function (e) { e.stopPropagation(); pick(); });
+      pin.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(); } });
+    });
+  }
+  function showNote() {
+    if (active < 0) { noteBox.innerHTML = '<span class="tc-hint">Tap a numbered marker to see what it shows. Hover or tap a bin for its numbers.</span>'; return; }
+    var n = NOTES[active];
+    noteBox.innerHTML = '<span class="tc-num">' + (active + 1) + '</span><b>' + n.title + '.</b> ' + n.text;
+  }
+  fig.querySelectorAll('.tc-legend button').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var i = +b.getAttribute('data-m'); on[i] = !on[i]; b.setAttribute('aria-pressed', on[i] ? 'true' : 'false'); tip.hidden = true; draw();
+    });
+  });
+  var rt; window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(draw, 120); });
+  draw();
+})();
+</script>
 
 <!-- GoatCounter analytics (data backup, invisible) -->
 <script data-goatcounter="https://procompnav.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>

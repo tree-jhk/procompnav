@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ProCompNav Method</title>
+<script>/* Embedded on the project page: follow the page's theme (system unless the page sets data-theme), hide the gallery link and own header. */
+(function(){try{if(window.self===window.top)return;var d=document.documentElement;d.classList.add('embedded');
+function sync(){try{var t=window.parent.document.documentElement.getAttribute('data-theme');if(t==='light'||t==='dark')d.setAttribute('data-theme',t);else d.removeAttribute('data-theme');}catch(e){}}
+sync();
+try{new MutationObserver(sync).observe(window.parent.document.documentElement,{attributes:true,attributeFilter:['data-theme']});}catch(e){}
+window.addEventListener('message',function(e){if(e.source===window.parent&&e.data&&e.data.type==='pcn-theme')sync();});
+}catch(e){}})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#ffffff; --ink:#1f2933; --muted:#6b7480; --line:#d5d9df; --panel:#f5f7fa; --card:#ffffff;
+  --blue:#2b6ce6; --tint:#eef3fd; --green:#1f8a4c; --gtint:#e8f5ec; --orange:#e8892a; --veil:rgba(255,255,255,.55);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#12161c; --ink:#e6ebef; --muted:#9aa6b0; --line:#3a4856; --panel:#1a2029; --card:#1f262f;
+    --blue:#79a7f0; --tint:#1e2a3d; --green:#4cc27e; --gtint:#173023; --orange:#f0a050; --veil:rgba(18,22,28,.6);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#12161c; --ink:#e6ebef; --muted:#9aa6b0; --line:#3a4856; --panel:#1a2029; --card:#1f262f;
+  --blue:#79a7f0; --tint:#1e2a3d; --green:#4cc27e; --gtint:#173023; --orange:#f0a050; --veil:rgba(18,22,28,.6);
+  color-scheme: dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans",system-ui,sans-serif}
+#fit{position:relative;margin:0 auto;overflow:hidden}
+#stage{position:absolute;left:0;top:0;width:1280px;height:720px;overflow:hidden;background:var(--bg);transform-origin:0 0}
+.pill{position:absolute;top:26px;height:44px;padding:0 20px;border-radius:22px;display:flex;align-items:center;
+  font-weight:600;font-size:20px;border:2px solid var(--line);color:var(--muted);background:var(--card)}
+.pill.on{border-color:var(--blue);color:var(--bg);background:var(--blue)}
+#p1{left:40px} #p2{left:360px}
+.spd{position:absolute;top:26px;right:40px;display:flex;align-items:center;gap:8px}
+.spd button{height:44px;min-width:66px;padding:0 12px;border-radius:22px;border:2px solid var(--line);background:var(--card);
+  color:var(--muted);font:600 19px "IBM Plex Sans",system-ui,sans-serif;cursor:pointer}
+.spd button:hover{border-color:var(--ink);color:var(--ink)}
+.spd button[aria-pressed="true"]{border-color:var(--ink);background:var(--ink);color:var(--bg)}
+.req{position:absolute;left:40px;top:118px;display:flex;align-items:center;gap:12px;font-size:24px}
+.req .b{background:var(--tint);padding:10px 18px;border-radius:18px;font-weight:600}
+.req .who{color:var(--muted);font-weight:500}
+.card{position:absolute;width:196px;border-radius:12px;background:var(--card);border:2px solid var(--line);overflow:hidden;
+  box-shadow:0 2px 6px rgba(0,0,0,.06)}
+.card img{display:block;width:100%;height:160px;object-fit:cover}
+.card .id{position:absolute;left:8px;top:8px;background:var(--card);color:var(--ink);border:1.5px solid var(--ink);border-radius:5px;
+  font:700 16px/1 "IBM Plex Sans";padding:3px 7px}
+.card .x{position:absolute;inset:0;display:none}
+.card.out .x{display:block}
+.card.found{border-color:var(--green);border-width:4px}
+.card .tag{position:absolute;left:50%;bottom:8px;transform:translateX(-50%);background:var(--green);color:#fff;
+  font:700 15px/1 "IBM Plex Sans";padding:5px 10px;border-radius:12px;display:none;white-space:nowrap}
+.card.found .tag{display:block}
+.group{position:absolute;border-radius:16px;border:2px dashed var(--line);background:var(--panel)}
+.group.core{border-color:var(--blue);background:var(--tint)}
+.glabel{position:absolute;font-size:20px;font-weight:600;color:var(--muted)}
+.glabel.core{color:var(--blue)}
+.right{position:absolute;left:918px;top:118px;width:326px}
+.tab .h{font-size:20px;font-weight:600;margin-bottom:6px}
+.tab .lg{font-size:15px;color:var(--muted);margin-bottom:12px;display:flex;gap:14px;align-items:center}
+.tab .lg i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+.row{display:grid;grid-template-columns:118px 1fr;gap:8px;align-items:center;padding:7px 8px;border-radius:10px;margin-bottom:6px;
+  border:2px solid transparent}
+.row .n{font-size:17px;font-weight:600}
+.row .bars{display:flex;flex-direction:column;gap:4px}
+.row .bar{height:10px;border-radius:5px}
+.row .bar.c{background:var(--blue)} .row .bar.r{background:var(--orange)}
+.row.pick{border-color:var(--green);background:var(--gtint)}
+.row .best{grid-column:1 / -1;font-size:14px;font-weight:700;color:var(--green);display:none}
+.row.pick .best{display:block}
+.chat{display:flex;flex-direction:column;gap:12px}
+.msg{font-size:24px;padding:10px 16px;border-radius:16px;max-width:100%}
+.msg.robot{align-self:flex-start;background:var(--card);border:2px solid var(--blue);color:var(--ink)}
+.msg.robot b{color:var(--blue)}
+.msg.user{align-self:flex-end;background:var(--blue);color:var(--bg);font-weight:600}
+.note{position:absolute;left:40px;top:512px;font-size:24px;color:var(--muted)}
+.steps{position:absolute;left:40px;right:40px;bottom:30px;display:flex;gap:14px;align-items:center}
+.step{flex:1;height:52px;border-radius:12px;border:2px solid var(--line);display:flex;align-items:center;justify-content:center;
+  font-size:21px;font-weight:600;color:var(--muted);background:var(--card)}
+.step.on{border-color:var(--blue);background:var(--tint);color:var(--blue)}
+.step.s1.on{border-color:var(--ink);background:var(--panel);color:var(--ink)}
+.rep{font-size:18px;color:var(--muted);font-weight:600;white-space:nowrap}
+.rep.on{color:var(--blue)}
+</style>
+</head>
+<body>
+<div id="fit"><div id="stage">
+  <div class="pill" id="p1">Stage 1 · Collect candidates</div>
+  <div class="pill" id="p2">Stage 2 · Compare and ask</div>
+  <div class="spd" id="spd" role="group" aria-label="Playback speed"><button type="button" data-s="0.5" aria-pressed="false">0.5x</button><button type="button" data-s="1" aria-pressed="true">1x</button><button type="button" data-s="1.5" aria-pressed="false">1.5x</button><button type="button" data-s="2" aria-pressed="false">2x</button></div>
+  <div class="req" id="req"><span class="who">User:</span><span class="b">“Find the cabinet.”</span></div>
+  <div class="group" id="g1"></div><div class="group" id="g2"></div>
+  <div class="glabel" id="gl1"></div><div class="glabel" id="gl2"></div>
+  <div class="note" id="note"></div>
+  <div class="right" id="right"></div>
+  <div class="steps">
+    <div class="step s1" id="st1">Collect</div>
+    <div class="step" id="st2">Split &amp; score</div>
+    <div class="step" id="st3">Ask yes/no</div>
+    <div class="step" id="st4">Remove</div>
+    <div class="rep" id="rep">↺ repeat</div>
+  </div>
+</div></div>
+<script>
+(function(){
+"use strict";
+var IMG={A:"assets/distractor_white_bathroom.jpg",B:"assets/distractor_wood_tv.jpg",
+         C:"assets/target_wood_bathroom.jpg",D:"assets/distractor_white_dresser_tv.jpg"};
+var IDS=["A","B","C","D"], stage=document.getElementById("stage"), cards={};
+var XSVG='<svg viewBox="0 0 196 160" preserveAspectRatio="none" style="width:100%;height:160px;position:absolute;top:0;left:0">'+
+  '<rect width="196" height="160" style="fill:var(--veil)"/><path d="M56 32 L140 128 M140 32 L56 128" stroke="#e8892a" stroke-width="15" stroke-linecap="round"/></svg>';
+IDS.forEach(function(id){
+  var d=document.createElement("div"); d.className="card";
+  d.innerHTML='<img alt="cabinet '+id+'" src="'+IMG[id]+'"><span class="id">'+id+'</span><div class="x">'+XSVG+'</div><span class="tag">✓ Target</span>';
+  stage.appendChild(d); cards[id]=d;
+});
+var $=function(i){return document.getElementById(i);};
+function cl(x){return x<0?0:x>1?1:x;}
+function ease(x){x=cl(x);return x<.5?2*x*x:1-Math.pow(-2*x+2,2)/2;}
+function lerp(a,b,u){return a+(b-a)*u;}
+// values from the paper's running example (method-storyboard.html): [attribute, core set score, rest score]
+var ATTR1=[["wood-tone",.93,.07],["near a mirror",.50,.46],["TV on top",.49,.52],["in a bedroom",.51,.47]];
+var ATTR2=[["TV on top",.94,.05],["wood-tone",.92,.90],["dark color",.86,.88]];
+var ROW={A:[40,262],B:[248,262],C:[456,262],D:[664,262]};
+var SPLIT1={B:[58,280],C:[262,280],A:[478,280],D:[682,280]};
+var T={req:.3, a:1.0, b:1.7, c:2.4, d:3.1, s2:4.2, split:4.6,
+       tab1:5.8, pick1:7.6, q1:8.8, a1:9.8, rm1:10.6,
+       split2:11.8, tab2:12.6, pick2:14.2, q2:15.2, a2:16.2, rm2:17.0, found:17.8, end:20.5};
+var rightKey="";
+function table(head, rows, grow, pick){
+  var h='<div class="tab"><div class="h">'+head+'</div><div class="lg"><span><i style="background:var(--blue)"></i>core set</span>'+
+        '<span><i style="background:var(--orange)"></i>rest</span></div>';
+  rows.forEach(function(r,i){
+    h+='<div class="row'+(pick&&i===0?' pick':'')+'"><span class="n">'+r[0]+'</span><span class="bars">'+
+       '<span class="bar c" style="width:'+(r[1]*grow*100).toFixed(1)+'%"></span>'+
+       '<span class="bar r" style="width:'+(r[2]*grow*100).toFixed(1)+'%"></span></span>'+
+       '<span class="best">✓ largest gap</span></div>';
+  });
+  return h+'</div>';
+}
+function chat(items){
+  return '<div class="chat">'+items.map(function(m){return '<div class="msg '+m[0]+'">'+m[1]+'</div>';}).join("")+'</div>';
+}
+function setRight(html){ if(html!==rightKey){ rightKey=html; $("right").innerHTML=html; } }
+function render(t){
+  $("req").style.opacity=cl((t-T.req)/.4);
+  var st2=t>=T.s2;
+  $("p1").className="pill"+(st2?"":" on"); $("p2").className="pill"+(st2?" on":"");
+  IDS.forEach(function(id){
+    var c=cards[id], op=cl((t-T[id.toLowerCase()])/.4), p=ROW[id];
+    if(t>=T.split){ var u=ease((t-T.split)/1.0); p=[lerp(ROW[id][0],SPLIT1[id][0],u),lerp(ROW[id][1],SPLIT1[id][1],u)]; }
+    c.style.left=p[0]+"px"; c.style.top=p[1]+"px"; c.style.opacity=op;
+    var out=(t>=T.rm1&&(id==="A"||id==="D"))||(t>=T.rm2&&id==="B");
+    c.className="card"+(out?" out":"")+(t>=T.found&&id==="C"?" found":"");
+    if(out){ c.style.opacity=Math.max(.35,1-cl((t-(id==="B"?T.rm2:T.rm1))/.6)*.65); }
+  });
+  // groups: round 1 core {B,C} vs rest {A,D}; round 2 core {B} vs rest {C}
+  var g1=$("g1"), g2=$("g2"), gl1=$("gl1"), gl2=$("gl2");
+  if(t>=T.split+.6 && t<T.split2){
+    var u=ease((t-T.split-.6)/.5), r=t>=T.rm1?.35:u;
+    g1.className="group core"; g2.className="group";
+    g1.style.cssText="left:44px;top:264px;width:424px;height:200px;opacity:"+u;
+    g2.style.cssText="left:464px;top:264px;width:424px;height:200px;opacity:"+r;
+    gl1.className="glabel core"; gl1.style.cssText="left:56px;top:228px;opacity:"+u; gl1.textContent="Core set";
+    gl2.className="glabel"; gl2.style.cssText="left:476px;top:228px;opacity:"+r; gl2.textContent="Rest";
+  } else if(t>=T.split2+.3 && t<T.found){
+    var v=ease((t-T.split2-.3)/.5), r2=t>=T.rm2?.35:v;
+    g1.className="group core"; g2.className="group";
+    g1.style.cssText="left:44px;top:264px;width:212px;height:200px;opacity:"+r2;
+    g2.style.cssText="left:252px;top:264px;width:212px;height:200px;opacity:"+v;
+    gl1.className="glabel core"; gl1.style.cssText="left:56px;top:228px;opacity:"+r2; gl1.textContent="Core set";
+    gl2.className="glabel"; gl2.style.cssText="left:264px;top:228px;opacity:"+v; gl2.textContent="Rest";
+  } else { [g1,g2,gl1,gl2].forEach(function(e){e.style.opacity=0;}); }
+  // right panel: score table while comparing, chat while asking
+  var hist=[];
+  if(t>=T.q1) hist.push(["robot","Is it <b>wood-tone</b>?"]);
+  if(t>=T.a1) hist.push(["user","Yes"]);
+  if(t>=T.q2) hist.push(["robot","Is there a <b>TV on top</b>?"]);
+  if(t>=T.a2) hist.push(["user","No"]);
+  var right="";
+  if(t>=T.tab1 && t<T.q1) right=table("Which attribute splits them?", ATTR1, ease((t-T.tab1)/1.0), t>=T.pick1);
+  else if(t>=T.tab2 && t<T.q2) right=table("Which attribute splits them?", ATTR2, ease((t-T.tab2)/1.0), t>=T.pick2);
+  else right=chat(hist);
+  setRight(right);
+  // note
+  var note="";
+  if(t>=T.a && t<T.s2) note="Explore the house. No questions yet.";
+  else if(t>=T.split && t<T.q1) note="Group similar ones. Score attributes. Pick the largest gap.";
+  else if(t>=T.rm1 && t<T.split2) note="One answer removes a whole group.";
+  else if(t>=T.split2 && t<T.q2) note="Repeat on what is left.";
+  else if(t>=T.found) note="Two yes/no answers. Only the target is left.";
+  $("note").textContent=note;
+  // steps
+  var on=[t>=T.a&&t<T.s2, (t>=T.split&&t<T.q1)||(t>=T.split2&&t<T.q2), (t>=T.q1&&t<T.rm1)||(t>=T.q2&&t<T.rm2),
+          (t>=T.rm1&&t<T.split2)||(t>=T.rm2&&t<T.found)];
+  ["st1","st2","st3","st4"].forEach(function(id,i){ $(id).className="step"+(i===0?" s1":"")+(on[i]?" on":""); });
+  $("rep").className="rep"+(t>=T.split2-.4&&t<T.tab2?" on":"");
+}
+// scale the 1280x720 stage to the available width (embedded on narrow pages); recording at 1280 wide is unchanged
+// Embedded: the page sizes this frame to the content, so never show a scrollbar here and measure the frame width
+// without it. Otherwise a scrollbar that comes and goes changes the width, the scale and the height in a loop
+// (the page below the animation then shakes).
+var EMBED=false; try{ EMBED = window.self !== window.top; }catch(e){ EMBED = true; }
+if(EMBED) document.documentElement.style.overflow="hidden";
+function fit(){ var w=(EMBED ? window.innerWidth : document.documentElement.clientWidth)||1280, sc=Math.min(1, w/1280);
+  stage.style.transform="scale("+sc+")"; var f=$("fit"); f.style.width=(1280*sc)+"px"; f.style.height=(720*sc)+"px"; }
+fit(); window.addEventListener("resize", fit);
+var t0=null, END=T.end, rec=location.hash.indexOf("rec")>=0;
+var reduce=window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+window.__seek=function(x){render(x);}; window.__END=END;
+// page pace: 1.2x the original timeline; the 0.5x-2x buttons scale that pace
+var BASE=1.2, spd=1, tt=0, last=null;
+function frame(ts){ if(last!==null) tt=(tt+Math.min(0.1,(ts-last)/1000)*BASE*spd)%END; last=ts; render(tt); requestAnimationFrame(frame); }
+var spdBox=$("spd"), spdBtns=Array.prototype.slice.call(spdBox.querySelectorAll("button"));
+if(rec || reduce) spdBox.style.display="none";
+spdBtns.forEach(function(b){ b.addEventListener("click",function(){
+  spd=parseFloat(b.getAttribute("data-s"));
+  spdBtns.forEach(function(o){ o.setAttribute("aria-pressed",o===b?"true":"false"); });
+}); });
+render(reduce && !rec ? T.found + 1 : 0);
+if(!rec && !reduce) requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>

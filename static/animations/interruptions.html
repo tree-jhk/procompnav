@@ -1,0 +1,577 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Interrupt Often vs. Ask Once</title>
+<script>/* Embedded on the project page: follow the page's theme (system unless the page sets data-theme), hide the gallery link and own header. */
+(function(){try{if(window.self===window.top)return;var d=document.documentElement;d.classList.add('embedded');
+function sync(){try{var t=window.parent.document.documentElement.getAttribute('data-theme');if(t==='light'||t==='dark')d.setAttribute('data-theme',t);else d.removeAttribute('data-theme');}catch(e){}}
+sync();
+try{new MutationObserver(sync).observe(window.parent.document.documentElement,{attributes:true,attributeFilter:['data-theme']});}catch(e){}
+window.addEventListener('message',function(e){if(e.source===window.parent&&e.data&&e.data.type==='pcn-theme')sync();});
+}catch(e){}})();
+</script>
+<style>.embedded a.back{display:none}.embedded .wrap > header{display:none}</style>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Caveat:wght@600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#E4EBEC; --card:#FBFBF9; --wall:#D8E5E0; --sky:#EAF4F7; --frame:#FBFBF9;
+  --ink:#1C2230; --muted:#5A6474; --line:#C3CDD3; --track:#CBD5D9;
+  --focus:#1D7A6A; --focus-tint:#CDE6DF; --ping:#D4493A; --ping-tint:#F5D2CB;
+  --sun:#E3A72A; --desk:#B67747; --desk-dark:#8F552C; --laptop:#394150; --screen:#E8F0F4; --screen-line:#97ACBC;
+  --skin:#E0A685; --skin-dark:#C98B6A; --hair:#2A211E; --shirt:#3B6DA5; --pants:#2F3747; --chair:#6E7A89;
+  --robot:#F3F5F7; --robot-line:#1C2230; --halo:#FBFBF9;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#12161C; --card:#1A2029; --wall:#22303A; --sky:#2B3D4A; --frame:#3A4856;
+    --ink:#ECEEF1; --muted:#A3ACB9; --line:#384251; --track:#334050;
+    --focus:#4FC4AE; --focus-tint:#1D3B37; --ping:#FF7B69; --ping-tint:#4A2620;
+    --sun:#F0BF4C; --desk:#8C5A34; --desk-dark:#6A411F; --laptop:#8E97A7; --screen:#2C3946; --screen-line:#6E8799;
+    --skin:#D29A79; --skin-dark:#B07B5C; --hair:#0D0A09; --shirt:#4E82BD; --pants:#1F2633; --chair:#4C5665;
+    --robot:#DDE3EA; --robot-line:#0E1218; --halo:#1A2029;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#12161C; --card:#1A2029; --wall:#22303A; --sky:#2B3D4A; --frame:#3A4856;
+  --ink:#ECEEF1; --muted:#A3ACB9; --line:#384251; --track:#334050;
+  --focus:#4FC4AE; --focus-tint:#1D3B37; --ping:#FF7B69; --ping-tint:#4A2620;
+  --sun:#F0BF4C; --desk:#8C5A34; --desk-dark:#6A411F; --laptop:#8E97A7; --screen:#2C3946; --screen-line:#6E8799;
+  --skin:#D29A79; --skin-dark:#B07B5C; --hair:#0D0A09; --shirt:#4E82BD; --pants:#1F2633; --chair:#4C5665;
+  --robot:#DDE3EA; --robot-line:#0E1218; --halo:#1A2029;
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Bricolage Grotesque",ui-sans-serif,"Segoe UI",system-ui,-apple-system,sans-serif;
+  line-height:1.45;overflow-x:hidden}
+.wrap{max-width:1100px;margin:0 auto;
+  padding-top:18px;padding-bottom:40px;
+  padding-left:max(16px, env(safe-area-inset-left,0px));
+  padding-right:max(16px, env(safe-area-inset-right,0px))}
+a.back{color:var(--muted);text-decoration:none;font-size:14px;font-weight:600}
+a.back:hover{color:var(--ink);text-decoration:underline}
+a.back:focus-visible,button:focus-visible{outline:3px solid var(--sun);outline-offset:2px;border-radius:8px}
+header h1{font-size:clamp(32px,6vw,54px);line-height:1;margin:14px 0 4px;font-weight:800;letter-spacing:-0.02em}
+.style-cap{margin:0;font-family:"DM Mono",ui-monospace,Menlo,Consolas,monospace;font-size:12.5px;color:var(--muted)}
+.dek{margin:10px 0 0;max-width:62ch;font-size:16.5px;color:var(--ink)}
+.dek .hand{font-family:"Caveat",cursive;font-size:22px;color:var(--ping);font-weight:700}
+
+.bar{display:flex;flex-wrap:wrap;align-items:center;gap:12px 18px;margin:18px 0 12px}
+.clock{display:flex;align-items:center;gap:10px}
+.clock svg{width:46px;height:46px;flex:none}
+.clock .digits{font-family:"DM Mono",ui-monospace,Menlo,monospace;font-size:24px;font-weight:500;letter-spacing:0.02em;min-width:3.4ch}
+.clock small{display:block;font-family:"DM Mono",ui-monospace,monospace;font-size:11px;color:var(--muted);letter-spacing:0.04em}
+.steps{display:flex;gap:6px;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+.steps li{font-size:13px;font-weight:600;padding:4px 10px;border-radius:999px;border:1.5px solid var(--line);color:var(--muted);background:transparent}
+.steps li[aria-current="step"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.controls{display:flex;gap:8px;margin-left:auto}
+.controls button{font:inherit;font-weight:600;font-size:14px;color:var(--ink);background:var(--card);
+  border:1.5px solid var(--ink);border-radius:10px;padding:7px 13px;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.controls button:hover{background:var(--ink);color:var(--bg)}
+.controls svg{width:14px;height:14px}
+
+.stage{position:relative}
+.lane{background:var(--card);border-radius:18px;padding:14px 16px 12px;margin-bottom:14px;border:1.5px solid var(--line)}
+.lane-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:6px 14px;margin-bottom:6px}
+.lane-head h2{margin:0;font-size:19px;font-weight:600;letter-spacing:-0.01em}
+.tag{display:inline-block;font-weight:800;padding:1px 9px 2px;border-radius:7px;margin-right:4px;color:#fff}
+.tag-i{background:var(--ping)} .tag-b{background:var(--focus)}
+:root[data-theme="dark"] .tag{color:#12161C}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .tag{color:#12161C} }
+.chips{display:flex;gap:6px;font-family:"DM Mono",ui-monospace,monospace;font-size:12.5px}
+.chip{border:1.5px solid var(--line);border-radius:999px;padding:2px 9px;color:var(--muted)}
+.chip b{color:var(--ink);font-weight:500}
+.lane-body{display:grid;grid-template-columns:minmax(200px,280px) 1fr;gap:14px;align-items:center}
+.lane-body svg{display:block;width:100%;height:auto}
+@media (max-width:720px){
+  .lane-body{grid-template-columns:1fr}
+  .lane-body .desk{max-width:270px;margin:0 auto}
+  .controls{margin-left:0}
+  .lane{padding:12px 10px 10px}
+  .tl .t-status{font-size:19px}
+  .tl .t-small,.tl .t-tick{font-size:16.5px}
+  .tl .t-hand{font-size:25px}
+}
+
+/* svg text classes */
+.t-status{font:600 14px "Bricolage Grotesque",ui-sans-serif,sans-serif;fill:var(--ink)}
+.t-small{font:500 12.5px "DM Mono",ui-monospace,monospace;fill:var(--muted)}
+.t-tick{font:500 13px "DM Mono",ui-monospace,monospace;fill:var(--muted)}
+.t-hand{font:700 21px "Caveat",cursive;paint-order:stroke;stroke:var(--halo);stroke-width:5px;stroke-linejoin:round}
+.t-q{font:800 11.5px "Bricolage Grotesque",ui-sans-serif,sans-serif;fill:#fff}
+.t-bubble{font:600 13px "Bricolage Grotesque",ui-sans-serif,sans-serif;fill:var(--ink)}
+.t-meter{font:500 11.5px "DM Mono",ui-monospace,monospace;fill:var(--ink)}
+.anno{opacity:0;transition:opacity .5s}
+.anno.on{opacity:1}
+.qb{opacity:0}
+.qb.on{opacity:1;animation:pop .45s cubic-bezier(.3,1.6,.5,1) both;transform-box:fill-box;transform-origin:50% 100%}
+.ghost{transition:opacity .3s}
+@keyframes pop{from{transform:scale(.3)}to{transform:scale(1)}}
+.head{transform-box:fill-box;transform-origin:50% 50%;transition:transform .28s ease}
+.head.turn{transform:scaleX(-1)}
+.robot-g{transition:transform .6s cubic-bezier(.4,1.3,.5,1)}
+.bubble-g{transition:opacity .2s}
+.steam path{animation:steam 2.6s ease-in-out infinite}
+.steam path:nth-child(2){animation-delay:1.1s}
+@keyframes steam{0%{opacity:0;transform:translateY(4px)}40%{opacity:.9}100%{opacity:0;transform:translateY(-6px)}}
+
+/* result panel */
+.result{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:10px;border-radius:18px;
+  background:rgba(228,235,236,.6);background:color-mix(in srgb, var(--bg) 60%, transparent);
+  opacity:0;visibility:hidden;transition:opacity .6s, visibility 0s linear .6s;z-index:3}
+.result.show{opacity:1;visibility:visible;transition:opacity .6s}
+.result-inner{background:var(--card);border:2px solid var(--ink);border-radius:20px;padding:22px clamp(16px,3vw,32px);
+  max-width:760px;width:100%;max-height:100%;overflow:auto;box-shadow:0 18px 50px -20px rgba(0,0,0,.35)}
+.stage.static .result{position:static;opacity:1;visibility:visible;padding:0;margin-top:4px;background:none}
+.stage.static .result-inner{max-width:none;box-shadow:none}
+.kicker{margin:0;font-family:"DM Mono",ui-monospace,monospace;font-size:12.5px;color:var(--muted);letter-spacing:.03em}
+.result h2{margin:4px 0 14px;font-size:clamp(24px,4vw,34px);font-weight:800;letter-spacing:-0.02em;line-height:1.1}
+.res-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:640px){.res-grid{grid-template-columns:1fr}}
+.res{margin:0;border:1.5px solid var(--line);border-radius:14px;padding:14px}
+.res h3{margin:0 0 6px;font-size:15px;font-weight:600;color:var(--muted)}
+.big{font-size:40px;font-weight:800;line-height:1;letter-spacing:-0.02em}
+.big span{font-size:18px;font-weight:600;color:var(--muted);letter-spacing:0}
+.res p{margin:6px 0 0;font-size:14.5px}
+.people{display:grid;grid-template-columns:repeat(10,1fr);gap:4px 3px;margin-top:10px;max-width:280px}
+.people svg{width:100%;height:auto;display:block}
+.legend{display:flex;gap:12px;font-size:12.5px;color:var(--muted);margin-top:8px;flex-wrap:wrap}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+.bars{margin-top:8px;display:grid;gap:9px}
+.brow{display:grid;grid-template-columns:84px 1fr;align-items:center;gap:8px;font-size:13.5px}
+.btrack{position:relative;height:26px}
+.bfill{height:100%;border-radius:6px;width:0;transition:width 1.1s cubic-bezier(.3,.8,.3,1);display:flex;align-items:center;justify-content:flex-end;padding-right:8px;
+  font-family:"DM Mono",ui-monospace,monospace;font-size:13px;font-weight:500;color:#fff}
+:root[data-theme="dark"] .bfill{color:#12161C}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .bfill{color:#12161C} }
+.result.show .bfill,.stage.static .bfill{width:var(--w)}
+.why{margin:16px 0 0;font-size:15px}
+.why em{font-style:normal;color:var(--muted)}
+.take{margin:10px 0 0;font-family:"Caveat",cursive;font-size:25px;font-weight:700;color:var(--focus);line-height:1.15}
+.note{margin:10px 0 0;font-family:"DM Mono",ui-monospace,monospace;font-size:11.5px;color:var(--muted)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@media (prefers-reduced-motion: reduce){
+  .steam path,.qb.on{animation:none}
+  .head,.robot-g,.bfill,.result,.anno{transition:none}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="back" href="../../index.html#human-evaluation">← ProCompNav project page</a>
+    <h1>Interrupt Often vs. Ask Once</h1>
+    <p class="dek">Someone is working at their desk while a home robot searches the house for their cabinet.
+      Same robot, same three questions. Only the timing changes. <span class="hand">When should it ask?</span></p>
+  </header>
+
+  <div class="bar">
+    <div class="clock" aria-live="off">
+      <svg viewBox="0 0 46 46" aria-hidden="true">
+        <circle cx="23" cy="23" r="20.5" fill="var(--card)" stroke="var(--ink)" stroke-width="2.5"/>
+        <g stroke="var(--muted)" stroke-width="2" stroke-linecap="round">
+          <line x1="23" y1="5.5" x2="23" y2="9"/><line x1="40.5" y1="23" x2="37" y2="23"/>
+          <line x1="23" y1="40.5" x2="23" y2="37"/><line x1="5.5" y1="23" x2="9" y2="23"/>
+        </g>
+        <line id="handMin" x1="23" y1="23" x2="23" y2="11" stroke="var(--ink)" stroke-width="3" stroke-linecap="round"/>
+        <line id="handSec" x1="23" y1="25" x2="23" y2="7" stroke="var(--ping)" stroke-width="1.6" stroke-linecap="round"/>
+        <circle cx="23" cy="23" r="2.4" fill="var(--ink)"/>
+      </svg>
+      <div><span class="digits" id="digits">0:00</span><small>elapsed (sped up)</small></div>
+    </div>
+    <ol class="steps" aria-label="Scenes">
+      <li data-s="0" aria-current="step">1 · Robot explores</li>
+      <li data-s="1">2 · Questions land</li>
+      <li data-s="2">3 · What people chose</li>
+    </ol>
+    <div class="controls">
+      <button type="button" id="btnPlay" aria-label="Pause">
+        <svg id="icoPause" viewBox="0 0 14 14" aria-hidden="true"><rect x="2" y="1.5" width="3.6" height="11" rx="1" fill="currentColor"/><rect x="8.4" y="1.5" width="3.6" height="11" rx="1" fill="currentColor"/></svg>
+        <svg id="icoPlay" viewBox="0 0 14 14" aria-hidden="true" style="display:none"><path d="M3 1.5v11l9.5-5.5z" fill="currentColor"/></svg>
+        <span id="playLabel">Pause</span>
+      </button>
+      <button type="button" id="btnRestart">
+        <svg viewBox="0 0 14 14" aria-hidden="true"><path d="M3.2 4.2A5 5 0 1 1 2 7.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M1.4 1.6v3.6h3.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Restart
+      </button>
+    </div>
+  </div>
+
+  <div class="stage" id="stage">
+    <section class="lane" id="lane-I" aria-label="Asks often timeline"></section>
+    <section class="lane" id="lane-B" aria-label="Asks once timeline"></section>
+
+    <div class="result" id="result">
+      <div class="result-inner">
+        <p class="kicker">STUDY 2 · QUESTION DELIVERY · 20 PARTICIPANTS</p>
+        <h2>Asked to choose, most people picked asking once.</h2>
+        <div class="res-grid">
+          <figure class="res">
+            <h3>Preference</h3>
+            <div class="big">14 <span>of 20 preferred asking once</span></div>
+            <div class="people" id="people" aria-hidden="true"></div>
+            <div class="legend"><span><i style="background:var(--focus)"></i>ask once</span><span><i style="background:var(--ping)"></i>ask often</span></div>
+            <p>Preferred asking once: 14 of 20 participants (asking often 6 of 20)</p>
+          </figure>
+          <figure class="res">
+            <h3>Median response time</h3>
+            <div class="bars" aria-hidden="true">
+              <div class="brow"><span>Ask once</span><div class="btrack"><div class="bfill" style="--w:84.2%;background:var(--focus)">5.28 s</div></div></div>
+              <div class="brow"><span>Ask often</span><div class="btrack"><div class="bfill" style="--w:100%;background:var(--ping)">6.27 s</div></div></div>
+            </div>
+            <p>Median response time: 5.28 s asking once vs 6.27 s asking often</p>
+          </figure>
+        </div>
+        <p class="why">Why: each interruption pulls attention away from the task; batching questions means fewer interruptions <em>(Bailey &amp; Konstan 2006; Fitz et al. 2019)</em>.</p>
+        <p class="take">So ProCompNav explores and collects candidates first, then asks its few questions back-to-back.</p>
+        <p class="note">Focus curves and meters in the timelines are illustrative, not measured data. Question times follow the Study 2 setup.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+"use strict";
+var NS="http://www.w3.org/2000/svg";
+var T=195;               // simulated seconds shown on each timeline (0:00 to 3:15)
+var ANS_I=6.27, ANS_B=5.28; // Study 2 median response times, used as answer durations
+var F0=0.9, FL=0.22, TAU=16; // illustrative focus model
+var X0=44, X1=540, YTOP=104, YBOT=180, YAX=186;
+function sx(t){return X0+(t/T)*(X1-X0);}
+function yf(f){return YBOT-f*(YBOT-YTOP);}
+
+var LANES={
+  I:{key:"I", title:'<span class="tag tag-i">Asks often</span> a question each time it finds something',
+     qs:[60,120,180], ans:ANS_I, stack:false},
+  B:{key:"B", title:'<span class="tag tag-b">Asks once</span> all questions together, after searching',
+     qs:[165,165+ANS_B,165+2*ANS_B], ans:ANS_B, stack:true, collectEnd:165, pips:[28,72,112,146]}
+};
+
+function rec(f,d){return F0-(F0-f)*Math.exp(-d/TAU);}
+function drop(f,d){return FL+(f-FL)*Math.exp(-d/1.1);}
+function focusAt(t,L){
+  var f=F0, cur=0;
+  for(var i=0;i<L.qs.length;i++){
+    var q=L.qs[i];
+    if(t<=q) return rec(f,t-cur);
+    f=rec(f,q-cur); cur=q;
+    var e=q+L.ans;
+    if(t<=e) return drop(f,t-q);
+    f=drop(f,L.ans); cur=e;
+  }
+  return rec(f,t-cur);
+}
+function fmt(t){t=Math.max(0,Math.floor(t));return Math.floor(t/60)+":"+String(t%60).padStart(2,"0");}
+
+/* ---------- build lanes ---------- */
+function deskSVG(p,label){
+  return ''+
+  '<svg class="desk" viewBox="0 0 300 220" role="img" aria-label="'+label+'">'+
+  '<rect x="0" y="0" width="300" height="220" rx="14" fill="var(--wall)"/>'+
+  '<rect x="0" y="198" width="300" height="22" fill="var(--track)" opacity=".55"/>'+
+  // window
+  '<rect x="20" y="18" width="70" height="54" rx="5" fill="var(--sky)" stroke="var(--frame)" stroke-width="4"/>'+
+  '<line x1="55" y1="18" x2="55" y2="72" stroke="var(--frame)" stroke-width="3"/>'+
+  '<circle cx="76" cy="33" r="7" fill="var(--sun)"/>'+
+  '<path d="M24 64 q10 -9 20 -2 q8 -6 14 0" fill="none" stroke="var(--frame)" stroke-width="2" stroke-linecap="round" opacity=".8"/>'+
+  // picture frame
+  '<rect x="112" y="26" width="34" height="28" rx="3" fill="var(--card)" stroke="var(--ink)" stroke-width="2"/>'+
+  '<path d="M117 49 l8 -10 l6 6 l4 -4 l7 8 z" fill="var(--focus)" opacity=".7"/>'+
+  // chair
+  '<rect x="240" y="104" width="8" height="64" rx="3" fill="var(--chair)"/>'+
+  '<rect x="204" y="162" width="46" height="7" rx="3" fill="var(--chair)"/>'+
+  '<line x1="228" y1="169" x2="228" y2="194" stroke="var(--chair)" stroke-width="5"/>'+
+  '<line x1="214" y1="196" x2="242" y2="196" stroke="var(--chair)" stroke-width="4" stroke-linecap="round"/>'+
+  // legs
+  '<path d="M230 160 L202 166 L200 196" fill="none" stroke="var(--pants)" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>'+
+  '<path d="M192 197 h14" stroke="var(--ink)" stroke-width="5" stroke-linecap="round"/>'+
+  // torso, neck
+  '<rect x="215" y="84" width="11" height="16" rx="3" fill="var(--skin)"/>'+
+  '<rect x="204" y="96" width="38" height="68" rx="15" fill="var(--shirt)"/>'+
+  // head
+  '<g class="head" id="'+p+'-head">'+
+    '<circle cx="221" cy="72" r="17" fill="var(--skin)"/>'+
+    '<path d="M205 70 Q204 52 222 52 Q241 53 239 74 Q236 66 229 64 Q215 61 207 72 Z" fill="var(--hair)"/>'+
+    '<circle cx="229" cy="75" r="3.6" fill="var(--skin-dark)"/>'+
+    '<circle cx="211.5" cy="71" r="2" fill="var(--ink)"/>'+
+    '<path d="M205 73.5 l-3.2 3.6 l3.4 0.8" fill="none" stroke="var(--skin-dark)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>'+
+    '<path id="'+p+'-mouth" d="M207 81.5 q3 1.4 6 0" fill="none" stroke="var(--ink)" stroke-width="1.6" stroke-linecap="round"/>'+
+  '</g>'+
+  // distraction squiggle
+  '<g id="'+p+'-squig" opacity="0" fill="none" stroke="var(--ping)" stroke-width="2.2" stroke-linecap="round">'+
+    '<path d="M186 52 q-1 -9 7 -9 q7 0 6 7 q-1 5 -6 4 q-4 -1 -2 -5"/>'+
+    '<path d="M176 40 l-5 -4 M180 33 l-2 -6 M190 30 l1 -6"/>'+
+  '</g>'+
+  // laptop + screen lines
+  '<path d="M100 145 L92 93 L150 93 L156 145 Z" fill="var(--laptop)"/>'+
+  '<path d="M104 140 L97.5 98 L145.5 98 L151 140 Z" fill="var(--screen)"/>'+
+  '<g id="'+p+'-lines" fill="var(--screen-line)">'+
+    '<rect x="103" y="104" width="0" height="3.2" rx="1.6"/><rect x="104" y="111" width="0" height="3.2" rx="1.6"/>'+
+    '<rect x="105" y="118" width="0" height="3.2" rx="1.6"/><rect x="106" y="125" width="0" height="3.2" rx="1.6"/>'+
+    '<rect x="107" y="132" width="0" height="3.2" rx="1.6"/>'+
+  '</g>'+
+  '<rect x="90" y="143" width="76" height="6" rx="2.5" fill="var(--laptop)"/>'+
+  // desk
+  '<rect x="12" y="148" width="214" height="10" rx="3" fill="var(--desk)"/>'+
+  '<rect x="20" y="158" width="11" height="40" fill="var(--desk-dark)"/>'+
+  '<rect x="204" y="158" width="11" height="40" fill="var(--desk-dark)"/>'+
+  // arm over desk
+  '<path d="M216 110 Q196 138 152 140" fill="none" stroke="var(--shirt)" stroke-width="11" stroke-linecap="round"/>'+
+  '<circle cx="150" cy="140" r="5.6" fill="var(--skin)"/>'+
+  // mug
+  '<g class="steam" fill="none" stroke="var(--muted)" stroke-width="1.8" stroke-linecap="round">'+
+    '<path d="M48 124 q-3 -5 0 -9 q3 -4 0 -8"/><path d="M56 124 q-3 -5 0 -9 q3 -4 0 -8"/></g>'+
+  '<rect x="44" y="129" width="16" height="19" rx="3" fill="var(--sun)"/>'+
+  '<path d="M60 133 q7 0 7 6 q0 6 -7 6" fill="none" stroke="var(--sun)" stroke-width="3"/>'+
+  // robot
+  '<g class="robot-g" id="'+p+'-robot" style="transform:translateX(80px)">'+
+    '<circle cx="262" cy="193" r="5" fill="var(--robot-line)"/><circle cx="284" cy="193" r="5" fill="var(--robot-line)"/>'+
+    '<rect x="254" y="150" width="38" height="40" rx="11" fill="var(--robot)" stroke="var(--robot-line)" stroke-width="2.5"/>'+
+    '<line x1="273" y1="122" x2="273" y2="112" stroke="var(--robot-line)" stroke-width="2.5"/>'+
+    '<circle cx="273" cy="110" r="3.5" fill="var(--ping)"/>'+
+    '<rect x="257" y="122" width="32" height="26" rx="9" fill="var(--robot)" stroke="var(--robot-line)" stroke-width="2.5"/>'+
+    '<circle cx="266" cy="135" r="2.8" fill="var(--focus)"/><circle cx="279" cy="135" r="2.8" fill="var(--focus)"/>'+
+    '<path d="M260 162 h12" stroke="var(--robot-line)" stroke-width="2" stroke-linecap="round"/>'+
+  '</g>'+
+  // speech bubble
+  '<g class="bubble-g" id="'+p+'-bubble" opacity="0">'+
+    '<path d="M196 8 h92 a10 10 0 0 1 10 10 v12 a10 10 0 0 1 -10 10 h-12 l-6 10 l-4 -10 h-70 a10 10 0 0 1 -10 -10 v-12 a10 10 0 0 1 10 -10 z" fill="var(--card)" stroke="var(--ink)" stroke-width="2"/>'+
+    '<text id="'+p+'-btext" class="t-bubble" x="241" y="29" text-anchor="middle">Question 1 of 3</text>'+
+  '</g>'+
+  // focus meter
+  '<text class="t-meter" x="12" y="214">focus</text>'+
+  '<rect x="58" y="205" width="228" height="10" rx="5" fill="var(--card)" stroke="var(--line)" stroke-width="1"/>'+
+  '<rect id="'+p+'-meter" x="58" y="205" width="205" height="10" rx="5" fill="var(--focus)"/>'+
+  '</svg>';
+}
+
+function tlSVG(L){
+  var p=L.key, s='';
+  s+='<svg class="tl" viewBox="0 0 560 214" role="img" aria-label="'+(L.stack?
+    'Asks once timeline: the robot collects candidates for about 165 seconds, then asks 3 questions about 5 seconds apart.':
+    'Asks often timeline: the robot asks a question about once a minute, at 1:00, 2:00 and 3:00, while it explores.')+'">';
+  s+='<text id="'+p+'-status" class="t-status" x="'+X0+'" y="13"></text>';
+  // robot track
+  if(L.stack){
+    var w=sx(L.collectEnd)-X0;
+    s+='<rect x="'+X0+'" y="28" width="'+w.toFixed(1)+'" height="9" rx="4.5" fill="none" stroke="var(--focus)" stroke-width="1.5" stroke-dasharray="4 3"/>';
+    s+='<rect id="'+p+'-fill" x="'+X0+'" y="28" width="0" height="9" rx="4.5" fill="var(--focus-tint)" stroke="var(--focus)" stroke-width="1.5"/>';
+    s+='<line x1="'+sx(L.collectEnd).toFixed(1)+'" y1="32.5" x2="'+X1+'" y2="32.5" stroke="var(--track)" stroke-width="2" stroke-dasharray="2 4"/>';
+    L.pips.forEach(function(t,i){
+      var x=sx(t);
+      s+='<g class="pip" id="'+p+'-pip'+i+'" opacity="0"><rect x="'+(x-5).toFixed(1)+'" y="26.5" width="10" height="12" rx="1.6" fill="var(--desk)" stroke="var(--card)" stroke-width="1.3"/>'+
+         '<line x1="'+x.toFixed(1)+'" y1="27.5" x2="'+x.toFixed(1)+'" y2="37.5" stroke="var(--card)" stroke-width="1"/></g>';
+    });
+  } else {
+    s+='<line x1="'+X0+'" y1="32.5" x2="'+X1+'" y2="32.5" stroke="var(--track)" stroke-width="2" stroke-dasharray="2 4"/>';
+    s+='<line id="'+p+'-trav" x1="'+X0+'" y1="32.5" x2="'+X0+'" y2="32.5" stroke="var(--ink)" stroke-width="2.5" stroke-linecap="round"/>';
+  }
+  // ghost + live question bubbles
+  var g='', b='';
+  L.qs.forEach(function(q,i){
+    var tx=sx(q), x=L.stack?(tx+(i-1)*42-4):tx, by=64, lbl='Q'+(i+1);
+    var shape='M'+(x-14).toFixed(1)+' '+by+' h28 a5 5 0 0 1 5 5 v10 a5 5 0 0 1 -5 5 h-10 l-4 6 l-4 -6 h-10 a5 5 0 0 1 -5 -5 v-10 a5 5 0 0 1 5 -5 z';
+    g+='<g class="ghost" id="'+p+'-gh'+i+'"><line x1="'+x.toFixed(1)+'" y1="'+(by+26)+'" x2="'+tx.toFixed(1)+'" y2="'+YAX+'" stroke="var(--line)" stroke-width="1.2" stroke-dasharray="3 3"/>'+
+       '<path d="'+shape+'" fill="var(--card)" stroke="var(--muted)" stroke-width="1.3" stroke-dasharray="3 2.5"/>'+
+       '<text x="'+x.toFixed(1)+'" y="'+(by+14.5)+'" text-anchor="middle" class="t-q" style="fill:var(--muted)">'+lbl+'</text></g>';
+    b+='<g class="qb" id="'+p+'-q'+i+'"><line x1="'+x.toFixed(1)+'" y1="'+(by+26)+'" x2="'+tx.toFixed(1)+'" y2="'+YAX+'" stroke="var(--ping)" stroke-width="1.4" stroke-dasharray="3 3"/>'+
+       '<path d="'+shape+'" fill="var(--ping)" stroke="var(--card)" stroke-width="1.5"/>'+
+       '<text x="'+x.toFixed(1)+'" y="'+(by+14.5)+'" text-anchor="middle" class="t-q">'+lbl+'</text></g>';
+  });
+  // chart
+  s+='<text class="t-small" x="'+X0+'" y="99">focus · <tspan style="font-style:italic">illustrative</tspan></text>';
+  s+='<line x1="'+X0+'" y1="'+yf(F0).toFixed(1)+'" x2="'+X1+'" y2="'+yf(F0).toFixed(1)+'" stroke="var(--muted)" stroke-width="1" stroke-dasharray="1 4" stroke-linecap="round"/>';
+  s+='<path id="'+p+'-lost" fill="var(--ping-tint)"/>';
+  s+='<path id="'+p+'-area" fill="var(--focus-tint)"/>';
+  s+='<path id="'+p+'-curve" fill="none" stroke="var(--focus)" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/>';
+  s+=g+b;
+  // axis
+  s+='<line x1="'+X0+'" y1="'+YAX+'" x2="'+X1+'" y2="'+YAX+'" stroke="var(--ink)" stroke-width="1.6"/>';
+  [0,60,120,180].forEach(function(t){
+    var x=sx(t).toFixed(1);
+    s+='<line x1="'+x+'" y1="'+YAX+'" x2="'+x+'" y2="'+(YAX+5)+'" stroke="var(--ink)" stroke-width="1.6"/>';
+    s+='<text class="t-tick" x="'+x+'" y="205" text-anchor="'+(t===0?'start':'middle')+'">'+fmt(t)+'</text>';
+  });
+  // annotations
+  if(L.stack){
+    s+='<g class="anno" id="'+p+'-a0"><text class="t-hand" x="120" y="140" style="fill:var(--focus)">focus stays high</text></g>';
+    s+='<g class="anno" id="'+p+'-a1"><text class="t-hand" x="386" y="84" text-anchor="end" style="fill:var(--ping)">one short burst</text>'+
+       '<path d="M389 79 q8 0 13 -5" fill="none" stroke="var(--ping)" stroke-width="1.8" stroke-linecap="round"/></g>';
+  } else {
+    s+='<g class="anno" id="'+p+'-a0"><text class="t-hand" x="236" y="152" style="fill:var(--ping)">interrupted</text>'+
+       '<path d="M234 147 q-12 -1 -20 9 m0 0 l1 -6 m-1 6 l6 -2" fill="none" stroke="var(--ping)" stroke-width="1.8" stroke-linecap="round"/></g>';
+    s+='<g class="anno" id="'+p+'-a1"><text class="t-hand" x="390" y="152" style="fill:var(--ping)">again…</text></g>';
+  }
+  // playhead + robot mini icon
+  s+='<line id="'+p+'-play" x1="'+X0+'" y1="40" x2="'+X0+'" y2="'+YAX+'" stroke="var(--ink)" stroke-width="1.2" opacity=".35"/>';
+  s+='<g id="'+p+'-bot"><line x1="0" y1="-23" x2="0" y2="-19" stroke="var(--robot-line)" stroke-width="1.6"/><circle cx="0" cy="-24" r="1.9" fill="var(--ping)"/>'+
+     '<rect x="-7" y="-19" width="14" height="13" rx="4" fill="var(--robot)" stroke="var(--robot-line)" stroke-width="1.6"/>'+
+     '<circle cx="-2.6" cy="-12.6" r="1.3" fill="var(--focus)"/><circle cx="2.6" cy="-12.6" r="1.3" fill="var(--focus)"/></g>';
+  s+='</svg>';
+  return s;
+}
+
+var el={};
+["I","B"].forEach(function(k){
+  var L=LANES[k], lane=document.getElementById("lane-"+k);
+  lane.innerHTML='<div class="lane-head"><h2>'+L.title+'</h2>'+
+    '<div class="chips"><span class="chip">pulled away <b id="'+k+'-pulled">0</b>×</span><span class="chip">questions <b id="'+k+'-qn">0</b>/3</span></div></div>'+
+    '<div class="lane-body">'+deskSVG(k,(L.stack?"Asks once":"Asks often")+" lane: a person works at a laptop with coffee; the robot comes over to ask questions")+tlSVG(L)+'</div>';
+  var $=function(id){return document.getElementById(k+"-"+id);};
+  el[k]={head:$("head"),squig:$("squig"),robot:$("robot"),bubble:$("bubble"),btext:$("btext"),meter:$("meter"),
+    lines:Array.prototype.slice.call($("lines").children),status:$("status"),fill:$("fill"),trav:$("trav"),
+    lost:$("lost"),area:$("area"),curve:$("curve"),play:$("play"),bot:$("bot"),pulled:$("pulled"),qn:$("qn"),
+    a0:$("a0"),a1:$("a1"),
+    qb:L.qs.map(function(_,i){return $("q"+i);}), gh:L.qs.map(function(_,i){return $("gh"+i);}),
+    pips:(L.pips||[]).map(function(_,i){return $("pip"+i);})};
+});
+
+// people pictogram (14 batched, 6 interleaved)
+(function(){
+  var box=document.getElementById("people"), h="";
+  for(var i=0;i<20;i++){
+    var c=i<14?"var(--focus)":"var(--ping)";
+    h+='<svg viewBox="0 0 20 28"><circle cx="10" cy="6.5" r="5.2" fill="'+c+'"/><path d="M2 27 v-8 a8 8 0 0 1 16 0 v8 z" fill="'+c+'"/></svg>';
+  }
+  box.innerHTML=h;
+})();
+
+/* ---------- render ---------- */
+function setCls(node,c,on){ if(node.classList.contains(c)!==on) node.classList.toggle(c,on); }
+
+function renderLane(k,t){
+  var L=LANES[k], E=el[k];
+  // curve
+  var step=0.75, pts=[], lostPts=[], work=0, prev=F0;
+  for(var u=0;u<=t+1e-6;u+=step){
+    var f=focusAt(u,L);
+    pts.push(sx(u).toFixed(1)+","+yf(f).toFixed(1));
+    work+=Math.max(0,f-0.45)*step;
+    prev=f;
+  }
+  var fNow=focusAt(t,L);
+  pts.push(sx(t).toFixed(1)+","+yf(fNow).toFixed(1));
+  var line="M"+pts.join(" L");
+  E.curve.setAttribute("d",line);
+  E.area.setAttribute("d",line+" L"+sx(t).toFixed(1)+","+YBOT+" L"+X0+","+YBOT+" Z");
+  E.lost.setAttribute("d",line+" L"+sx(t).toFixed(1)+","+yf(F0).toFixed(1)+" L"+X0+","+yf(F0).toFixed(1)+" Z");
+  var x=sx(t);
+  E.play.setAttribute("x1",x.toFixed(1)); E.play.setAttribute("x2",x.toFixed(1));
+  E.bot.setAttribute("transform","translate("+x.toFixed(1)+",32)");
+
+  // questions
+  var asked=0, active=-1, near=false;
+  L.qs.forEach(function(q,i){
+    var on=t>=q;
+    if(on) asked++;
+    if(t>=q && t<q+L.ans) active=i;
+    if(t>=q-2.5 && t<q+L.ans+1.8) near=true;
+    setCls(E.qb[i],"on",on);
+    E.gh[i].style.opacity=on?"0":"0.75";
+  });
+  var pulled = L.stack ? (t>=L.qs[0]?1:0) : asked;
+  E.pulled.textContent=pulled; E.qn.textContent=asked;
+
+  // robot track
+  if(L.stack){
+    E.fill.setAttribute("width",Math.max(0,sx(Math.min(t,L.collectEnd))-X0).toFixed(1));
+    L.pips.forEach(function(pt,i){E.pips[i].setAttribute("opacity",t>=pt?"1":"0");});
+    var st = t<L.collectEnd ? "robot: exploring, collecting candidates" :
+             (active>=0 ? "robot: asking Q"+(active+1)+" of 3, back-to-back" :
+             (t<L.qs[2]+L.ans ? "robot: asking" : "robot: done asking, heading to the target"));
+    E.status.textContent=st;
+    setCls(E.a0,"on",t>=40); setCls(E.a1,"on",t>=166);
+  } else {
+    E.trav.setAttribute("x2",x.toFixed(1));
+    E.status.textContent = active>=0 ? "robot: stops exploring to ask Q"+(active+1) : "robot: exploring, asks as it goes";
+    setCls(E.a0,"on",t>=74); setCls(E.a1,"on",t>=128);
+  }
+
+  // desk scene
+  E.robot.style.transform = near ? "translateX(0px)" : "translateX(80px)";
+  if(active>=0){ E.bubble.setAttribute("opacity","1"); E.btext.textContent="Question "+(active+1)+" of 3"; }
+  else E.bubble.setAttribute("opacity","0");
+  setCls(E.head,"turn", active>=0 || fNow<0.5);
+  E.squig.setAttribute("opacity",Math.max(0,Math.min(1,(0.72-fNow)/0.35)).toFixed(2));
+  E.meter.setAttribute("width",(228*Math.max(0.04,fNow)).toFixed(1));
+  E.meter.setAttribute("fill", fNow<0.55?"var(--ping)":"var(--focus)");
+  // laptop lines = typing progress while focused (illustrative)
+  var units=work*3.4, page=210, rem=units%page;
+  E.lines.forEach(function(r,i){ r.setAttribute("width",Math.max(0,Math.min(40,rem-i*42)).toFixed(1)); });
+}
+
+var stage=document.getElementById("stage"), result=document.getElementById("result");
+var digits=document.getElementById("digits"), hMin=document.getElementById("handMin"), hSec=document.getElementById("handSec");
+var stepsEls=Array.prototype.slice.call(document.querySelectorAll(".steps li"));
+function setStep(n){ stepsEls.forEach(function(li,i){ if(i===n) li.setAttribute("aria-current","step"); else li.removeAttribute("aria-current"); }); }
+
+function render(t,phase){
+  renderLane("I",t); renderLane("B",t);
+  digits.textContent=fmt(t);
+  hMin.setAttribute("transform","rotate("+(t/60*30).toFixed(2)+" 23 23)");
+  hSec.setAttribute("transform","rotate("+((t%60)*6).toFixed(2)+" 23 23)");
+  setStep(phase==="result"?2:(t>=LANES.I.qs[0]?1:0));
+  setCls(result,"show",phase==="result");
+}
+
+/* ---------- playback ---------- */
+var simT=0, phase="sim", hold=0, playing=true, last=null, dirty=true;
+function speed(t){
+  var slow=false;
+  ["I","B"].forEach(function(k){ var L=LANES[k];
+    L.qs.forEach(function(q){ if(t>=q-1.5 && t<q+L.ans+2) slow=true; }); });
+  return slow?4:12;
+}
+function advance(dt){
+  if(phase==="sim"){ simT+=dt*speed(simT)*2; if(simT>=T){simT=T;phase="hold";hold=0;} }  // 2x, as in the oral deck
+  else if(phase==="hold"){ hold+=dt; if(hold>1.8){phase="result";hold=0;} }
+  else if(phase==="result"){ hold+=dt; if(hold>11){ restart(); } }
+  dirty=true;
+}
+function restart(){
+  simT=0; phase="sim"; hold=0; dirty=true;
+  ["I","B"].forEach(function(k){ el[k].qb.forEach(function(n){n.classList.remove("on");}); });
+}
+function frame(ts){
+  if(last===null) last=ts;
+  var dt=Math.min(0.1,(ts-last)/1000); last=ts;
+  if(playing) advance(dt);
+  if(dirty){ render(simT,phase); dirty=false; }
+  requestAnimationFrame(frame);
+}
+var btnPlay=document.getElementById("btnPlay"), lab=document.getElementById("playLabel"),
+    icoPause=document.getElementById("icoPause"), icoPlay=document.getElementById("icoPlay");
+function setPlaying(v){
+  playing=v; last=null;
+  lab.textContent=v?"Pause":"Play"; btnPlay.setAttribute("aria-label",v?"Pause":"Play");
+  icoPause.style.display=v?"":"none"; icoPlay.style.display=v?"none":"";
+}
+btnPlay.addEventListener("click",function(){
+  if(stage.classList.contains("static")){ stage.classList.remove("static"); restart(); setPlaying(true); return; }
+  setPlaying(!playing);
+});
+document.getElementById("btnRestart").addEventListener("click",function(){
+  stage.classList.remove("static"); restart(); setPlaying(true);
+});
+
+var reduce=window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+if(reduce){
+  // static, complete final state: full timelines plus results shown below
+  stage.classList.add("static");
+  simT=T; phase="result"; setPlaying(false);
+}
+render(simT,phase);
+requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
