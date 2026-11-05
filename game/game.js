@@ -551,7 +551,7 @@ const SHARE_BASE_URL = "";
     var head, line;
     if (!correct) {
       head = 'Wrong ' + cat + '!';
-      line = 'You went to card ' + g.byId[choice].letter + ', but the user meant card ' + g.byId[r.target].letter + '. ProCompNav found it with ' + plural(bot, 'question') + '. ProCompNav wins.';
+      line = 'You: wrong card. ' + sB + ' ProCompNav wins.';   // which cards: shown as pictures below
     } else if (outcome === 'win') {
       head = 'You beat the robot!';
       line = sY + ' ' + sB + ' You win!' + (lucky ? ' (Lucky guess: ' + g.alive.length + ' cards were still up.)' : '');
