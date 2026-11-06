@@ -267,8 +267,13 @@ const SHARE_BASE_URL = "";
   // ---------- game state ----------
   var G = null;
 
+  // play counts for the GoatCounter dashboard (events only, no personal data; no-op off the public site)
+  function track(name) {
+    try { if (window.goatcounter && window.goatcounter.count) window.goatcounter.count({ path: name, title: name, event: true }); } catch (e) {}
+  }
   function startRound(id) {
     if (!manifest.rounds[id]) return;
+    track(id === (manifest.demo || [])[0] ? 'game-start-warmup' : 'game-start');
     return loadRound(id).then(function (r) { setupRound(id, r); }).catch(function (err) {
       showLoadError('Could not load this round (' + err.message + ').');
     });
@@ -544,6 +549,7 @@ const SHARE_BASE_URL = "";
     var lucky = correct && how === 'guess' && g.alive.length > 1;
 
     S.tally.played += 1; S.tally[outcome] += 1;
+    track('game-end-' + (correct ? outcome : 'wrong-card'));
     var prev = S.done[g.id];
     var rank = { loss: 0, tie: 1, win: 2 };
     if (!prev || rank[outcome] > rank[prev]) S.done[g.id] = outcome;
